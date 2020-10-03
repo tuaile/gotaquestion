@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Got A Question V2</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="client/style.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" defer></script>
+	<script type="text/javascript" src="client/js.js" defer></script>
+</head>
+<body>
+	<header>
+		<h1>Got A Question?</h1>
+		<div id="signinbtn">
+		<i id="login" class="sign-in icon" onclick="loginmodal()"></i>
+		</div>
+		<div id="signoutbtn">
+		<i id="logout" class="sign-out icon" onclick="logout()"></i>
+		</div>
+		<div id="viewuserbtn">
+		<i id="viewuser" class="user outline icon" onclick="vu(); editusermodal();"></i>
+		</div>
+	</header>
+	
+	<button class="createquestion" onclick="createquestionmodal()">Create Question</button>
+	<div id="table">
+		<table class="ui single line table">
+		  <thead>
+		    <tr>
+		      <th>Question</th>
+		      <th>Time Posted</th>
+		      <th>Catagorie</th>
+		      <th>Answer</th>
+		    </tr>
+		  </thead>
+		</table>
+		<button class="reloadquestion" onclick="vq()">Reload Questions</button>
+		<table id="queue" class="ui single line table">
+		</table>
+	</div>
+	
+	<div class="ui basic modal login">
+	  <div class="ui icon header">
+	    <i class="sign-in icon"></i>
+	    Login Here
+	  </div>
+	  	<div class="ui fluid input">
+			<input type="text" id="studentnumber" placeholder="Student Number">
+		</div>
+		</br>
+		<div class="ui fluid input">
+			<input type="text" id="password" placeholder="Password">
+		</div>
+	  <div class="actions">
+	    <div class="ui red basic cancel inverted button">
+	      <i class="remove icon"></i>
+	      Cancel
+	    </div>
+	    <div class="ui green ok inverted button" onclick="login()">
+	      <i class="checkmark icon"></i>
+	      Login
+	    </div>
+	  </div>
+	</div>
+
+	<div class="ui basic modal createquestion">
+	  <div class="ui icon header">
+	    <i class="archive icon"></i>
+	    Archive Old Messages
+	  </div>
+	  	<div class="ui fluid input">
+			<input type="text" id="question" placeholder="Question">
+		</div>
+		</br>
+		<select class="ui search dropdown" id="catagories" >
+		  <option value="">Catagorie</option>
+		  <option value="project1">Project 1</option>
+		  <option value="project2">Project 2</option>
+		  <option value="project3">Project 3</option>
+		  <option value="project4">Project 4</option>
+		  <option value="ux1">UX 1</option>
+		  <option value="ux2">UX 2</option>
+		  <option value="ux3">UX 3</option>
+		</select>
+	  <div class="actions">
+	    <div class="ui red basic cancel inverted button">
+	      <i class="remove icon"></i>
+	      No
+	    </div>
+	    <div class="ui green ok inverted button" onclick="cq()">
+	      <i class="checkmark icon"></i>
+	      Yes
+	    </div>
+	  </div>
+	</div>
+	<div class="ui basic modal editquestion">
+	  <div class="ui icon header">
+	    <i class="archive icon"></i>
+	    Edit Question
+	  </div>
+	  <div class="content">
+	    <input id="editquestion" type="" name="">
+	  </div>
+	  <div class="actions">
+	    <div class="ui red basic cancel inverted button">
+	      <i class="remove icon"></i>
+	      No
+	    </div>
+	    <div class="ui green ok inverted button" onclick="sq()">
+	      <i class="checkmark icon"></i>
+	      Yes
+	    </div>
+	  </div>
+	</div>
+	<div class="ui basic modal edituser">
+	  <div class="ui icon header">
+	    <i class="user outline icon"></i>
+	    Your Details
+	  </div>
+	  <div class="content" >
+	  	<div class="ui pointing below label">
+	      Your Student Number
+	    </div>
+	  	<div class="ui fluid input">
+		  <input type="text" id="userstudentnumber">
+		</div>
+		<br>
+		<div class="ui pointing below label">
+	      Your Full Name
+	    </div>
+		<div class="ui fluid input">
+		  <input type="text" id="userfullname">
+		</div>
+		<br>
+		<div class="ui pointing below label">
+	      Your Password
+	    </div>
+		<div class="ui fluid input">
+		  <input type="text" id="userpassword">
+		</div>
+	  </div>
+	  <div class="actions">
+	    <div class="ui red basic cancel inverted button">
+	      <i class="remove icon"></i>
+	      Cancel
+	    </div>
+	    <div class="ui green ok inverted button" onclick="su()">
+	      <i class="checkmark icon"></i>
+	      Save
+	    </div>
+	  </div>
+	</div>
+</body>
+</html>

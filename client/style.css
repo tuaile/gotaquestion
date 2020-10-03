@@ -1,0 +1,68 @@
+header h1 {
+	text-align: center;
+}
+#signinbtn i {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2em;
+	width: 2em;
+	margin-top: 0.5em;
+	margin-right: 0.8em;
+	padding-top: .2em;
+	border-radius: 1em;
+	border: 2px solid black;
+}
+#signoutbtn i {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2em;
+	width: 2em;
+	margin-top: 0.5em;
+	margin-right: 0.8em;
+	padding-top: .2em;
+	border-radius: 1em;
+	border: 2px solid black;
+	display: none;
+}
+#viewuserbtn i {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 2em;
+	width: 2em;
+	margin-top: 0.5em;
+	margin-left: 0.8em;
+	padding-top: .2em;
+	border-radius: 1em;
+	border: 2px solid black;
+	display: none;
+}
+#userstudentnumber {
+	text-align: center;
+}
+#userfullname {
+	text-align: center;
+}
+#userpassword {
+	text-align: center;
+}
+.createquestion {
+	display: none;
+}
+.editquestion {
+	display: none;
+}
+.logout {
+	display: none;
+}
+.viewuser {
+	display: none;
+}
+.reloadquestion {
+	display: none;
+}
+#table {
+	display: none;
+}
