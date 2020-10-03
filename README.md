@@ -1,2 +1,2 @@
 # gotaquestion
-Repository For Got A Question
+Got A Question Repository
