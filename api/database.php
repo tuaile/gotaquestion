@@ -24,7 +24,6 @@
 		
 		private $somethings;
 		private $something;
-		private $some;
 
         public function __construct() {
 

@@ -3,11 +3,11 @@ window.onload = function() {
 }
 async function cq() {
     var question = document.getElementById("question");
-    var catagories = document.getElementById("catagories");
+    var questioncatagorie = document.getElementById("catagorie");
     var currentlloginid = await currentloginid();
     var questiondetails = new FormData();
     questiondetails.append('question', question.value);
-    questiondetails.append('catagories', catagories.value);
+    questiondetails.append('catagories', questioncatagorie.value);
     questiondetails.append('loginid', currentlloginid);
     fetch('http://localhost/gaq/api/api.php?action=createquestion', {
         method: 'POST',
@@ -15,22 +15,32 @@ async function cq() {
     });
 }
 function vq() {
-   var out = ''; 
-   fetch('http://localhost/gaq/api/api.php?action=viewquestion', {
+    loadingmodal();
+    var out = ''; 
+    fetch('http://localhost/gaq/api/api.php?action=viewquestion', {
        method: 'GET',
     })
-   .then(function(response) {
-
+    .then(function(response) {
+        if (response.status == 401) {
+            errormessage("Naughty Naughty, You Have Unauthorised Access");
+            return;
+        }
         response.json().then( async function(data) {
+            if (data.length == 0 ) {
+            errormessage("Ummm... We Don't Have Any Question To You");
+            }
             var id = await currentloginid();
             console.log(id);
             data.forEach(row => {
-                if(row.loginid == id) {
+                if(row.loginid == 3) {
+                //Fix above something wrong can't diffientiate
                     editquestion = '';
                     deletequestion = '';
                 } else {
-                    editquestion = '<button class="editquestionbutton" onclick="editquestionmodal(); eq(this);">Edit Question</button>';
-                    deletequestion = '<button class="deletequestionbutton" onclick="dq(this)">Delete Question</button>';
+                    editquestion = 'cats';
+                    deletequestion = 'dogs';
+                    //editquestion = '<button class="editquestionbutton" onclick="editquestionmodal(); eq(this);">Edit Question</button>';
+                    //deletequestion = '<button class="deletequestionbutton" onclick="dq(this)">Delete Question</button>';
                 }
                 out += '<tr><td>' + row.question +
                 '</td><td>' + row.timestamp +
@@ -42,6 +52,7 @@ function vq() {
                 '</td></tr>';
             });
             queue.innerHTML = out;
+            closeloadingmodal();
         })
     });
 }
@@ -85,6 +96,7 @@ function dq(row) {
     });
 }
 function login() {
+    loadinglogin();
     var studentnumber = document.getElementById("studentnumber");
     var password = document.getElementById("password");
     var logindetails = new FormData();
@@ -97,6 +109,7 @@ function login() {
 )
     .then(function(response){
         if (response.status == 202) {
+            closeloadinglogin();
             var studentnumber = document.getElementById("studentnumber");
             var logindetails = new FormData();
             logindetails.append('numberofstudent', studentnumber.value);
@@ -104,30 +117,66 @@ function login() {
             method: 'POST',
             body: logindetails,
             });
-            var createquestion = document.querySelector(".createquestion");
+            var createquestion = document.querySelector("#createquestion");
             createquestion.style.display = "block";
             var logout = document.querySelector("#logout");
             logout.style.display = "block";
             var viewuser = document.querySelector("#viewuser");
             viewuser.style.display = "block";
-            var login = document.querySelector(".reloadquestion");
+            var login = document.querySelector("#reloadquestion");
             login.style.display = "block";
             var table = document.querySelector("#table");
             table.style.display = "block";
             var login = document.querySelector("#signinbtn");
             login.style.display = "none";
             vq();
-            console.log("Success");
-        } else {
-            console.log("Error");
         }
-    })
+        if (response.status == 410) {
+            closeloadinglogin();
+            errormessage("Please Fill All Fields");
+        }
+        if (response.status == 404) {
+            closeloadinglogin();
+            errormessage("Invalid Username Or Password");
+        }
+        if (response.status == 409) {
+            closeloadinglogin();
+            errormessage("Already Logged In");
+        }
+        if (response.status == 406) {
+            closeloadinglogin();
+            errormessage("Student Number Has To Be Numeric");
+        }
+        if (response.status == 501) {
+            closeloadinglogin();
+            errormessage("Server Error Try Again");
+        }
+    });
 
 }
 function logout() {
     fetch('http://localhost/gaq/api/api.php?action=logout', {
         method: 'GET',
-    });
+    })
+    .then(function(response) {
+        if (response.status == 206) {
+            var createquestion = document.querySelector("#createquestion");
+            createquestion.style.display = "none";
+            var logout = document.querySelector("#logout");
+            logout.style.display = "none";
+            var viewuser = document.querySelector("#viewuser");
+            viewuser.style.display = "none";
+            var login = document.querySelector("#reloadquestion");
+            login.style.display = "none";
+            var table = document.querySelector("#table");
+            table.style.display = "none";
+            var signin = document.querySelector("#signinbtn");
+            signin.style.display = "block";
+        } else {
+            console.log("logout failed");
+        }
+    })
+    
 }
 async function vu() {
     var userloginid = await currentloginid();
@@ -168,13 +217,13 @@ function loginstatus() {
     )
     .then(function(response) {
         if (response.status == 206) {
-            var createquestion = document.querySelector(".createquestion");
+            var createquestion = document.querySelector("#createquestion");
             createquestion.style.display = "block";
             var logout = document.querySelector("#logout");
             logout.style.display = "block";
             var viewuser = document.querySelector("#viewuser");
             viewuser.style.display = "block";
-            var login = document.querySelector(".reloadquestion");
+            var login = document.querySelector("#reloadquestion");
             login.style.display = "block";
             var table = document.querySelector("#table");
             table.style.display = "block";
@@ -194,9 +243,22 @@ function currentloginid() {
     })
     .then(function(data) {
             var userid = JSON.parse(data);
-            console.log(userid);
             return userid;
         })
+}
+function errormessage(message) {
+
+    var messages = document.querySelector("#message");
+    messages.innerHTML = message;
+    var errormessage = document.querySelector("#errormessage");
+    errormessage.style.display = "block";
+    errormessage.addEventListener("click", 
+        function() { 
+            errormessage.style.display = 'none' 
+        });
+    window.setTimeout(function() {
+        errormessage.style.display = 'none';
+    }, 7000)
 }
 function loginmodal() {
 	$('.ui.basic.modal.login')
@@ -213,4 +275,20 @@ function editquestionmodal() {
 function editusermodal() {
     $('.ui.basic.modal.edituser')
     .modal('show');
+}
+function loadingmodal() {
+    var loading = document.querySelector("#loading");
+    loading.style.display = "block";
+}
+function closeloadingmodal() {
+    var loading = document.querySelector("#loading");
+    loading.style.display = "none";
+}
+function loadinglogin() {
+    var loading = document.querySelector("#loadinglogin");
+    loading.style.display = "block";
+}
+function closeloadinglogin() {
+    var loading = document.querySelector("#loadinglogin");
+    loading.style.display = "none";
 }

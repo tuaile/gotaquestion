@@ -8,22 +8,24 @@
 	
 	$functions = new gaqfunctions();
 
-	if($_SERVER['HTTP_REFERER'] = "http://localhost/gaq/") {
-		http_response_code(200);
-	} else {
-		http_response_code(404);
+	//Checks if referer is the one specified if not die.
+	if($_SERVER['HTTP_REFERER'] != "http://localhost/gaq/") {
+		http_response_code(502);
 		die();
 	}
+
 	//Checks if session is set, if not creates an new session.
 	if(!isset($_SESSION['user_session'])) {
        $_SESSION['user_session'] = new gaqsession;
        http_response_code(501);
        die();
     }
+
     if($_SESSION['user_session']->ratelimited()) {
-        http_response_code(501);
+        http_response_code(429);
         die();
     }
+
     if(isset($_GET['action'])) {
         switch($_GET['action']) {
         case "viewquestion":
@@ -32,9 +34,11 @@
 				$action = "viewquestion";
 				$_SESSION['user_session']->log($action);
 				sleep(1);
-				http_response_code(206);
+				http_response_code(202);
+				//Accepted
 			} else {
 				http_response_code(401);
+				//Unauthorised Access
 			}
 		break;
 		case "viewuser":
@@ -73,18 +77,30 @@
 
 		case "login":
 			if($_SESSION['user_session']->userloginstatus() == false) {
-				$studentnumber = isset($_POST['studentnumber']) ? $_POST['studentnumber'] : 0;
-				$password = isset($_POST['password']) ? $_POST['password'] : 0;
-				$response = $_SESSION['user_session']->login($studentnumber, $password);
-				sleep(1);
-				http_response_code(206);
-				if ($response == true) {
-					http_response_code(202);
+				if ($_POST['studentnumber'] == "" && $_POST['password'] == "") {
+					http_response_code(410);
+					//No Student Number And Or Password
 				} else {
-					http_response_code(404);
+					if (is_numeric($_POST['studentnumber'])){
+						$studentnumber = isset($_POST['studentnumber']) ? $_POST['studentnumber'] : 0;
+						$password = isset($_POST['password']) ? $_POST['password'] : 0;
+						$response = $_SESSION['user_session']->login($studentnumber, $password);
+						sleep(1);
+						if ($response == true) {
+							http_response_code(202);
+							//Accepted Successful Login
+						} else {
+							http_response_code(404);
+							//Invalid Login Details
+						}
+					} else {
+						http_response_code(406);
+						//Student Number Not Numeric
+					}
 				}
 			} else {
-				http_response_code(401);
+				http_response_code(409);
+				//Conflict Already Logged In
 			}
 		break;
 

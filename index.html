@@ -22,8 +22,16 @@
 		<i id="viewuser" class="user outline icon" onclick="vu(); editusermodal();"></i>
 		</div>
 	</header>
-	
-	<button class="createquestion" onclick="createquestionmodal()">Create Question</button>
+	<button id="createquestion" class="ui button" onclick="createquestionmodal()">Post A Question</button>
+	<br>
+	<div id="errormessage" class="ui negative message">
+	  	<div class="header">
+	    Oops... Something Went Wrong
+	  	</div>
+	  	<p id="message">That offer has expired</p>
+	</div>
+	<h4 id="loadinglogin">Checking Your Login Details...</h4>
+	<h4 id="loading">Loading Please Wait...</h4>
 	<div id="table">
 		<table class="ui single line table">
 		  <thead>
@@ -35,7 +43,9 @@
 		    </tr>
 		  </thead>
 		</table>
-		<button class="reloadquestion" onclick="vq()">Reload Questions</button>
+		<div id="reloadbtn">
+			<i id="reloadquestion" class="sync icon" onclick="vq()"></i>
+		</div>
 		<table id="queue" class="ui single line table">
 		</table>
 	</div>
@@ -66,14 +76,14 @@
 
 	<div class="ui basic modal createquestion">
 	  <div class="ui icon header">
-	    <i class="archive icon"></i>
-	    Archive Old Messages
+	    <i class="pencil alternate icon"></i>
+	    Create Question
 	  </div>
 	  	<div class="ui fluid input">
 			<input type="text" id="question" placeholder="Question">
 		</div>
 		</br>
-		<select class="ui search dropdown" id="catagories" >
+		<select id="catagorie" class="ui search dropdown">
 		  <option value="">Catagorie</option>
 		  <option value="project1">Project 1</option>
 		  <option value="project2">Project 2</option>
@@ -86,11 +96,11 @@
 	  <div class="actions">
 	    <div class="ui red basic cancel inverted button">
 	      <i class="remove icon"></i>
-	      No
+	      Cancel
 	    </div>
 	    <div class="ui green ok inverted button" onclick="cq()">
 	      <i class="checkmark icon"></i>
-	      Yes
+	      Post Question
 	    </div>
 	  </div>
 	</div>
@@ -100,7 +110,7 @@
 	    Edit Question
 	  </div>
 	  <div class="content">
-	    <input id="editquestion" type="" name="">
+	    <input id="editquestion" placeholder="Loading...">
 	  </div>
 	  <div class="actions">
 	    <div class="ui red basic cancel inverted button">
@@ -123,21 +133,21 @@
 	      Your Student Number
 	    </div>
 	  	<div class="ui fluid input">
-		  <input type="text" id="userstudentnumber">
+		  <input type="text" id="userstudentnumber" placeholder="Loading...">
 		</div>
 		<br>
 		<div class="ui pointing below label">
 	      Your Full Name
 	    </div>
 		<div class="ui fluid input">
-		  <input type="text" id="userfullname">
+		  <input type="text" id="userfullname" placeholder="Loading...">
 		</div>
 		<br>
 		<div class="ui pointing below label">
 	      Your Password
 	    </div>
 		<div class="ui fluid input">
-		  <input type="text" id="userpassword">
+		  <input type="text" id="userpassword" placeholder="Loading...">
 		</div>
 	  </div>
 	  <div class="actions">

@@ -39,6 +39,19 @@ header h1 {
 	border: 2px solid black;
 	display: none;
 }
+#reloadbtn i {
+	position: absolute;
+	top: bottom;
+	right: 0;
+	height: 2em;
+	width: 2em;
+	margin-top: 0.5em;
+	margin-right: 0.4em;
+	padding-top: .2em;
+	border-radius: 1em;
+	border: 2px solid black;
+	display: none;
+}
 #userstudentnumber {
 	text-align: center;
 }
@@ -48,8 +61,25 @@ header h1 {
 #userpassword {
 	text-align: center;
 }
-.createquestion {
+#catagorie {
+	margin-left: 32%;
+	border-radius: 1em;
+}
+#createquestion {
+	margin-left: 28%;
 	display: none;
+}
+#loading {
+	display: none;
+	text-align: center;
+	margin: 0;
+
+}
+#loadinglogin {
+	display: none;
+	text-align: center;
+	margin: 0;
+
 }
 .editquestion {
 	display: none;
@@ -60,9 +90,12 @@ header h1 {
 .viewuser {
 	display: none;
 }
-.reloadquestion {
+#reloadquestion {
 	display: none;
 }
 #table {
+	display: none;
+}
+#errormessage {
 	display: none;
 }
