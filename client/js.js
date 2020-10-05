@@ -9,38 +9,45 @@ async function cq() {
     questiondetails.append('question', question.value);
     questiondetails.append('catagories', questioncatagorie.value);
     questiondetails.append('loginid', currentlloginid);
-    fetch('http://localhost/gaq/api/api.php?action=createquestion', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=createquestion', {
         method: 'POST',
         body: questiondetails,
+    })
+    .then(function(response) {
+        if (response.status == 401) {
+            errormessage("Naughty Naughty, You Have Unauthorised Access");
+        }
+        if (response.status == 404) {
+            errormessage("Teachers Can't Mind Read Yet, Please Add A Question");
+        }
+        if (response.status == 202) {
+            successmessage("Question Created, Now Sit Back And Relax");
+        }
     });
 }
 function vq() {
     loadingmodal();
     var out = ''; 
-    fetch('http://localhost/gaq/api/api.php?action=viewquestion', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=viewquestion', {
        method: 'GET',
     })
     .then(function(response) {
         if (response.status == 401) {
             errormessage("Naughty Naughty, You Have Unauthorised Access");
-            return;
         }
         response.json().then( async function(data) {
             if (data.length == 0 ) {
             errormessage("Ummm... We Don't Have Any Question To You");
             }
             var id = await currentloginid();
-            console.log(id);
             data.forEach(row => {
                 if(row.loginid == 3) {
                 //Fix above something wrong can't diffientiate
                     editquestion = '';
                     deletequestion = '';
                 } else {
-                    editquestion = 'cats';
-                    deletequestion = 'dogs';
-                    //editquestion = '<button class="editquestionbutton" onclick="editquestionmodal(); eq(this);">Edit Question</button>';
-                    //deletequestion = '<button class="deletequestionbutton" onclick="dq(this)">Delete Question</button>';
+                    editquestion = '<button class="editquestionbutton" onclick="editquestionmodal(); eq(this);">Edit Question</button>';
+                    deletequestion = '<button class="deletequestionbutton" onclick="dq(this)">Delete Question</button>';
                 }
                 out += '<tr><td>' + row.question +
                 '</td><td>' + row.timestamp +
@@ -61,14 +68,20 @@ function eq(row) {
     window.questionrow = row.parentNode.parentNode.lastChild.innerHTML;
     var editquestionfd = new FormData();
     editquestionfd.append('questionid', questionrow);
-    fetch('http://localhost/gaq/api/api.php?action=editquestion', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=editquestion', {
        method: 'POST',
        body: editquestionfd,
     })
    .then(function(response) {
+        if (response.status == 401) {
+            errormessage("Naughty Naughty, You Have Unauthorised Access");
+        }
+        if (response.status == 404) {
+            errormessage("Stop... This Question Doesn't Exist");
+        }
         response.json()
-    .then(function(response) {
-            response.forEach(row => {
+            .then(function(response) {
+                response.forEach(row => {
                 document.getElementById("editquestion").value = row.question;
             });
             editquestion.innerHTML = out;
@@ -81,18 +94,40 @@ function sq() {
     var editquestiondetails = new FormData();
     editquestiondetails.append('newquestion', editquestion.value);
     editquestiondetails.append('questionidentify', questionrows);
-    fetch('http://localhost/gaq/api/api.php?action=savequestion', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=savequestion', {
        method: 'POST',
        body: editquestiondetails,
+    })
+    .then(function(response) {
+        if (response.status == 401) {
+            errormessage("What Are You Doing Here, Registered Users Only");
+        }
+        if (response.status == 404) {
+            errormessage("Hmm..., You Trying To Trick Me?... Question Can't Be Blank");
+        }
+        if (response.status == 202) {
+            successmessage("Congrats, Question Edited");
+        }
     })
 }
 function dq(row) {
     var questionidentify = row.parentNode.parentNode.lastChild.innerHTML;
     var deletequestionfd = new FormData();
     deletequestionfd.append('questionid', questionidentify);
-    fetch('http://localhost/gaq/api/api.php?action=deletequestion', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=deletequestion', {
         method: 'POST',
         body: deletequestionfd,
+    })
+    .then(function(response) {
+        if (response.status == 401) {
+            errormessage("*Bouncer Stares At You*, What Are You Doing Here?, VIP's Only");
+        }
+        if (response.status == 404) {
+            successmessage("*Conufused Sounds*, What Question Am I Deleting?");
+        }
+        if (response.status == 202) {
+            successmessage("*Hitman Washes Bloodied Hands* ... It's Done");
+        }
     });
 }
 function login() {
@@ -102,7 +137,7 @@ function login() {
     var logindetails = new FormData();
     logindetails.append('studentnumber', studentnumber.value);
     logindetails.append('password', password.value);
-    fetch('http://localhost/gaq/api/api.php?action=login', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=login', {
         method: 'POST',
         body: logindetails,
     }
@@ -113,7 +148,7 @@ function login() {
             var studentnumber = document.getElementById("studentnumber");
             var logindetails = new FormData();
             logindetails.append('numberofstudent', studentnumber.value);
-            fetch('http://localhost/gaq/api/api.php?action=processlogin', {
+            fetch('http://localhost/gotaquestion/api/api.php?action=processlogin', {
             method: 'POST',
             body: logindetails,
             });
@@ -141,7 +176,10 @@ function login() {
         }
         if (response.status == 409) {
             closeloadinglogin();
-            errormessage("Already Logged In");
+            errormessage("Already Logged In, Try Again");
+            fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
+            method: 'GET',
+            });
         }
         if (response.status == 406) {
             closeloadinglogin();
@@ -155,11 +193,11 @@ function login() {
 
 }
 function logout() {
-    fetch('http://localhost/gaq/api/api.php?action=logout', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
         method: 'GET',
     })
     .then(function(response) {
-        if (response.status == 206) {
+        if (response.status == 202) {
             var createquestion = document.querySelector("#createquestion");
             createquestion.style.display = "none";
             var logout = document.querySelector("#logout");
@@ -172,8 +210,10 @@ function logout() {
             table.style.display = "none";
             var signin = document.querySelector("#signinbtn");
             signin.style.display = "block";
-        } else {
-            console.log("logout failed");
+            successmessage("Success, You're Logged Out");
+        }
+        else {
+            errormessage("Internal Server Error Not Logged Out");
         }
     })
     
@@ -182,12 +222,21 @@ async function vu() {
     var userloginid = await currentloginid();
     var currentuserid = new FormData();
     currentuserid.append('userloginid', userloginid);
-    fetch('http://localhost/gaq/api/api.php?action=viewuser', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=viewuser', {
         method: 'POST',
         body: currentuserid,
     })
     .then(function(response) {
+        if (response.status == 401) {
+            errormessage("Naughty Naughty, You Have Unauthorised Access");
+        }
         response.json().then(function(data) {
+            //Checks if returned any json.
+            if (data.length == 0) {
+                document.getElementById("userstudentnumber").value = "Oops.. Something Went Wrong";
+                document.getElementById("userfullname").value = "Oops.. Something Went Wrong";
+                document.getElementById("userpassword").value = "Oops.. Something Went Wrong";
+            }
             data.forEach(row => {
                 document.getElementById("userstudentnumber").value = row.studentnumber;
                 document.getElementById("userfullname").value = row.fullname;
@@ -204,19 +253,36 @@ function su() {
     newuserdetails.append('studentnumber', studentnumber.value);
     newuserdetails.append('fullname', fullname.value);
     newuserdetails.append('password', password.value);
-    fetch('http://localhost/gaq/api/api.php?action=saveuser', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=saveuser', {
         method: 'POST',
         body: newuserdetails,
+    })
+    .then(function(response) {
+        if (response.status == 401) {
+            errormessage("Naughty Naughty, You Have Unauthorised Access");
+        }
+        if (response.status == 400) {
+            errormessage("Bro, You Need A Student Number");
+        }
+        if (response.status == 303) {
+            errormessage("Ohhh... Fancy A Man With No Name, Just Kidding You Need A Name For Database Stuff");
+        }
+        if (response.status == 410) {
+            errormessage("Am I Missing Something Are Passwords Supposed To Be Blank?");
+        }
+        if (response.status == 202) {
+            errormessage("User Details Edit Successful, Boss");
+        }
     });
 }
 function loginstatus() {
-    fetch('http://localhost/gaq/api/api.php?action=loginstatus', 
+    fetch('http://localhost/gotaquestion/api/api.php?action=loginstatus', 
         {
             method: 'GET',
         }
     )
     .then(function(response) {
-        if (response.status == 206) {
+        if (response.status == 202) {
             var createquestion = document.querySelector("#createquestion");
             createquestion.style.display = "block";
             var logout = document.querySelector("#logout");
@@ -229,13 +295,25 @@ function loginstatus() {
             table.style.display = "block";
             var signin = document.querySelector("#signinbtn");
             signin.style.display = "none";
-        } else {
-            console.log("Not Logged In");
+        }
+        if (response.status == 404) {
+            var createquestion = document.querySelector("#createquestion");
+            createquestion.style.display = "none";
+            var logout = document.querySelector("#logout");
+            logout.style.display = "none";
+            var viewuser = document.querySelector("#viewuser");
+            viewuser.style.display = "none";
+            var login = document.querySelector("#reloadquestion");
+            login.style.display = "none";
+            var table = document.querySelector("#table");
+            table.style.display = "none";
+            var signin = document.querySelector("#signinbtn");
+            signin.style.display = "block";
         }
     });
 }
 function currentloginid() {
-    return fetch('http://localhost/gaq/api/api.php?action=userid', {
+    return fetch('http://localhost/gotaquestion/api/api.php?action=userid', {
        method: 'GET',
     })
     .then(function(response) {
@@ -258,6 +336,20 @@ function errormessage(message) {
         });
     window.setTimeout(function() {
         errormessage.style.display = 'none';
+    }, 7000)
+}
+function successmessage(message) {
+
+    var succmessages = document.querySelector("#succmessage");
+    succmessages.innerHTML = message;
+    var successmessage = document.querySelector("#successmessage");
+    successmessage.style.display = "block";
+    successmessage.addEventListener("click", 
+        function() { 
+            successmessage.style.display = 'none' 
+        });
+    window.setTimeout(function() {
+        successmessage.style.display = 'none';
     }, 7000)
 }
 function loginmodal() {

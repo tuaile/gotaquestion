@@ -23,10 +23,14 @@
             $stmt->bindParam(':studentnumber', $studentnumber);
             $stmt->execute();
             $row = $stmt->fetch();
+            if (empty($password)){
+                return false;
+            }
+            if ($password != $row['password']){
+                return false;
+            }
             if ($password == $row['password']) {
                 return true;
-            } else {
-                return false;
             }
         }
         public function log($action) {

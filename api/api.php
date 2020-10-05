@@ -9,7 +9,7 @@
 	$functions = new gaqfunctions();
 
 	//Checks if referer is the one specified if not die.
-	if($_SERVER['HTTP_REFERER'] != "http://localhost/gaq/") {
+	if($_SERVER['HTTP_REFERER'] != "http://localhost/gotaquestion/") {
 		http_response_code(502);
 		die();
 	}
@@ -21,6 +21,7 @@
        die();
     }
 
+    //If user is rate limited, die.
     if($_SESSION['user_session']->ratelimited()) {
         http_response_code(429);
         die();
@@ -47,15 +48,16 @@
 				echo $functions->viewu($userloginid);
 				$action = "viewuser";
 				$_SESSION['user_session']->log($action);
-				http_response_code(206);
+				http_response_code(202);
 			} else {
 				http_response_code(401);
+				//Unauthorised Access
 			}
 		break;
 
 		case "viewallusers":
 			if($_SESSION['user_session']->userloginstatus()) {
-				http_response_code(206);
+				http_response_code(202);
 			} else {
 				http_response_code(401);
 			}
@@ -63,16 +65,19 @@
 
 		case "logout":
 			session_destroy();
-			http_response_code(206);
+			http_response_code(202);
 		break;
 
 		case "loginstatus":
 			$status = $_SESSION['user_session']->userloginstatus();
-                if($status == true) {
-                    http_response_code(206);
-                } else {
-                    http_response_code(404);
-                }
+            if($status == true) {
+              	http_response_code(202);
+              	//Still Logged In
+            } 
+            if ($status == false) {
+                http_response_code(404);
+                //Logged Out
+            }
         break;
 
 		case "login":
@@ -100,20 +105,25 @@
 				}
 			} else {
 				http_response_code(409);
+				sleep(1);
 				//Conflict Already Logged In
 			}
 		break;
 
 		case "createquestion":
 			if($_SESSION['user_session']->userloginstatus()) {
-				$cqquestion = $_POST['question'];
-				$cqcatagories = $_POST['catagories'];
-				$cqloginid = $_POST['loginid'];
-				print_r($cqloginid);
-				$functions->createq($cqquestion, $cqcatagories, $cqloginid);
-				$action = "createquestion";
-				$_SESSION['user_session']->log($action);
-				http_response_code(206);
+				if ($_POST['question'] == 0) {
+					http_response_code(404);
+					//Question Not Found
+				} else {
+					$cqquestion = $_POST['question'];
+					$cqcatagories = $_POST['catagories'];
+					$cqloginid = $_POST['loginid'];
+					$functions->createq($cqquestion, $cqcatagories, $cqloginid);
+					$action = "createquestion";
+					$_SESSION['user_session']->log($action);
+					http_response_code(202);
+				}
 			} else {
 				http_response_code(401);
 			}
@@ -121,9 +131,13 @@
 
 		case "editquestion":
 			if($_SESSION['user_session']->userloginstatus()) {
-				$questionid = $_POST['questionid'];;
-				echo $functions->editq($questionid);
-				http_response_code(206);
+				if ($_POST['questionid'] == "") {
+					http_response_code(404);
+				} else {
+					$questionid = $_POST['questionid'];
+					echo $functions->editq($questionid);
+					http_response_code(202);
+				}
 			} else {
 				http_response_code(401);
 			}
@@ -131,12 +145,16 @@
 
 		case "savequestion":
 			if($_SESSION['user_session']->userloginstatus()) {
-				$questionid = $_POST['questionidentify'];
-				$newquestion = $_POST['newquestion'];
-				$functions->saveq($newquestion, $questionid);
-				$action = "editquestion";
-				$_SESSION['user_session']->log($action);
-				http_response_code(206);
+				if ($_POST['newquestion'] == "") {
+					http_response_code(404);
+				} else {
+					$questionid = $_POST['questionidentify'];
+					$newquestion = $_POST['newquestion'];
+					$functions->saveq($newquestion, $questionid);
+					$action = "editquestion";
+					$_SESSION['user_session']->log($action);
+					http_response_code(202);
+				}
 			} else {
 				http_response_code(401);
 			}
@@ -144,11 +162,15 @@
 
 		case "deletequestion":
 			if($_SESSION['user_session']->userloginstatus()) {
-				$questionid = $_POST['questionid'];
-				$functions->deleteq($questionid);
-				$action = "deletequestion";
-				$_SESSION['user_session']->log($action);
-				http_response_code(206);
+				if ($_POST['questionid'] == "") {
+					http_response_code(404);
+				} else {
+					$questionid = $_POST['questionid'];
+					$functions->deleteq($questionid);
+					$action = "deletequestion";
+					$_SESSION['user_session']->log($action);
+					http_response_code(202);
+				}
 			} else {
 				http_response_code(401);
 			}
@@ -156,7 +178,7 @@
 
 		case "createanswer":
 			if($_SESSION['user_session']->userloginstatus()) {
-				http_response_code(206);
+				http_response_code(202);
 			} else {
 				http_response_code(401);
 			}
@@ -164,7 +186,7 @@
 
 		case "editanswer":
 			if($_SESSION['user_session']->userloginstatus()) {
-				http_response_code(206);
+				http_response_code(202);
 			} else {
 				http_response_code(401);
 			}
@@ -172,7 +194,7 @@
 
 		case "deleteanswer":
 			if($_SESSION['user_session']->userloginstatus()) {
-				http_response_code(206);
+				http_response_code(202);
 			} else {
 				http_response_code(401);
 			}
@@ -180,7 +202,7 @@
 
 		case "createuser":
 			if($_SESSION['user_session']->userloginstatus()) {
-				http_response_code(206);
+				http_response_code(202);
 			} else {
 				http_response_code(401);
 			}
@@ -188,13 +210,25 @@
 
 		case "saveuser":
 			if($_SESSION['user_session']->userloginstatus()) {
-				$studentnumber = $_POST['studentnumber'];
-				$fullname = $_POST['fullname'];
-				$password = $_POST['password'];
-				$functions->saveu($studentnumber, $fullname, $password);
-				$action = "edituserdetails";
-				$_SESSION['user_session']->log($action);
-				http_response_code(206);
+				if ($_POST['studentnumber'] == "") {
+					http_response_code(400);
+				} else {
+					if ($_POST['fullname'] == "") {
+						http_response_code(303);
+					} else {
+						if ($_POST['password'] == "") {
+							http_response_code(410);
+						} else {
+							$studentnumber = $_POST['studentnumber'];
+							$fullname = $_POST['fullname'];
+							$password = $_POST['password'];
+							$functions->saveu($studentnumber, $fullname, $password);
+							$action = "edituserdetails";
+							$_SESSION['user_session']->log($action);
+							http_response_code(202);
+						}
+					}
+				}
 			} else {
 				http_response_code(401);
 			}
@@ -202,7 +236,7 @@
 
 		case "deleteuser":
 			if($_SESSION['user_session']->userloginstatus()) {
-				http_response_code(206);
+				http_response_code(202);
 			} else {
 				http_response_code(401);
 			}
@@ -213,7 +247,7 @@
 				$studentnumber = $_POST['numberofstudent'];
 				$_SESSION['user_session']->loginprocess($studentnumber);
 				sleep(1);
-				http_response_code(206);
+				http_response_code(202);
 			} else {
 				http_response_code(401);
 			}
@@ -223,7 +257,7 @@
 			if($_SESSION['user_session']->userloginstatus() == true) {
 				$_SESSION['user_session']->userid();
 				sleep(1);	
-				http_response_code(206);
+				http_response_code(202);
 			} else {
 				http_response_code(401);
 			}
