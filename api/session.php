@@ -76,11 +76,21 @@
             return false;
             } 
         }
+        public function ratelimiteddailylimit() {
+            // print_r($allrequests);
+            // $previousrequest = $this->lastrequest == time();
+            // array_push($allrequests, $previousrequest);
+            // if ($allrequests > $last24hours) {
+            //     unset($allrequests[$this]);
+            // }
+            // if (count($allrequests) > 1000) {
+            //     return true;
+            // } else {
+            //     return false;
+            // }
+        }
         public function userid() {
             echo $this->loginid;
-        }
-        public function ratelimiteddailylimit() {
-            
         }
     }
 ?>

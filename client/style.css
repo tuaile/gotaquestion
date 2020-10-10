@@ -102,3 +102,24 @@ header h1 {
 #successmessage {
 	display: none;
 }
+#studentnumbererr {
+	display: none;
+}
+#passworderr {
+	display: none;
+}
+#edituserstudentnumbererr {
+	display: none;
+}
+#edituserpassworderr {
+	display: none;
+}
+#editusernameerr {
+	display: none;
+}
+#createquestionerr {
+	display: none;
+}
+#editquestionerr {
+	display: none;
+}

@@ -112,7 +112,7 @@
 
 		case "createquestion":
 			if($_SESSION['user_session']->userloginstatus()) {
-				if ($_POST['question'] == 0) {
+				if ($_POST['question'] == "") {
 					http_response_code(404);
 					//Question Not Found
 				} else {
@@ -207,25 +207,29 @@
 				http_response_code(401);
 			}
 		break;
-
+		
 		case "saveuser":
 			if($_SESSION['user_session']->userloginstatus()) {
 				if ($_POST['studentnumber'] == "") {
 					http_response_code(400);
 				} else {
 					if ($_POST['fullname'] == "") {
-						http_response_code(303);
+						http_response_code(411);
 					} else {
 						if ($_POST['password'] == "") {
 							http_response_code(410);
 						} else {
-							$studentnumber = $_POST['studentnumber'];
-							$fullname = $_POST['fullname'];
-							$password = $_POST['password'];
-							$functions->saveu($studentnumber, $fullname, $password);
-							$action = "edituserdetails";
-							$_SESSION['user_session']->log($action);
-							http_response_code(202);
+							if (strlen($_POST['password']) > 5) {
+								$studentnumber = $_POST['studentnumber'];
+								$fullname = $_POST['fullname'];
+								$password = $_POST['password'];
+								$functions->saveu($studentnumber, $fullname, $password);
+								$action = "edituserdetails";
+								$_SESSION['user_session']->log($action);
+								http_response_code(202);
+							} else {
+								http_response_code(412);
+							}
 						}
 					}
 				}

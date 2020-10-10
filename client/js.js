@@ -41,18 +41,18 @@ function vq() {
             }
             var id = await currentloginid();
             data.forEach(row => {
-                if(row.loginid == 3) {
-                //Fix above something wrong can't diffientiate
-                    editquestion = '';
-                    deletequestion = '';
-                } else {
+                if(row.loginid == id) {
+                console.log(row.loginid);
                     editquestion = '<button class="editquestionbutton" onclick="editquestionmodal(); eq(this);">Edit Question</button>';
                     deletequestion = '<button class="deletequestionbutton" onclick="dq(this)">Delete Question</button>';
+                } else {
+                    editquestion = '';
+                    deletequestion = '';
                 }
                 out += '<tr><td>' + row.question +
                 '</td><td>' + row.timestamp +
                 '</td><td>' + row.catagories +
-                '</td><td>' + row.answer +
+                '</td><td>' + (row.answer === null ? "Not Answered" : row.answer) +
                 '</td><td>' + editquestion + 
                 '</td><td>' + deletequestion +
                 '</td><td style="display:none !important;">' + row.questionid +
@@ -126,7 +126,7 @@ function dq(row) {
             successmessage("*Conufused Sounds*, What Question Am I Deleting?");
         }
         if (response.status == 202) {
-            successmessage("*Hitman Washes Bloodied Hands* ... It's Done");
+            successmessage("*Hitman Washes Bloodied Hands* ... It's Done Question Deleted");
         }
     });
 }
@@ -264,14 +264,17 @@ function su() {
         if (response.status == 400) {
             errormessage("Bro, You Need A Student Number");
         }
-        if (response.status == 303) {
-            errormessage("Ohhh... Fancy A Man With No Name, Just Kidding You Need A Name For Database Stuff");
+        if (response.status == 411) {
+            errormessage("You Need A Name For Database Stuff");
+        }
+        if (response.status == 412) {
+            errormessage("Password Has To Be At Least 6 Characters");
         }
         if (response.status == 410) {
             errormessage("Am I Missing Something Are Passwords Supposed To Be Blank?");
         }
         if (response.status == 202) {
-            errormessage("User Details Edit Successful, Boss");
+            successmessage("User Details Edit Successful, Boss");
         }
     });
 }
@@ -351,6 +354,97 @@ function successmessage(message) {
     window.setTimeout(function() {
         successmessage.style.display = 'none';
     }, 7000)
+}
+function loginvalidationstudentnumber() {
+    var data = document.getElementById("studentnumber");
+    var studentnumbererr = document.querySelector("#studentnumbererr");
+    var jsstudentnumber = document.querySelector("#jsstudentnumberer");
+    if (data.value.length == 9 && data.value.match(/^[0-9]+$/)) {
+        data.style.border = "3px solid green";
+        studentnumbererr.style.display = "none";
+    } else {
+        data.style.border = "3px solid red";
+        studentnumbererr.style.display = "block";
+        jsstudentnumber.innerHTML = "Student Number Has To Be Nine Digits, And Only Be Numbers";
+    }
+}
+function loginvalidationpassword() {
+    var data = document.getElementById("password");
+    var passworderr = document.querySelector("#passworderr");
+    var jspassword = document.querySelector("#jspassworderr");
+    if (data.value.length > 5) {
+        data.style.border = "3px solid green";
+        passworderr.style.display = "none";
+    } else {
+        data.style.border = "3px solid red";
+        passworderr.style.display = "block";
+        jspassworderr.innerHTML = "Password Has To Be At Least 6 Characters";
+    }
+}
+function edituserstudentnumber() {
+    var data = document.getElementById("userstudentnumber");
+    var studentnumbererr = document.querySelector("#edituserstudentnumbererr");
+    var jsstudentnumber = document.querySelector("#jseditstudentnumberer");
+    if (data.value.length == 9 && data.value.match(/^[0-9]+$/)) {
+        data.style.border = "3px solid green";
+        studentnumbererr.style.display = "none";
+    } else {
+        data.style.border = "3px solid red";
+        studentnumbererr.style.display = "block";
+        jsstudentnumber.innerHTML = "Student Number Has To Be Nine Digits, And Only Be Numbers";
+    }
+}
+function edituservalidationpassword() {
+    var data = document.getElementById("userpassword");
+    var passworderr = document.querySelector("#edituserpassworderr");
+    var jspassworderr = document.querySelector("#jseditpassword");
+    if (data.value.length > 5) {
+        data.style.border = "3px solid green";
+        passworderr.style.display = "none";
+    } else {
+        data.style.border = "3px solid red";
+        passworderr.style.display = "block";
+        jspassworderr.innerHTML = "Password Has To Be At Least 6 Characters";
+    }
+}
+function editusername() {
+    var data = document.getElementById("userfullname");
+    var nameerr = document.querySelector("#editusernameerr");
+    var jsnameerr = document.querySelector("#jseditname");
+    if (data.value.length > 5) {
+        data.style.border = "3px solid green";
+        nameerr.style.display = "none";
+    } else {
+        data.style.border = "3px solid red";
+        nameerr.style.display = "block";
+        jsnameerr.innerHTML = "Your Name Has To Be At Least 6 Characters";
+    }
+}
+function createquestionvalidation() {
+    var data = document.getElementById("question");
+    var createquestionerr = document.querySelector("#createquestionerr");
+    var jscreatequestion = document.querySelector("#jscreatequestion");
+    if (data.value.length == 30) {
+        data.style.border = "3px solid green";
+        createquestionerr.style.display = "none";
+    } else {
+        data.style.border = "3px solid red";
+        createquestionerr.style.display = "block";
+        jscreatequestion.innerHTML = "Question Has To Be At Least 30 Characters";
+    }
+}
+function editquestionvalidation() {
+    var data = document.getElementById("editquestion");
+    var createquestionerr = document.querySelector("#editquestionerr");
+    var jscreatequestion = document.querySelector("#jseditquestion");
+    if (data.value.length == 30) {
+        data.style.border = "3px solid green";
+        createquestionerr.style.display = "none";
+    } else {
+        data.style.border = "3px solid red";
+        createquestionerr.style.display = "block";
+        jscreatequestion.innerHTML = "Question Has To Be At Least 30 Characters";
+    }
 }
 function loginmodal() {
 	$('.ui.basic.modal.login')

@@ -44,7 +44,7 @@
 		    <tr>
 		      <th>Question</th>
 		      <th>Time Posted</th>
-		      <th>Catagorie</th>
+		      <th>Category</th>
 		      <th>Answer</th>
 		    </tr>
 		  </thead>
@@ -61,12 +61,18 @@
 	    <i class="sign-in icon"></i>
 	    Login Here
 	  </div>
+	  	<div id="studentnumbererr" class="ui pointing below label">
+	      <p id="jsstudentnumberer"></p>
+	    </div>
 	  	<div class="ui fluid input">
-			<input type="text" id="studentnumber" placeholder="Student Number">
+			<input type="text" id="studentnumber" placeholder="Student Number" onkeyup="loginvalidationstudentnumber()">
 		</div>
 		</br>
+		<div id="passworderr" class="ui pointing below label">
+	      <p id="jspassworderr"></p>
+	    </div>
 		<div class="ui fluid input">
-			<input type="text" id="password" placeholder="Password">
+			<input type="text" id="password" placeholder="Password"onkeyup="loginvalidationpassword()"> 
 		</div>
 	  <div class="actions">
 	    <div class="ui red basic cancel inverted button">
@@ -86,8 +92,11 @@
 	    Create Question
 	  </div>
 	  	<div class="ui fluid input">
-			<input type="text" id="question" placeholder="Question">
+			<input type="text" id="question" placeholder="Question" onkeyup="createquestionvalidation()">
 		</div>
+		<div id="createquestionerr" class="ui pointing label">
+	      <p id="jscreatequestion"></p>
+	    </div>
 		</br>
 		<select id="catagorie" class="ui search dropdown">
 		  <option value="">Catagorie</option>
@@ -116,7 +125,12 @@
 	    Edit Question
 	  </div>
 	  <div class="content">
-	    <input id="editquestion" placeholder="Loading...">
+	  	<div class="ui fluid input">
+	    	<input id="editquestion" placeholder="Loading..." onkeyup="editquestionvalidation()">
+		</div>
+	  </div>
+	  <div id="editquestionerr" class="ui pointing label">
+	      <p id="jseditquestion"></p>
 	  </div>
 	  <div class="actions">
 	    <div class="ui red basic cancel inverted button">
@@ -139,22 +153,31 @@
 	      Your Student Number
 	    </div>
 	  	<div class="ui fluid input">
-		  <input type="text" id="userstudentnumber" placeholder="Loading...">
+		  <input type="text" id="userstudentnumber" placeholder="Loading..." onkeyup="edituserstudentnumber()">
 		</div>
+    	<div id="edituserstudentnumbererr" class="ui pointing label">
+	      <p id="jseditstudentnumberer"></p>
+	    </div>
 		<br>
 		<div class="ui pointing below label">
 	      Your Full Name
 	    </div>
 		<div class="ui fluid input">
-		  <input type="text" id="userfullname" placeholder="Loading...">
+		  <input type="text" id="userfullname" placeholder="Loading..." onkeyup="editusername()">
 		</div>
+		<div id="editusernameerr" class="ui pointing label">
+	      <p id="jseditname"></p>
+	    </div>
 		<br>
 		<div class="ui pointing below label">
 	      Your Password
 	    </div>
 		<div class="ui fluid input">
-		  <input type="text" id="userpassword" placeholder="Loading...">
+		  <input type="text" id="userpassword" placeholder="Loading..." onkeyup="edituservalidationpassword()">
 		</div>
+		<div id="edituserpassworderr" class="ui pointing label">
+	      <p id="jseditpassword"></p>
+	    </div>
 	  </div>
 	  <div class="actions">
 	    <div class="ui red basic cancel inverted button">
