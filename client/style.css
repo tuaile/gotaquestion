@@ -11,6 +11,11 @@ td{
 body {
 	padding-left: 10em;
 }
+#slider {
+	position: fixed;
+	margin-left: 20em;
+	margin-top: .5em;
+}
 #signinbtn i {
 	position: absolute;
 	top: 0;

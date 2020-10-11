@@ -21,7 +21,10 @@
 		<div id="viewuserbtn">
 		<i id="viewuser" class="user outline icon" onclick="vu(); editusermodal();"></i>
 		</div>
-		<input type="button" onclick="darkmode()">
+		<div class="ui slider checkbox" id="slider">
+  			<input type="checkbox" id="darkmodecheckbox" onclick="darkmode()">
+  			<label id="darkmodelabel">Dark Mode</label>
+		</div>
 	</header>
 	<button id="createquestion" class="ui button" onclick="createquestionmodal()">Post A Question</button>
 	<br>

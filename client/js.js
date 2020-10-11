@@ -1,5 +1,9 @@
 window.onload = function() {
 	loginstatus();
+    if(localStorage.getItem('Dark Mode') == 'True') {
+        darkmodecheckbox.checked = true;
+        darkmode(); 
+    }
 }
 async function cq() {
     var question = document.getElementById("question");
@@ -447,51 +451,109 @@ function editquestionvalidation() {
     }
 }
 function darkmode() {
-    //Background Color
-    document.body.style.backgroundColor = "#121212";
-    //Got A Question Logo
-    var h1 = document.getElementsByTagName("h1");
-    for(var i = 0; i < h1.length; i++) {
-        h1[i].style.color = "#bb86fc";
-    }
-    //Icons
-    var itag = document.getElementsByTagName("i");
-    for(var i = 0; i < itag.length; i++) {
-        itag[i].style.color = "#bb86fc";
-        itag[i].style.border = "none";
-    }
-    //Loading Text
-    var h4 = document.getElementsByTagName("h4");
-    for(var i = 0; i < h4.length; i++) {
-        h4[i].style.color = "#bb86fc";
-    }
-    //Queue Background Color
-    var queue = document.querySelector("#queue");
-    queue.style.setProperty("background-color", "#1e1e1e", "important");
-    //Thead Styling
-    var thead = document.querySelector("#thead");
-    thead.style.setProperty("background-color", "#1e1e1e", "important");
-    //Title Color For Queues
-    var th = document.getElementsByTagName("th");
-    for(var i = 0; i < th.length; i++) {
-        th[i].style.color = "#bb86fc";
-    }
-    //Text Color
-    var td = document.getElementsByTagName("td");
-    for(var i = 0; i < td.length; i++) {
-        td[i].style.color = "#bb86fc";
-    }
-    //Lines Between Rows
-    var tr = document.getElementsByTagName("tr");
-    for(var i = 0; i < tr.length; i++) {
+    var darkmodecheckbox = document.getElementById("darkmodecheckbox");
+    if (darkmodecheckbox.checked == true) {
+        localStorage.setItem('Dark Mode', 'True'); 
+        //Background Color
+        document.body.style.backgroundColor = "#121212";
+        //Got A Question Logo
+        var h1 = document.getElementsByTagName("h1");
+        for(var i = 0; i < h1.length; i++) {
+            h1[i].style.color = "#bb86fc";
+        }
+        //Icons
+        var itag = document.getElementsByTagName("i");
+        for(var i = 0; i < itag.length; i++) {
+            itag[i].style.color = "#bb86fc";
+            itag[i].style.border = "none";
+        }
+        //Loading Text
+        var h4 = document.getElementsByTagName("h4");
+        for(var i = 0; i < h4.length; i++) {
+            h4[i].style.color = "#bb86fc";
+        }
+        //Queue Background Color
+        var queue = document.querySelector("#queue");
+        queue.style.setProperty("background-color", "#1e1e1e", "important");
+        //Thead Styling
+        var thead = document.querySelector("#thead");
+        thead.style.setProperty("background-color", "#1e1e1e", "important");
+        //Title Color For Queues
+        var th = document.getElementsByTagName("th");
+        for(var i = 0; i < th.length; i++) {
+            th[i].style.color = "#bb86fc";
+        }
+        //Text Color
+        var td = document.getElementsByTagName("td");
+        for(var i = 0; i < td.length; i++) {
+            td[i].style.color = "#bb86fc";
+        }
+        //Lines Between Rows
+        var tr = document.getElementsByTagName("tr");
+        for(var i = 0; i < tr.length; i++) {
         tr[i].style.borderBottom = "1em solid #121212";
         tr[i].style.borderLeft = "1em solid #121212";
         tr[i].style.borderRight = "1em solid #121212";
+        }
+        //Thead Fixes
+        var head = document.querySelector(".ui.table");
+        head.style.setProperty("background", "none", "important");
+        head.style.setProperty("border", "none", "important");
+        //Dark Mode Fix
+        var dark = document.querySelector("#darkmodelabel");
+        dark.style.setProperty("color", "white", "important");
+    } else {
+        localStorage.setItem('Dark Mode', 'False');
+        //Background Color
+        document.body.style.backgroundColor = "";
+        //Got A Question Logo
+        var h1 = document.getElementsByTagName("h1");
+        for(var i = 0; i < h1.length; i++) {
+            h1[i].style.color = "";
+        }
+        //Icons
+        var itag = document.getElementsByTagName("i");
+        for(var i = 0; i < itag.length; i++) {
+            itag[i].style.color = "";
+            itag[i].style.border = "";
+        }
+        //Loading Text
+        var h4 = document.getElementsByTagName("h4");
+        for(var i = 0; i < h4.length; i++) {
+            h4[i].style.color = "";
+        }
+        //Queue Background Color
+        var queue = document.querySelector("#queue");
+        queue.style.setProperty("background-color", "");
+        //Thead Styling
+        var thead = document.querySelector("#thead");
+        thead.style.setProperty("background-color", "");
+        //Title Color For Queues
+        var th = document.getElementsByTagName("th");
+        for(var i = 0; i < th.length; i++) {
+            th[i].style.color = "";
+        }
+        //Text Color
+        var td = document.getElementsByTagName("td");
+        for(var i = 0; i < td.length; i++) {
+            td[i].style.color = "";
+        }
+        //Lines Between Rows
+        var tr = document.getElementsByTagName("tr");
+        for(var i = 0; i < tr.length; i++) {
+        tr[i].style.borderBottom = "";
+        tr[i].style.borderLeft = "";
+        tr[i].style.borderRight = "";
+        }
+        //Thead Fixes
+        var head = document.querySelector(".ui.table");
+        head.style.setProperty("background", "");
+        head.style.setProperty("border", "");
+        //Dark Mode Fix
+        var dark = document.querySelector("#darkmodelabel");
+        dark.style.setProperty("color", "black", "important");
     }
-    //Thead Fixes
-    var head = document.querySelector(".ui.table");
-    head.style.setProperty("background", "none", "important");
-    head.style.setProperty("border", "none", "important");
+
 }
 function loginmodal() {
 	$('.ui.basic.modal.login')
