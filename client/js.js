@@ -43,8 +43,8 @@ function vq() {
             data.forEach(row => {
                 if(row.loginid == id) {
                 console.log(row.loginid);
-                    editquestion = '<button class="editquestionbutton" onclick="editquestionmodal(); eq(this);">Edit Question</button>';
-                    deletequestion = '<button class="deletequestionbutton" onclick="dq(this)">Delete Question</button>';
+                    editquestion = '<button class="editquestionbutton ui positive basic button" onclick="editquestionmodal(); eq(this);">Edit Question</button>';
+                    deletequestion = '<button class="deletequestionbutton ui negative basic button" onclick="dq(this)">Delete Question</button>';
                 } else {
                     editquestion = '';
                     deletequestion = '';
@@ -445,6 +445,53 @@ function editquestionvalidation() {
         createquestionerr.style.display = "block";
         jscreatequestion.innerHTML = "Question Has To Be At Least 30 Characters";
     }
+}
+function darkmode() {
+    //Background Color
+    document.body.style.backgroundColor = "#121212";
+    //Got A Question Logo
+    var h1 = document.getElementsByTagName("h1");
+    for(var i = 0; i < h1.length; i++) {
+        h1[i].style.color = "#bb86fc";
+    }
+    //Icons
+    var itag = document.getElementsByTagName("i");
+    for(var i = 0; i < itag.length; i++) {
+        itag[i].style.color = "#bb86fc";
+        itag[i].style.border = "none";
+    }
+    //Loading Text
+    var h4 = document.getElementsByTagName("h4");
+    for(var i = 0; i < h4.length; i++) {
+        h4[i].style.color = "#bb86fc";
+    }
+    //Queue Background Color
+    var queue = document.querySelector("#queue");
+    queue.style.setProperty("background-color", "#1e1e1e", "important");
+    //Thead Styling
+    var thead = document.querySelector("#thead");
+    thead.style.setProperty("background-color", "#1e1e1e", "important");
+    //Title Color For Queues
+    var th = document.getElementsByTagName("th");
+    for(var i = 0; i < th.length; i++) {
+        th[i].style.color = "#bb86fc";
+    }
+    //Text Color
+    var td = document.getElementsByTagName("td");
+    for(var i = 0; i < td.length; i++) {
+        td[i].style.color = "#bb86fc";
+    }
+    //Lines Between Rows
+    var tr = document.getElementsByTagName("tr");
+    for(var i = 0; i < tr.length; i++) {
+        tr[i].style.borderBottom = "1em solid #121212";
+        tr[i].style.borderLeft = "1em solid #121212";
+        tr[i].style.borderRight = "1em solid #121212";
+    }
+    //Thead Fixes
+    var head = document.querySelector(".ui.table");
+    head.style.setProperty("background", "none", "important");
+    head.style.setProperty("border", "none", "important");
 }
 function loginmodal() {
 	$('.ui.basic.modal.login')

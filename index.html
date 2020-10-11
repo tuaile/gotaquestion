@@ -21,6 +21,7 @@
 		<div id="viewuserbtn">
 		<i id="viewuser" class="user outline icon" onclick="vu(); editusermodal();"></i>
 		</div>
+		<input type="button" onclick="darkmode()">
 	</header>
 	<button id="createquestion" class="ui button" onclick="createquestionmodal()">Post A Question</button>
 	<br>
@@ -40,7 +41,7 @@
 	<h4 id="loading">Loading Please Wait...</h4>
 	<div id="table">
 		<table class="ui single line table">
-		  <thead>
+		  <thead id="thead">
 		    <tr>
 		      <th>Question</th>
 		      <th>Time Posted</th>

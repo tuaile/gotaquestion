@@ -2,6 +2,8 @@
 	include 'database.php';
 	include 'session.php';
 
+    header('Access-Control-Allow-Origin: http://192.168.1.111');
+
 	session_start();
 
 	header('Content-Type: application/json');
@@ -9,7 +11,9 @@
 	$functions = new gaqfunctions();
 
 	//Checks if referer is the one specified if not die.
-	if($_SERVER['HTTP_REFERER'] != "http://localhost/gotaquestion/") {
+	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://192.168.1.111/") {
+
+		} else {
 		http_response_code(502);
 		die();
 	}
