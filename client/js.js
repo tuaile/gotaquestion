@@ -2,6 +2,7 @@ window.onload = function() {
 	loginstatus();
     if(localStorage.getItem('Dark Mode') == 'True') {
         darkmodecheckbox.checked = true;
+        currentcolor = localStorage.getItem('Secret');
         darkmode(); 
     }
 }
@@ -63,6 +64,7 @@ function vq() {
                 '</td></tr>';
             });
             queue.innerHTML = out;
+            darkmode();
             closeloadingmodal();
         })
     });
@@ -478,24 +480,25 @@ function editquestionvalidation() {
 function darkmode() {
     var darkmodecheckbox = document.getElementById("darkmodecheckbox");
     if (darkmodecheckbox.checked == true) {
-        localStorage.setItem('Dark Mode', 'True'); 
+        localStorage.setItem('Dark Mode', 'True');
+        localStorage.setItem('Secret', currentcolor);
         //Background Color
         document.body.style.backgroundColor = "#121212";
         //Got A Question Logo
         var h1 = document.getElementsByTagName("h1");
         for(var i = 0; i < h1.length; i++) {
-            h1[i].style.color = "#bb86fc";
+            h1[i].style.color = currentcolor;
         }
         //Icons
         var itag = document.getElementsByTagName("i");
         for(var i = 0; i < itag.length; i++) {
-            itag[i].style.color = "#bb86fc";
+            itag[i].style.color = currentcolor;
             itag[i].style.border = "none";
         }
         //Loading Text
         var h4 = document.getElementsByTagName("h4");
         for(var i = 0; i < h4.length; i++) {
-            h4[i].style.color = "#bb86fc";
+            h4[i].style.color = currentcolor;
         }
         //Queue Background Color
         var queue = document.querySelector("#queue");
@@ -506,12 +509,12 @@ function darkmode() {
         //Title Color For Queues
         var th = document.getElementsByTagName("th");
         for(var i = 0; i < th.length; i++) {
-            th[i].style.color = "#bb86fc";
+            th[i].style.color = currentcolor;
         }
         //Text Color
         var td = document.getElementsByTagName("td");
         for(var i = 0; i < td.length; i++) {
-            td[i].style.color = "#bb86fc";
+            td[i].style.color = currentcolor;
         }
         //Lines Between Rows
         var tr = document.getElementsByTagName("tr");
@@ -579,6 +582,19 @@ function darkmode() {
         dark.style.setProperty("color", "black", "important");
     }
 
+}
+var iterator;
+var currentcolor = "#bb86fc";
+function gotaquestion() {
+    var array = ['#ff6961', '#779ecb', '#fdfd96', '#44D362', '#bb86fc', '#ffb347', '#fff'];
+    if (!iterator) iterator = array.values();
+    var next = iterator.next();
+    if (next.done) {
+        iterator = array.values();
+        next = iterator.next();
+    }
+    currentcolor = next.value
+    darkmode();
 }
 function loginmodal() {
 	$('.ui.basic.modal.login')

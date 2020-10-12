@@ -13,8 +13,7 @@ body {
 }
 #slider {
 	display: none;
-	margin-left: 20em;
-	margin-top: .5em;
+	margin-left: 32%;
 }
 #signinbtn i {
 	position: absolute;
@@ -81,7 +80,7 @@ body {
 	border-radius: 1em;
 }
 #createquestion {
-	margin-left: 28%;
+	margin-left: 32%;
 	display: none;
 }
 #loading {

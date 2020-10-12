@@ -11,7 +11,7 @@
 </head>
 <body>
 	<header>
-		<h1>Got A Question?</h1>
+		<h1 onclick="gotaquestion()">Got A Question?</h1>
 		<div id="signinbtn">
 		<i id="login" class="sign-in icon" onclick="loginmodal()"></i>
 		</div>
@@ -20,10 +20,6 @@
 		</div>
 		<div id="viewuserbtn">
 		<i id="viewuser" class="user outline icon" onclick="vu(); editusermodal();"></i>
-		</div>
-		<div class="ui slider checkbox" id="slider">
-  			<input type="checkbox" id="darkmodecheckbox" onclick="darkmode()">
-  			<label id="darkmodelabel">Dark Mode</label>
 		</div>
 	</header>
 	<button id="createquestion" class="ui button" onclick="createquestionmodal()">Post A Question</button>
@@ -182,6 +178,10 @@
 		<div id="edituserpassworderr" class="ui pointing label">
 	      <p id="jseditpassword"></p>
 	    </div>
+	  </div>
+	  <div class="ui slider checkbox" id="slider">
+  	  	<input type="checkbox" id="darkmodecheckbox" onclick="darkmode()">
+  		<label id="darkmodelabel">Dark Mode</label>
 	  </div>
 	  <div class="actions">
 	    <div class="ui red basic cancel inverted button">
