@@ -146,7 +146,7 @@ function login() {
         body: logindetails,
     }
 )
-    .then(function(response){
+    .then(function(response) {
         if (response.status == 202) {
             closeloadinglogin();
             var studentnumber = document.getElementById("studentnumber");
@@ -155,7 +155,24 @@ function login() {
             fetch('http://localhost/gotaquestion/api/api.php?action=processlogin', {
             method: 'POST',
             body: logindetails,
-            });
+            })
+            .then(function(response) {
+                response.json().then(function(data) {
+                    if (data.length == 0 ) {
+                        errormessage("Error Something Went Wrong Please Login Again");
+                        fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
+                        method: 'GET',
+                        });
+                    } else {
+                        var studentnumber = data[0].studentnumber;
+                        var fullname = data[0].fullname;
+                        localStorage.setItem('Student Number', studentnumber);
+                        localStorage.setItem('Full Name', fullname);
+                        localStorage.setItem('Logged In', True); 
+                    }
+                })
+            })
+            ;
             var createquestion = document.querySelector("#createquestion");
             createquestion.style.display = "block";
             var logout = document.querySelector("#logout");
@@ -168,6 +185,8 @@ function login() {
             table.style.display = "block";
             var login = document.querySelector("#signinbtn");
             login.style.display = "none";
+            var slider = document.querySelector("#slider");
+            slider.style.display = "block";
             vq();
         }
         if (response.status == 410) {
@@ -214,6 +233,8 @@ function logout() {
             table.style.display = "none";
             var signin = document.querySelector("#signinbtn");
             signin.style.display = "block";
+            var slider = document.querySelector("#slider");
+            slider.style.display = "none";
             successmessage("Success, You're Logged Out");
         }
         else {
@@ -302,6 +323,8 @@ function loginstatus() {
             table.style.display = "block";
             var signin = document.querySelector("#signinbtn");
             signin.style.display = "none";
+            var slider = document.querySelector("#slider");
+            slider.style.display = "block";
         }
         if (response.status == 404) {
             var createquestion = document.querySelector("#createquestion");
@@ -316,6 +339,8 @@ function loginstatus() {
             table.style.display = "none";
             var signin = document.querySelector("#signinbtn");
             signin.style.display = "block";
+            var slider = document.querySelector("#slider");
+            slider.style.display = "none";
         }
     });
 }

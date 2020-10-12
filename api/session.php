@@ -58,7 +58,7 @@
         }
         public function loginprocess($studentnumber) {
                 $conn = dbconnection();
-                $stmt = $conn->prepare("SELECT * FROM login WHERE studentnumber = :studentnumber");
+                $stmt = $conn->prepare("SELECT loginid, studentnumber, fullname FROM login WHERE studentnumber = :studentnumber");
                 $stmt->bindParam(':studentnumber', $studentnumber);
                 $stmt->execute();
                 $results = $stmt->fetchAll();
@@ -66,6 +66,8 @@
                 $this->loginid = $loginid;
                 $action = "loginsuccess";
                 $this->log($action);
+                $jsonresults = json_encode($results);
+                return $jsonresults;
         }
         public function ratelimited() {
             if($this->lastrequest == time()) {

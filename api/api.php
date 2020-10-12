@@ -254,6 +254,7 @@
 			if($_SESSION['user_session']->userloginstatus() == false) {
 				$studentnumber = $_POST['numberofstudent'];
 				$_SESSION['user_session']->loginprocess($studentnumber);
+				echo $_SESSION['user_session']->loginprocess($studentnumber);
 				sleep(1);
 				http_response_code(202);
 			} else {
