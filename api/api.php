@@ -2,16 +2,19 @@
 	include 'database.php';
 	include 'session.php';
 
-    header('Access-Control-Allow-Origin: http://192.168.1.111');
-
+	header('Access-Control-Allow-Origin: http://172.30.211.5');
+	header('Content-Type: application/json');
+	header('Access-Control-Allow-Credentials: true');
+	ini_set('session.cookie_samesite', 'None');
+    ini_set('session.cookie_secure', "1");
+	//Session starts at the start
 	session_start();
 
-	header('Content-Type: application/json');
-	
+	//Object is created at the start
 	$functions = new gaqfunctions();
 
 	//Checks if referer is the one specified if not die.
-	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://192.168.1.111/") {
+	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://172.30.211.5/") {
 
 		} else {
 		http_response_code(502);
@@ -22,6 +25,7 @@
 	if(!isset($_SESSION['user_session'])) {
        $_SESSION['user_session'] = new gaqsession;
        http_response_code(501);
+       print_r($_SESSION);
        die();
     }
 
@@ -31,8 +35,16 @@
         die();
     }
 
+    //If user is daily rate limited, die.
+    if ($_SESSION['user_session']->ratelimiteddailylimit()) {
+    	
+    }
+
     if(isset($_GET['action'])) {
         switch($_GET['action']) {
+        case "spam":
+
+		break;
         case "viewquestion":
 			if($_SESSION['user_session']->userloginstatus()) {
 				echo $functions->viewq();
@@ -53,6 +65,7 @@
 				$action = "viewuser";
 				$_SESSION['user_session']->log($action);
 				http_response_code(202);
+				//Accepted
 			} else {
 				http_response_code(401);
 				//Unauthorised Access
@@ -62,14 +75,17 @@
 		case "viewallusers":
 			if($_SESSION['user_session']->userloginstatus()) {
 				http_response_code(202);
+				//Accepted
 			} else {
 				http_response_code(401);
+				//Unauthorised Access
 			}
 		break;
 
 		case "logout":
 			session_destroy();
 			http_response_code(202);
+			//Accepted
 		break;
 
 		case "loginstatus":
@@ -127,9 +143,11 @@
 					$action = "createquestion";
 					$_SESSION['user_session']->log($action);
 					http_response_code(202);
+					//Accepted
 				}
 			} else {
 				http_response_code(401);
+				//Unauthorised Access
 			}
 		break;
 
@@ -224,13 +242,17 @@
 							http_response_code(410);
 						} else {
 							if (strlen($_POST['password']) > 5) {
-								$studentnumber = $_POST['studentnumber'];
-								$fullname = $_POST['fullname'];
-								$password = $_POST['password'];
-								$functions->saveu($studentnumber, $fullname, $password);
-								$action = "edituserdetails";
-								$_SESSION['user_session']->log($action);
-								http_response_code(202);
+								if (strlen($_POST['studentnumber']) != 9) {
+									http_response_code(405);
+								} else {
+									$studentnumber = $_POST['studentnumber'];
+									$fullname = $_POST['fullname'];
+									$password = $_POST['password'];
+									$functions->saveu($studentnumber, $fullname, $password);
+									$action = "edituserdetails";
+									$_SESSION['user_session']->log($action);
+									http_response_code(202);
+								}
 							} else {
 								http_response_code(412);
 							}

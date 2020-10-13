@@ -71,6 +71,7 @@
         }
         public function ratelimited() {
             if($this->lastrequest == time()) {
+                //If the last request is the current time, then then the user is then rate limited.
                 $this->lastrequest = time();
                 return true;
             } else {
@@ -79,7 +80,15 @@
             } 
         }
         public function ratelimiteddailylimit() {
-            //print_r($last24hours);
+            $cars = array("Volvo", "BMW", "Toyota", "BMW");
+            if (count($cars) > 5) {
+                //Is rate limited
+                return true;
+            } else {
+                //Is not rate limited
+                return false;
+            }
+            
             //$previousrequest = $this->lastrequest == time();
             //array_push($allrequests, $previousrequest);
             //if ($allrequests > $last24hours) {

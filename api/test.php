@@ -124,3 +124,9 @@ function apiCall()
     echo 'Doing something interesting' . PHP_EOL;
 }
 ?>
+
+
+if($_SESSION['user_session']->ratelimited()) {
+        http_response_code(429);
+        die();
+    }

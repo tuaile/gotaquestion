@@ -1,3 +1,8 @@
+function spame() {
+    fetch('http://localhost/gotaquestion/api/api.php?action=spam', {
+        method: 'POST',
+    })
+}
 window.onload = function() {
 	loginstatus();
     if(localStorage.getItem('Dark Mode') == 'True') {
@@ -47,7 +52,6 @@ function vq() {
             var id = await currentloginid();
             data.forEach(row => {
                 if(row.loginid == id) {
-                console.log(row.loginid);
                     editquestion = '<button class="editquestionbutton ui positive basic button" onclick="editquestionmodal(); eq(this);">Edit Question</button>';
                     deletequestion = '<button class="deletequestionbutton ui negative basic button" onclick="dq(this)">Delete Question</button>';
                 } else {
@@ -146,6 +150,7 @@ function login() {
     fetch('http://localhost/gotaquestion/api/api.php?action=login', {
         method: 'POST',
         body: logindetails,
+        credentials: 'include',
     }
 )
     .then(function(response) {
@@ -170,7 +175,7 @@ function login() {
                         var fullname = data[0].fullname;
                         localStorage.setItem('Student Number', studentnumber);
                         localStorage.setItem('Full Name', fullname);
-                        localStorage.setItem('Logged In', True); 
+                        localStorage.setItem('Logged In', "True"); 
                     }
                 })
             })
@@ -296,6 +301,9 @@ function su() {
         }
         if (response.status == 412) {
             errormessage("Password Has To Be At Least 6 Characters");
+        }
+        if (response.status == 405) {
+            errormessage("Student Number Has To Be 9 Numbers Only");
         }
         if (response.status == 410) {
             errormessage("Am I Missing Something Are Passwords Supposed To Be Blank?");
