@@ -4,9 +4,6 @@
 
 	header('Access-Control-Allow-Origin: http://172.30.211.5');
 	header('Content-Type: application/json');
-	header('Access-Control-Allow-Credentials: true');
-	ini_set('session.cookie_samesite', 'None');
-    ini_set('session.cookie_secure', "1");
 	//Session starts at the start
 	session_start();
 
@@ -42,9 +39,6 @@
 
     if(isset($_GET['action'])) {
         switch($_GET['action']) {
-        case "spam":
-
-		break;
         case "viewquestion":
 			if($_SESSION['user_session']->userloginstatus()) {
 				echo $functions->viewq();
@@ -119,8 +113,8 @@
 							//Invalid Login Details
 						}
 					} else {
-						http_response_code(406);
-						//Student Number Not Numeric
+						http_response_code(404);
+						//Invalid Login Details
 					}
 				}
 			} else {

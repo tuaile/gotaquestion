@@ -1,8 +1,3 @@
-function spame() {
-    fetch('http://localhost/gotaquestion/api/api.php?action=spam', {
-        method: 'POST',
-    })
-}
 window.onload = function() {
 	loginstatus();
     if(localStorage.getItem('Dark Mode') == 'True') {
@@ -211,10 +206,6 @@ function login() {
             method: 'GET',
             });
         }
-        if (response.status == 406) {
-            closeloadinglogin();
-            errormessage("Student Number Has To Be Numeric");
-        }
         if (response.status == 501) {
             closeloadinglogin();
             errormessage("Server Error Try Again");
@@ -393,32 +384,6 @@ function successmessage(message) {
     window.setTimeout(function() {
         successmessage.style.display = 'none';
     }, 7000)
-}
-function loginvalidationstudentnumber() {
-    var data = document.getElementById("studentnumber");
-    var studentnumbererr = document.querySelector("#studentnumbererr");
-    var jsstudentnumber = document.querySelector("#jsstudentnumberer");
-    if (data.value.length == 9 && data.value.match(/^[0-9]+$/)) {
-        data.style.border = "3px solid green";
-        studentnumbererr.style.display = "none";
-    } else {
-        data.style.border = "3px solid red";
-        studentnumbererr.style.display = "block";
-        jsstudentnumber.innerHTML = "Student Number Has To Be Nine Digits, And Only Be Numbers";
-    }
-}
-function loginvalidationpassword() {
-    var data = document.getElementById("password");
-    var passworderr = document.querySelector("#passworderr");
-    var jspassword = document.querySelector("#jspassworderr");
-    if (data.value.length > 5) {
-        data.style.border = "3px solid green";
-        passworderr.style.display = "none";
-    } else {
-        data.style.border = "3px solid red";
-        passworderr.style.display = "block";
-        jspassworderr.innerHTML = "Password Has To Be At Least 6 Characters";
-    }
 }
 function edituserstudentnumber() {
     var data = document.getElementById("userstudentnumber");

@@ -1,0 +1,15 @@
+{
+  "name": "Got A Question",
+  "short_name": "GAQ",
+  "description": "Got A Question, is a mobile app where students can, ask questions anywhere & anytime related to their subject and get a response in real time from their teachers.",
+  "lang": "en",
+  "start_url": "/",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "client/images/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}
