@@ -71,7 +71,7 @@
         }
         public function ratelimited() {
             if($this->lastrequest == time()) {
-                //If the last request is the current time, then then the user is then rate limited.
+                //If the last request is the current time, then the user is then rate limited.
                 $this->lastrequest = time();
                 return true;
             } else {
