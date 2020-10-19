@@ -141,6 +141,7 @@
 					$functions->createq($cqquestion, $cqcatagories, $cqloginid);
 					$action = "createquestion";
 					$_SESSION['user_session']->log($action);
+					sleep(1);
 					http_response_code(202);
 					//Accepted
 				}

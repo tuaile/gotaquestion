@@ -4,8 +4,11 @@
         public $loginid;
         public $lastrequest;
         public $last24hours;
-        public $cars = [];
+        public $allrequests;
 
+        public function __construct() {
+         $this->allrequests = array();
+        }
 	 	public function userloginstatus() {
             //Checks if loginid is set, before all base case executions and before website is loaded.
                 if(isset($this->loginid)) {
@@ -77,15 +80,19 @@
             }
         }
         public function ratelimiteddailylimit() {
-            $tf = $this->last24hours = time()-86400;
-            echo $tf;
-
-            $cats = $this->cars;
-            array_push($cats, "apple", "raspberry");
-            print_r($cats);
-            
-            $now = $this->lastrequest = time();
-            echo $now;
+            $this->last24hours = time()-86400;
+            array_push($this->allrequests, $this->lastrequest);
+            print_r($this->allrequests);
+            foreach($this->allrequests as $times) {
+                if ($times < $this->last24hours) {
+                    //Need to remove if over 24 hours
+                }
+            }
+            if (count($this->allrequests) > 15) {
+                return true;
+            } else {
+                return false;
+            }
         }
         public function userid() {
             echo $this->loginid;

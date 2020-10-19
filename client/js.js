@@ -27,6 +27,7 @@ async function cq() {
         }
         if (response.status == 202) {
             successmessage("Question Created, Now Sit Back And Relax");
+            vq();
         }
     });
 }
@@ -428,7 +429,7 @@ function createquestionvalidation() {
     var data = document.getElementById("question");
     var createquestionerr = document.querySelector("#createquestionerr");
     var jscreatequestion = document.querySelector("#jscreatequestion");
-    if (data.value.length == 30) {
+    if (data.value.length > 30) {
         data.style.border = "3px solid green";
         createquestionerr.style.display = "none";
     } else {
