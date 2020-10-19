@@ -10,6 +10,10 @@
 	//Object is created at the start
 	$functions = new gaqfunctions();
 
+	//Checks if referer is not set set value to 0;
+	if(!isset($_SERVER['HTTP_REFERER'])) {
+		$_SERVER['HTTP_REFERER'] = 0;
+	}
 	//Checks if referer is the one specified if not die.
 	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://172.30.211.5/") {
 
@@ -34,7 +38,8 @@
 
     //If user is daily rate limited, die.
     if ($_SESSION['user_session']->ratelimiteddailylimit()) {
-    	
+    	http_response_code(429);
+        die();
     }
 
     if(isset($_GET['action'])) {
@@ -96,7 +101,7 @@
 
 		case "login":
 			if($_SESSION['user_session']->userloginstatus() == false) {
-				if ($_POST['studentnumber'] == "" && $_POST['password'] == "") {
+				if ($_POST['studentnumber'] == 0 && $_POST['password'] == 0) {
 					http_response_code(410);
 					//No Student Number And Or Password
 				} else {

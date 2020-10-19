@@ -4,11 +4,8 @@
         public $loginid;
         public $lastrequest;
         public $last24hours;
+        public $cars = [];
 
-        public function __construct() {
-            $this->lastrequest = time();
-            $this->last24hours = time()-86400;
-        }
 	 	public function userloginstatus() {
             //Checks if loginid is set, before all base case executions and before website is loaded.
                 if(isset($this->loginid)) {
@@ -77,28 +74,18 @@
             } else {
                 $this->lastrequest = time();
             return false;
-            } 
+            }
         }
         public function ratelimiteddailylimit() {
-            $cars = array("Volvo", "BMW", "Toyota", "BMW");
-            if (count($cars) > 5) {
-                //Is rate limited
-                return true;
-            } else {
-                //Is not rate limited
-                return false;
-            }
+            $tf = $this->last24hours = time()-86400;
+            echo $tf;
+
+            $cats = $this->cars;
+            array_push($cats, "apple", "raspberry");
+            print_r($cats);
             
-            //$previousrequest = $this->lastrequest == time();
-            //array_push($allrequests, $previousrequest);
-            //if ($allrequests > $last24hours) {
-            //    unset($allrequests[$this]);
-            //}
-            //if (count($allrequests) > 1000) {
-            //    return true;
-            //} else {
-            //    return false;
-            //}
+            $now = $this->lastrequest = time();
+            echo $now;
         }
         public function userid() {
             echo $this->loginid;

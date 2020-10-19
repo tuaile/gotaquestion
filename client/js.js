@@ -14,7 +14,7 @@ async function cq() {
     questiondetails.append('question', question.value);
     questiondetails.append('catagories', questioncatagorie.value);
     questiondetails.append('loginid', currentlloginid);
-    fetch('http://localhost/gotaquestion/api/api.php?action=createquestion', {
+    fetch('api/api.php?action=createquestion', {
         method: 'POST',
         body: questiondetails,
     })
@@ -33,7 +33,7 @@ async function cq() {
 function vq() {
     loadingmodal();
     var out = ''; 
-    fetch('http://localhost/gotaquestion/api/api.php?action=viewquestion', {
+    fetch('api/api.php?action=viewquestion', {
        method: 'GET',
     })
     .then(function(response) {
@@ -73,7 +73,7 @@ function eq(row) {
     window.questionrow = row.parentNode.parentNode.lastChild.innerHTML;
     var editquestionfd = new FormData();
     editquestionfd.append('questionid', questionrow);
-    fetch('http://localhost/gotaquestion/api/api.php?action=editquestion', {
+    fetch('api/api.php?action=editquestion', {
        method: 'POST',
        body: editquestionfd,
     })
@@ -99,7 +99,7 @@ function sq() {
     var editquestiondetails = new FormData();
     editquestiondetails.append('newquestion', editquestion.value);
     editquestiondetails.append('questionidentify', questionrows);
-    fetch('http://localhost/gotaquestion/api/api.php?action=savequestion', {
+    fetch('api/api.php?action=savequestion', {
        method: 'POST',
        body: editquestiondetails,
     })
@@ -119,7 +119,7 @@ function dq(row) {
     var questionidentify = row.parentNode.parentNode.lastChild.innerHTML;
     var deletequestionfd = new FormData();
     deletequestionfd.append('questionid', questionidentify);
-    fetch('http://localhost/gotaquestion/api/api.php?action=deletequestion', {
+    fetch('api/api.php?action=deletequestion', {
         method: 'POST',
         body: deletequestionfd,
     })
@@ -142,7 +142,7 @@ function login() {
     var logindetails = new FormData();
     logindetails.append('studentnumber', studentnumber.value);
     logindetails.append('password', password.value);
-    fetch('http://localhost/gotaquestion/api/api.php?action=login', {
+    fetch('api/api.php?action=login', {
         method: 'POST',
         body: logindetails,
         credentials: 'include',
@@ -154,7 +154,7 @@ function login() {
             var studentnumber = document.getElementById("studentnumber");
             var logindetails = new FormData();
             logindetails.append('numberofstudent', studentnumber.value);
-            fetch('http://localhost/gotaquestion/api/api.php?action=processlogin', {
+            fetch('api/api.php?action=processlogin', {
             method: 'POST',
             body: logindetails,
             })
@@ -162,7 +162,7 @@ function login() {
                 response.json().then(function(data) {
                     if (data.length == 0 ) {
                         errormessage("Error Something Went Wrong Please Login Again");
-                        fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
+                        fetch('api/api.php?action=logout', {
                         method: 'GET',
                         });
                     } else {
@@ -202,7 +202,7 @@ function login() {
         if (response.status == 409) {
             closeloadinglogin();
             errormessage("Already Logged In, Try Again");
-            fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
+            fetch('api/api.php?action=logout', {
             method: 'GET',
             });
         }
@@ -214,7 +214,7 @@ function login() {
 
 }
 function logout() {
-    fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
+    fetch('api/api.php?action=logout', {
         method: 'GET',
     })
     .then(function(response) {
@@ -245,7 +245,7 @@ async function vu() {
     var userloginid = await currentloginid();
     var currentuserid = new FormData();
     currentuserid.append('userloginid', userloginid);
-    fetch('http://localhost/gotaquestion/api/api.php?action=viewuser', {
+    fetch('api/api.php?action=viewuser', {
         method: 'POST',
         body: currentuserid,
     })
@@ -276,7 +276,7 @@ function su() {
     newuserdetails.append('studentnumber', studentnumber.value);
     newuserdetails.append('fullname', fullname.value);
     newuserdetails.append('password', password.value);
-    fetch('http://localhost/gotaquestion/api/api.php?action=saveuser', {
+    fetch('api/api.php?action=saveuser', {
         method: 'POST',
         body: newuserdetails,
     })
@@ -305,7 +305,7 @@ function su() {
     });
 }
 function loginstatus() {
-    fetch('http://localhost/gotaquestion/api/api.php?action=loginstatus', 
+    fetch('api/api.php?action=loginstatus', 
         {
             method: 'GET',
         }
@@ -346,7 +346,7 @@ function loginstatus() {
     });
 }
 function currentloginid() {
-    return fetch('http://localhost/gotaquestion/api/api.php?action=userid', {
+    return fetch('api/api.php?action=userid', {
        method: 'GET',
     })
     .then(function(response) {
