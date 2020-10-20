@@ -35,7 +35,12 @@ The application will be hosted on a domain that has hosting, the hardware requir
 
 **The software that will be used to create the mobile application will be:**
 Wamp – Create a virtual server, this will be used for the development environment.
+<br>
 Sublime Text – Text Editor, used to code the site.
-Semantic UI – Front End Framework, used to design the User Interface of the site
+<br>
+Semantic UI – Front End Framework, used to design the User Interface of the site.
+<br>
 React JS – Architectural Framework will be used for the admin panel.
+<br>
 Fetch API – Provides a way of fetching resources, this will be used for the mobile app to communicate with the database.
+<br>
