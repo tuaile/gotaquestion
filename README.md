@@ -15,7 +15,7 @@ Got A Question Repository
 -	Teachers can create student accounts & teacher accounts.
 <br>
 -	Accounts deleted will not be deleted it will be archived to ensure database integrity.
-\<br>
+<br>
 -	A maximum of 3 questions can be posted per day per user.
 <br>
 -	Duplicate questions from any user will not be posted.
