@@ -1,5 +1,4 @@
 # Got A Question
-Got A Question Repository
 
 **Got A Question, is a mobile app where students can, ask questions anywhere & anytime related to their subject and get a response in real time from their teachers.**
 
@@ -33,6 +32,7 @@ The mobile app is for students, who are looking to get answers, outside of class
 The application will be hosted on a domain that has hosting, the hardware requirements that will be needed to host the mobile application will be 2gb of RAM, more will be allocated if needed, 500mb storage space, more will be allocated if needed & 5gb of bandwidth more will be added if requirements change.
 
 <h1>Software Used</h1>
+
 **The software that will be used to create the mobile application will be:**
 Wamp – Create a virtual server, this will be used for the development environment.
 Sublime Text – Text Editor, used to code the site.
