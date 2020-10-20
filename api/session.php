@@ -80,15 +80,19 @@
             }
         }
         public function ratelimiteddailylimit() {
+            //Finds the last 24 hours in seconds.
             $this->last24hours = time()-86400;
+            //Adds the Epoch time from last request, to the All Requests array
             array_push($this->allrequests, $this->lastrequest);
-            print_r($this->allrequests);
+            //Loops through all items in array if the time is less than the last 24 hours, remove from array
             foreach($this->allrequests as $times) {
                 if ($times < $this->last24hours) {
-                    //Need to remove if over 24 hours
+                    $key = array_search($times, $this->allrequests);
+                    array_splice($this->allrequests, $key);
                 }
             }
-            if (count($this->allrequests) > 15) {
+            //After all requests are removed from array that are over 24 hours, count the array if over 1000, return true.
+            if (count($this->allrequests) > 1000) {
                 return true;
             } else {
                 return false;
