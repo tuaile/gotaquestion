@@ -45,4 +45,4 @@ React JS – Architectural Framework will be used for the admin panel.
 Fetch API – Provides a way of fetching resources, this will be used for the mobile app to communicate with the database.
 <br>
 
-**Whats Left!**
+<h1>What's Left</h1>
