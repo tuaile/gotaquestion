@@ -3,7 +3,7 @@
 **Got A Question, is a mobile app where students can, ask questions anywhere & anytime related to their subject and get a response in real time from their teachers.**
 
 <h1>Business Rules</h1>
-- Questions will be can only be archived after being answered.
+- Questions can't be deleted after being answered.
 <br>
 -	Login credentials will be assigned by the teacher.
 <br>
