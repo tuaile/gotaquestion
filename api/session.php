@@ -19,7 +19,7 @@
         }
         public function login($studentnumber, $password) {
             $conn = dbconnection();
-            $stmt = $conn->prepare("SELECT * FROM login WHERE studentnumber = :studentnumber");
+            $stmt = $conn->prepare("SELECT * FROM login WHERE studentnumber = :studentnumber AND status = 'active'");
             $stmt->bindParam(':studentnumber', $studentnumber);
             $stmt->execute();
             $row = $stmt->fetch();

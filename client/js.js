@@ -386,19 +386,6 @@ function successmessage(message) {
         successmessage.style.display = 'none';
     }, 7000)
 }
-function edituserstudentnumber() {
-    var data = document.getElementById("userstudentnumber");
-    var studentnumbererr = document.querySelector("#edituserstudentnumbererr");
-    var jsstudentnumber = document.querySelector("#jseditstudentnumberer");
-    if (data.value.length == 9 && data.value.match(/^[0-9]+$/)) {
-        data.style.border = "3px solid green";
-        studentnumbererr.style.display = "none";
-    } else {
-        data.style.border = "3px solid red";
-        studentnumbererr.style.display = "block";
-        jsstudentnumber.innerHTML = "Student Number Has To Be Nine Digits, And Only Be Numbers";
-    }
-}
 function edituservalidationpassword() {
     var data = document.getElementById("userpassword");
     var passworderr = document.querySelector("#edituserpassworderr");
