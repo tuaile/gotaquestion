@@ -52,6 +52,7 @@ Still in progress
 
 <h1>Login Details</h1>
 Student Number: 123456789
+<br>
 Password: 123456
 
 
