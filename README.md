@@ -48,3 +48,10 @@ Fetch API – Provides a way of fetching resources, this will be used for the mo
 <h1>Deployment</h1>
 
 Run Deploy.sh
+Still in progress
+
+<h1>Login Details</h1>
+Student Number: 123456789
+Password: 123456
+
+
