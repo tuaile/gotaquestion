@@ -49,7 +49,6 @@
 				echo $functions->viewq();
 				$action = "viewquestion";
 				$_SESSION['user_session']->log($action);
-				sleep(1);
 				http_response_code(202);
 				//Accepted
 			} else {
@@ -109,7 +108,7 @@
 						$studentnumber = isset($_POST['studentnumber']) ? $_POST['studentnumber'] : 0;
 						$password = isset($_POST['password']) ? $_POST['password'] : 0;
 						$response = $_SESSION['user_session']->login($studentnumber, $password);
-						sleep(1);
+	
 						if ($response == true) {
 							http_response_code(202);
 							//Accepted Successful Login
@@ -124,7 +123,6 @@
 				}
 			} else {
 				http_response_code(409);
-				sleep(1);
 				//Conflict Already Logged In
 			}
 		break;
@@ -141,7 +139,7 @@
 					$functions->createq($cqquestion, $cqcatagories, $cqloginid);
 					$action = "createquestion";
 					$_SESSION['user_session']->log($action);
-					sleep(1);
+
 					http_response_code(202);
 					//Accepted
 				}
@@ -214,6 +212,14 @@
 			}
 		break;
 
+		case "saveanswer":
+			if($_SESSION['user_session']->userloginstatus()) {
+				http_response_code(202);
+			} else {
+				http_response_code(401);
+			}
+		break;
+
 		case "deleteanswer":
 			if($_SESSION['user_session']->userloginstatus()) {
 				http_response_code(202);
@@ -230,6 +236,14 @@
 			}
 		break;
 		
+		case "saveuser":
+			if($_SESSION['user_session']->userloginstatus()) {
+				http_response_code(202);
+			} else {
+				http_response_code(401);
+			}
+		break;
+
 		case "saveuser":
 			if($_SESSION['user_session']->userloginstatus()) {
 				if ($_POST['studentnumber'] == "") {
@@ -277,7 +291,6 @@
 				$studentnumber = $_POST['numberofstudent'];
 				$_SESSION['user_session']->loginprocess($studentnumber);
 				echo $_SESSION['user_session']->loginprocess($studentnumber);
-				sleep(1);
 				http_response_code(202);
 			} else {
 				http_response_code(401);
@@ -286,8 +299,7 @@
 
 		case "userid":
 			if($_SESSION['user_session']->userloginstatus() == true) {
-				$_SESSION['user_session']->userid();
-				sleep(1);	
+				$_SESSION['user_session']->userid();	
 				http_response_code(202);
 			} else {
 				http_response_code(401);
