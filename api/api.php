@@ -10,12 +10,8 @@
 	//Object is created at the start
 	$functions = new gaqfunctions();
 
-	//Checks if referer is not set set value to 0;
-	if(!isset($_SERVER['HTTP_REFERER'])) {
-		$_SERVER['HTTP_REFERER'] = 0;
-	}
 	//Checks if referer is the one specified if not die.
-	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://172.30.211.5/") {
+	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://192.168.1.111/") {
 
 		} else {
 		http_response_code(502);
@@ -26,7 +22,6 @@
 	if(!isset($_SESSION['user_session'])) {
        $_SESSION['user_session'] = new gaqsession;
        http_response_code(501);
-       print_r($_SESSION);
        die();
     }
 
