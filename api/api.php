@@ -2,20 +2,32 @@
 	include 'database.php';
 	include 'session.php';
 
-	header('Access-Control-Allow-Origin: http://172.30.211.5');
+	//remove top 3 to work for localhost\
+	
+	//ini_set('session.cookie_secure', "1");
+    //ini_set('session.cookie_samesite', 'None');
+    header('Access-Control-Allow-Origin: http://localhost:3000');
+    header('Access-Control-Allow-Credentials: true');
 	header('Content-Type: application/json');
+	//ini_set('session.cookie_secure','On');
 	//Session starts at the start
 	session_start();
 
 	//Object is created at the start
 	$functions = new gaqfunctions();
-
+	if(!isset($_SERVER['HTTP_REFERER'])) {
+		$_SERVER['HTTP_REFERER'] = 0;
+	}
 	//Checks if referer is the one specified if not die.
-	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://192.168.1.111/") {
+	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://192.168.1.111/" || $_SERVER['HTTP_REFERER'] == "http://localhost:3000/" || $_SERVER['HTTP_REFERER'] == "http://localhost/testing/") {
 
 		} else {
 		http_response_code(502);
 		die();
+	}
+
+	if($_SERVER['HTTP_REFERER'] == "http://localhost:3000/") {
+		$_SESSION['user_session'] = new gaqsession;
 	}
 
 	//Checks if session is set, if not creates an new session.
@@ -51,6 +63,7 @@
 				//Unauthorised Access
 			}
 		break;
+
 		case "viewuser":
 			if($_SESSION['user_session']->userloginstatus()) {
 				$userloginid = $_POST['userloginid'];
@@ -231,7 +244,7 @@
 			}
 		break;
 		
-		case "saveuser":
+		case "edituser":
 			if($_SESSION['user_session']->userloginstatus()) {
 				http_response_code(202);
 			} else {
@@ -284,7 +297,6 @@
 		case "processlogin":
 			if($_SESSION['user_session']->userloginstatus() == false) {
 				$studentnumber = $_POST['numberofstudent'];
-				$_SESSION['user_session']->loginprocess($studentnumber);
 				echo $_SESSION['user_session']->loginprocess($studentnumber);
 				http_response_code(202);
 			} else {

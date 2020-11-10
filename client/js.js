@@ -5,6 +5,7 @@ window.onload = function() {
         currentcolor = localStorage.getItem('Secret');
         darkmode(); 
     }
+
 }
 async function cq() {
     var question = document.getElementById("question");
@@ -113,6 +114,7 @@ function sq() {
         }
         if (response.status == 202) {
             successmessage("Congrats, Question Edited");
+            fetch('api/api.php?action=viewquestion');
         }
     })
 }
@@ -416,7 +418,7 @@ function createquestionvalidation() {
     var data = document.getElementById("question");
     var createquestionerr = document.querySelector("#createquestionerr");
     var jscreatequestion = document.querySelector("#jscreatequestion");
-    if (data.value.length > 30) {
+    if (data.value.length > 29) {
         data.style.border = "3px solid green";
         createquestionerr.style.display = "none";
     } else {
@@ -429,7 +431,7 @@ function editquestionvalidation() {
     var data = document.getElementById("editquestion");
     var createquestionerr = document.querySelector("#editquestionerr");
     var jscreatequestion = document.querySelector("#jseditquestion");
-    if (data.value.length == 30) {
+    if (data.value.length > 29) {
         data.style.border = "3px solid green";
         createquestionerr.style.display = "none";
     } else {
