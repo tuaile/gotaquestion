@@ -26,10 +26,6 @@
 		die();
 	}
 
-	if($_SERVER['HTTP_REFERER'] == "http://localhost:3000/") {
-		$_SESSION['user_session'] = new gaqsession;
-	}
-
 	//Checks if session is set, if not creates an new session.
 	if(!isset($_SESSION['user_session'])) {
        $_SESSION['user_session'] = new gaqsession;
