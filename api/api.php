@@ -25,7 +25,6 @@
 		http_response_code(502);
 		die();
 	}
-
 	//Checks if session is set, if not creates an new session.
 	if(!isset($_SESSION['user_session'])) {
        $_SESSION['user_session'] = new gaqsession;
@@ -63,6 +62,7 @@
 		case "viewuser":
 			if($_SESSION['user_session']->userloginstatus()) {
 				$userloginid = $_POST['userloginid'];
+				//$userloginid = 2;
 				echo $functions->viewu($userloginid);
 				$action = "viewuser";
 				$_SESSION['user_session']->log($action);
@@ -277,14 +277,6 @@
 						}
 					}
 				}
-			} else {
-				http_response_code(401);
-			}
-		break;
-
-		case "deleteuser":
-			if($_SESSION['user_session']->userloginstatus()) {
-				http_response_code(202);
 			} else {
 				http_response_code(401);
 			}
