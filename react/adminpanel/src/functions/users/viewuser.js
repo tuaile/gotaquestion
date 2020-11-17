@@ -4,7 +4,6 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 export function ViewUser() {
   const [open, setOpen] = React.useState(false)
   const handleUser = () => {
-    //var userloginid = await currentloginid();
     var userloginid = 2;
     var currentuserid = new FormData();
     currentuserid.append('userloginid', userloginid);
