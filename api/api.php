@@ -62,7 +62,6 @@
 		case "viewuser":
 			if($_SESSION['user_session']->userloginstatus()) {
 				$userloginid = $_POST['userloginid'];
-				//$userloginid = 2;
 				echo $functions->viewu($userloginid);
 				$action = "viewuser";
 				$_SESSION['user_session']->log($action);

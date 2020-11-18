@@ -1,10 +1,11 @@
 import React from 'react'
 import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+import { currentloginid } from '../login/loginid.js';
 
 export function ViewUser() {
   const [open, setOpen] = React.useState(false)
-  const handleUser = () => {
-    var userloginid = 2;
+  async function handleUser() {
+    var userloginid = await currentloginid();
     var currentuserid = new FormData();
     currentuserid.append('userloginid', userloginid);
     fetch('http://localhost/gotaquestion/api/api.php?action=viewuser', {
@@ -12,9 +13,16 @@ export function ViewUser() {
         body: currentuserid,
         credentials: 'include'
     })
-    .then(function(data) {
-      console.log(data);
+    .then(function(response) {
+      response.json().then(function(data) {
+        data.forEach(row => {
+        document.getElementById("userstudentnumber").value = row.studentnumber;
+        document.getElementById("userfullname").value = row.fullname;
+        document.getElementById("userpassword").value = row.password;
+        })
+      })
     })
+    
     }
   return (
     <Modal
@@ -23,7 +31,7 @@ export function ViewUser() {
       onOpen={() => setOpen(true)}
       open={open}
       size='small'
-      trigger={<Button>View User</Button>}
+      trigger={<Button onClick={handleUser}>View User</Button>}
     >
       <Header icon>
         <Icon name='archive' />
@@ -46,7 +54,7 @@ export function ViewUser() {
         <Button basic color='red' inverted onClick={() => setOpen(false)}>
           <Icon name='remove' /> No
         </Button>
-        <Button color='green' inverted onClick={() => setOpen(false)} onClick={handleUser}>
+        <Button color='green' inverted onClick={() => setOpen(false)}>
           <Icon name='checkmark' /> Yes
         </Button>
       </Modal.Actions>
