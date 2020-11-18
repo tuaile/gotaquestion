@@ -5,4 +5,4 @@ export function loginstatus() {
             credentials: 'include'
         }
     	)
-  	}
+}

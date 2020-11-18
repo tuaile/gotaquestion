@@ -6,18 +6,9 @@ import { Logout } from './functions/login/logout.js';
 import { loginstatus } from './functions/login/loginstatus.js';
 import { currentloginid } from './functions/login/loginid.js';
 import { ViewUser } from './functions/users/viewuser.js';
+import { ViewQuestion } from './functions/question/viewquestion.js';
 
 function App() {
-  	const handleQuestion = () => {
-     var studentnumber = 470842368;
-        var logindetails = new FormData();
-        logindetails.append('numberofstudent', studentnumber);
-        fetch('http://localhost/gotaquestion/api/api.php?action=viewquestion', {
-          method: 'POST',
-          body: logindetails,
-          credentials: 'include'
-        })
-  	}
   useEffect(() => {
   	loginstatus();
   }, []);
@@ -27,8 +18,7 @@ function App() {
     <ViewUser />
     <Login />
     <Logout />
-    <button onClick={handleQuestion}>View Questions</button>
-    <button onClick={handleQuestion}>Testing</button>
+    <ViewQuestion />
     </>
   );
 }
