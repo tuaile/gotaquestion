@@ -6,7 +6,7 @@ import { Logout } from './functions/login/logout.js';
 import { loginstatus } from './functions/login/loginstatus.js';
 import { currentloginid } from './functions/login/loginid.js';
 import { ViewUser } from './functions/users/viewuser.js';
-import { ViewQuestion } from './functions/question/viewquestion.js';
+import { ViewQuestionComponent } from './functions/question/viewquestion.js';
 
 function App() {
   useEffect(() => {
@@ -18,7 +18,7 @@ function App() {
     <ViewUser />
     <Login />
     <Logout />
-    <ViewQuestion />
+    <ViewQuestionComponent />
     </>
   );
 }

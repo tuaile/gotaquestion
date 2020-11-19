@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Button } from 'semantic-ui-react';
 import { currentloginid } from '../login/loginid.js';
-//import { deletequestion } from '../question/deletequestion.js';
+import { deletequestion } from '../question/deletequestion.js';
 
 // App component just as an example
-export const ViewQuestion = () => {
+export const ViewQuestionComponent = () => {
   let [state, setState] = useState([]);
   const handleViewQuestion = async () => {
     try {      
@@ -22,48 +22,43 @@ export const ViewQuestion = () => {
     }
   }
 
-  const deleteQuestion = () => {
-    fetch('http://localhost/gotaquestion/api/api.php?action=deletequestion', 
-     {
-       method: 'GET',
-       credentials: 'include'
-     });
-   };
-
   return (
     <div>
       <ViewQuestion onClick={handleViewQuestion} />
       <div id="questions">
         <Table rows={state}>
-          <DeleteButton onClick={deleteQuestion} />
+          <DeleteButton onClick={deletequestion} />
         </Table>
       </div>
    </div>
   );
 };
 
-export function ViewQuestionButton({onClick}) {
+export function ViewQuestion({onClick}) {
     return (
         <Button onClick={onClick}>View Question</Button>
     );
 }
 
-export default ViewQuestionButton;
+export default ViewQuestion;
 
 const Table = ({rows, children}) => (
-  <>
-   { rows.map(row =>
-     <tr key={row.questionid}> // you must use an id for each child in a list
-      <td>{row.question}</td>
-      <td>{row.timestamp}</td>
-      <td>{row.catagories}</td>
-      <td>{(row.answer === null ? "Not Answered" : row.answer)}</td>
-      <td>{children}</td>
-     </tr>
-    )}
-  </>
+  <table className="ui single line table">
+    <tbody>
+     { rows.map(row =>
+       <tr key={row.questionid}>
+        <td>{row.question}</td>
+        <td>{row.timestamp}</td>
+        <td>{row.catagories}</td>
+        <td>{(row.answer === null ? "Not Answered" : row.answer)}</td>
+        <td>{children}</td>
+        <td>{row.questionid}</td>
+       </tr>
+      )}
+   </tbody>
+  </table>
 );
 
 const DeleteButton = ({onClick}) => (
-  <button className="ui negative basic button" onClick={onClick}>Delete Question</button>
+  <button className="ui negative basic button" onClick={onClick.bind(this)}>Delete Question</button>
 );
