@@ -201,6 +201,7 @@
 
 		case "createanswer":
 			if($_SESSION['user_session']->userloginstatus()) {
+				$functions->answerq();
 				http_response_code(202);
 			} else {
 				http_response_code(401);
@@ -209,6 +210,7 @@
 
 		case "editanswer":
 			if($_SESSION['user_session']->userloginstatus()) {
+				echo $functions->edita();
 				http_response_code(202);
 			} else {
 				http_response_code(401);

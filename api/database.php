@@ -57,6 +57,19 @@
 			return $jsonresult;
 		}
 		public function answerq() {
+			$conn = dbconnection();
+			try {
+				$conn->beginTransaction();
+				$stmt = $conn->prepare("UPDATE question SET answer = 'Wowwie' WHERE question.questionid = 3");
+
+				$stmt->execute();
+				$conn->commit();
+		
+				}
+				catch (PDOException $ex) {
+					$conn->rollBack();
+				throw $ex;
+				}
 			
 		}
 		public function deleteq($questionid) {
@@ -114,13 +127,43 @@
 				}
 		}
 		public function edita() {
-			
+			$conn = dbconnection();
+			try {
+				$conn->beginTransaction();
+				$stmt = $conn->prepare("SELECT answer FROM question WHERE questionid = 19");
+
+				$stmt->execute();
+				$results = $stmt->fetchAll();
+				$jsonresult = json_encode($results);
+				return $jsonresult;
+		
+				}
+				catch (PDOException $ex) {
+					$conn->rollBack();
+				throw $ex;
+				}
 		}
 		public function deletea() {
 			
 		}
 		public function createa() {
-			
+			$conn = dbconnection();
+			try {
+				$conn->beginTransaction();
+				$stmt = $conn->prepare("UPDATE question SET answer = :question WHERE question.questionid = :questionid");
+				$stmt->bindValue(':question', yeet);
+				$stmt->bindValue(':questionid', );
+
+				$stmt->execute();
+				$results = $stmt->fetchAll();
+				$jsonresult = json_encode($results);
+				return $jsonresult;
+		
+				}
+				catch (PDOException $ex) {
+					$conn->rollBack();
+				throw $ex;
+				}
 		}
 		public function deleteu() {
 			

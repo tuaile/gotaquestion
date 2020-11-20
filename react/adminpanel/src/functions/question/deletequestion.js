@@ -1,11 +1,10 @@
-export function deletequestion(row) {
-	console.log("Hi");
-	var questionid = row;
-	console.log(questionid);
-    fetch('http://localhost/gotaquestion/api/api.php?action=deletequestion', 
-        {
-            method: 'GET',
-            credentials: 'include'
-        }
-    	)
+export function deletequestion(questionid) {
+  var deletequestionfd = new FormData();
+  deletequestionfd.append('questionid', questionid);
+  fetch('http://localhost/gotaquestion/api/api.php?action=deletequestion', {
+      method: 'POST',
+      body: deletequestionfd,
+      credentials: 'include'
+  })
 }
+

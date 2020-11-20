@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Button } from 'semantic-ui-react';
 import { currentloginid } from '../login/loginid.js';
 import { deletequestion } from '../question/deletequestion.js';
+import { EditAnswer } from '../answer/editanswer.js';
 
-// App component just as an example
 export const ViewQuestionComponent = () => {
   let [state, setState] = useState([]);
   const handleViewQuestion = async () => {
@@ -15,7 +15,6 @@ export const ViewQuestionComponent = () => {
 
       const data = await response.json();
       const result = await data;
-      // const id = await currentloginid(); // I didn't see where you use this id
       setState(data);
     } catch (e) {
       console.log(e);
@@ -42,23 +41,28 @@ export function ViewQuestion({onClick}) {
 
 export default ViewQuestion;
 
-const Table = ({rows, children}) => (
+const Table = ({ rows, setIdTobeDeleted, children }) => (
   <table className="ui single line table">
     <tbody>
-     { rows.map(row =>
-       <tr key={row.questionid}>
-        <td>{row.question}</td>
-        <td>{row.timestamp}</td>
-        <td>{row.catagories}</td>
-        <td>{(row.answer === null ? "Not Answered" : row.answer)}</td>
-        <td>{children}</td>
-        <td>{row.questionid}</td>
-       </tr>
-      )}
-   </tbody>
+      {rows.map((row) => (
+        <tr key={row.questionid}>
+          <td>{row.question}</td>
+          <td>{row.timestamp}</td>
+          <td>{row.catagories}</td>
+          <td>{row.answer === null ? "Not Answered" : row.answer}</td>
+          <td>
+            {React.cloneElement(children, { questionid: row.questionid })}
+          </td>
+          <td>{row.questionid}</td>
+        </tr>
+      ))}
+    </tbody>
   </table>
 );
 
-const DeleteButton = ({onClick}) => (
-  <button className="ui negative basic button" onClick={onClick.bind(this)}>Delete Question</button>
+const DeleteButton = ({ questionid, onClick }) => (
+  <button
+    className="ui negative basic button"
+    onClick={() => onClick(questionid)}
+  >Delete Question</button>
 );

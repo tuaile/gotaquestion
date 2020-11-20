@@ -5,7 +5,6 @@ window.onload = function() {
         currentcolor = localStorage.getItem('Secret');
         darkmode(); 
     }
-
 }
 async function cq() {
     var question = document.getElementById("question");
