@@ -126,23 +126,6 @@
 				throw $ex;
 				}
 		}
-		public function edita() {
-			$conn = dbconnection();
-			try {
-				$conn->beginTransaction();
-				$stmt = $conn->prepare("SELECT answer FROM question WHERE questionid = 19");
-
-				$stmt->execute();
-				$results = $stmt->fetchAll();
-				$jsonresult = json_encode($results);
-				return $jsonresult;
-		
-				}
-				catch (PDOException $ex) {
-					$conn->rollBack();
-				throw $ex;
-				}
-		}
 		public function deletea() {
 			
 		}

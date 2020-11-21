@@ -208,15 +208,6 @@
 			}
 		break;
 
-		case "editanswer":
-			if($_SESSION['user_session']->userloginstatus()) {
-				echo $functions->edita();
-				http_response_code(202);
-			} else {
-				http_response_code(401);
-			}
-		break;
-
 		case "saveanswer":
 			if($_SESSION['user_session']->userloginstatus()) {
 				http_response_code(202);
