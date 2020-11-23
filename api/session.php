@@ -19,7 +19,7 @@
         }
         public function login($studentnumber, $password) {
             $conn = dbconnection();
-            $stmt = $conn->prepare("SELECT * FROM login WHERE studentnumber = :studentnumber");
+            $stmt = $conn->prepare("SELECT * FROM login WHERE studentnumber = :studentnumber AND status = 'active'");
             $stmt->bindParam(':studentnumber', $studentnumber);
             $stmt->execute();
             $row = $stmt->fetch();
@@ -73,7 +73,8 @@
             if($this->lastrequest == time()) {
                 //If the last request is the current time, then the user is then rate limited.
                 $this->lastrequest = time();
-                return true;
+                //return true;
+                return false;
             } else {
                 $this->lastrequest = time();
             return false;
@@ -92,7 +93,7 @@
                 }
             }
             //After all requests are removed from array that are over 24 hours, count the array if over 1000, return true.
-            if (count($this->allrequests) > 1000) {
+            if (count($this->allrequests) > 999) {
                 return true;
             } else {
                 return false;

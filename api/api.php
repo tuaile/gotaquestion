@@ -2,31 +2,33 @@
 	include 'database.php';
 	include 'session.php';
 
-	header('Access-Control-Allow-Origin: http://172.30.211.5');
+	//remove top 3 to work for localhost\
+	
+	//ini_set('session.cookie_secure', "1");
+    //ini_set('session.cookie_samesite', 'None');
+    header('Access-Control-Allow-Origin: http://localhost:3000');
+    header('Access-Control-Allow-Credentials: true');
 	header('Content-Type: application/json');
+	//ini_set('session.cookie_secure','On');
 	//Session starts at the start
 	session_start();
 
 	//Object is created at the start
 	$functions = new gaqfunctions();
-
-	//Checks if referer is not set set value to 0;
 	if(!isset($_SERVER['HTTP_REFERER'])) {
 		$_SERVER['HTTP_REFERER'] = 0;
 	}
 	//Checks if referer is the one specified if not die.
-	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://172.30.211.5/") {
+	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://192.168.1.111/" || $_SERVER['HTTP_REFERER'] == "http://localhost:3000/" || $_SERVER['HTTP_REFERER'] == "http://localhost/testing/") {
 
 		} else {
 		http_response_code(502);
 		die();
 	}
-
 	//Checks if session is set, if not creates an new session.
 	if(!isset($_SESSION['user_session'])) {
        $_SESSION['user_session'] = new gaqsession;
        http_response_code(501);
-       print_r($_SESSION);
        die();
     }
 
@@ -49,7 +51,6 @@
 				echo $functions->viewq();
 				$action = "viewquestion";
 				$_SESSION['user_session']->log($action);
-				sleep(1);
 				http_response_code(202);
 				//Accepted
 			} else {
@@ -57,6 +58,7 @@
 				//Unauthorised Access
 			}
 		break;
+
 		case "viewuser":
 			if($_SESSION['user_session']->userloginstatus()) {
 				$userloginid = $_POST['userloginid'];
@@ -109,7 +111,7 @@
 						$studentnumber = isset($_POST['studentnumber']) ? $_POST['studentnumber'] : 0;
 						$password = isset($_POST['password']) ? $_POST['password'] : 0;
 						$response = $_SESSION['user_session']->login($studentnumber, $password);
-						sleep(1);
+	
 						if ($response == true) {
 							http_response_code(202);
 							//Accepted Successful Login
@@ -124,7 +126,6 @@
 				}
 			} else {
 				http_response_code(409);
-				sleep(1);
 				//Conflict Already Logged In
 			}
 		break;
@@ -141,7 +142,7 @@
 					$functions->createq($cqquestion, $cqcatagories, $cqloginid);
 					$action = "createquestion";
 					$_SESSION['user_session']->log($action);
-					sleep(1);
+
 					http_response_code(202);
 					//Accepted
 				}
@@ -200,13 +201,14 @@
 
 		case "createanswer":
 			if($_SESSION['user_session']->userloginstatus()) {
+				$functions->answerq();
 				http_response_code(202);
 			} else {
 				http_response_code(401);
 			}
 		break;
 
-		case "editanswer":
+		case "saveanswer":
 			if($_SESSION['user_session']->userloginstatus()) {
 				http_response_code(202);
 			} else {
@@ -230,6 +232,14 @@
 			}
 		break;
 		
+		case "edituser":
+			if($_SESSION['user_session']->userloginstatus()) {
+				http_response_code(202);
+			} else {
+				http_response_code(401);
+			}
+		break;
+
 		case "saveuser":
 			if($_SESSION['user_session']->userloginstatus()) {
 				if ($_POST['studentnumber'] == "") {
@@ -264,20 +274,10 @@
 			}
 		break;
 
-		case "deleteuser":
-			if($_SESSION['user_session']->userloginstatus()) {
-				http_response_code(202);
-			} else {
-				http_response_code(401);
-			}
-		break;
-
 		case "processlogin":
 			if($_SESSION['user_session']->userloginstatus() == false) {
 				$studentnumber = $_POST['numberofstudent'];
-				$_SESSION['user_session']->loginprocess($studentnumber);
 				echo $_SESSION['user_session']->loginprocess($studentnumber);
-				sleep(1);
 				http_response_code(202);
 			} else {
 				http_response_code(401);
@@ -286,8 +286,7 @@
 
 		case "userid":
 			if($_SESSION['user_session']->userloginstatus() == true) {
-				$_SESSION['user_session']->userid();
-				sleep(1);	
+				$_SESSION['user_session']->userid();	
 				http_response_code(202);
 			} else {
 				http_response_code(401);

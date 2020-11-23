@@ -113,6 +113,7 @@ function sq() {
         }
         if (response.status == 202) {
             successmessage("Congrats, Question Edited");
+            fetch('api/api.php?action=viewquestion');
         }
     })
 }
@@ -386,19 +387,6 @@ function successmessage(message) {
         successmessage.style.display = 'none';
     }, 7000)
 }
-function edituserstudentnumber() {
-    var data = document.getElementById("userstudentnumber");
-    var studentnumbererr = document.querySelector("#edituserstudentnumbererr");
-    var jsstudentnumber = document.querySelector("#jseditstudentnumberer");
-    if (data.value.length == 9 && data.value.match(/^[0-9]+$/)) {
-        data.style.border = "3px solid green";
-        studentnumbererr.style.display = "none";
-    } else {
-        data.style.border = "3px solid red";
-        studentnumbererr.style.display = "block";
-        jsstudentnumber.innerHTML = "Student Number Has To Be Nine Digits, And Only Be Numbers";
-    }
-}
 function edituservalidationpassword() {
     var data = document.getElementById("userpassword");
     var passworderr = document.querySelector("#edituserpassworderr");
@@ -429,7 +417,7 @@ function createquestionvalidation() {
     var data = document.getElementById("question");
     var createquestionerr = document.querySelector("#createquestionerr");
     var jscreatequestion = document.querySelector("#jscreatequestion");
-    if (data.value.length > 30) {
+    if (data.value.length > 29) {
         data.style.border = "3px solid green";
         createquestionerr.style.display = "none";
     } else {
@@ -442,7 +430,7 @@ function editquestionvalidation() {
     var data = document.getElementById("editquestion");
     var createquestionerr = document.querySelector("#editquestionerr");
     var jscreatequestion = document.querySelector("#jseditquestion");
-    if (data.value.length == 30) {
+    if (data.value.length > 29) {
         data.style.border = "3px solid green";
         createquestionerr.style.display = "none";
     } else {
