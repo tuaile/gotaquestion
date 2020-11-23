@@ -1,6 +1,7 @@
 #run this in gitbash in windows
-# create database
-# import schema
+mysql -u root -e 'drop database gotaquestion'
+mysql -u root -e 'create database gotaquestion'
+mysql -u root gotaquestinon < gotaquestion.sql 
 
 #server
-php -S localhost:8080
+php -S localhost:8888
