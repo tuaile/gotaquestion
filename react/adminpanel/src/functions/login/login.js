@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+import { Message, Button, Header, Icon, Modal } from 'semantic-ui-react'
 
 export function Login() {
 	const handleLogin = () => {
@@ -23,6 +23,16 @@ export function Login() {
             body: logindetails,
             credentials: 'include'
           })
+          setOpen(false);
+        }
+        if (response.status == 410) {
+          document.getElementById("loginmessage").innerHTML = "Please Fill All Fields";
+        }
+        if (response.status == 404) {
+          document.getElementById("loginmessage").innerHTML = "Invalid Username Or Password";
+        }
+        if (response.status == 409) {
+          document.getElementById("loginmessage").innerHTML = "Already Logged In, Try Again";
         }
       })
   }
@@ -49,12 +59,15 @@ export function Login() {
 				<div className="ui fluid input">
 					<input type="text" id="password" placeholder="Password"/> 
 				</div>
+        <Message warning>
+          <p id="loginmessage">Please Login</p>
+        </Message>
       </Modal.Content>
       <Modal.Actions>
         <Button basic color='red' inverted onClick={() => setOpen(false)}>
           <Icon name='remove' /> No
         </Button>
-        <Button color='green' inverted onClick={() => setOpen(false)} onClick={handleLogin}>
+        <Button color='green' inverted onClick={handleLogin}>
           <Icon name='checkmark' /> Yes
         </Button>
       </Modal.Actions>

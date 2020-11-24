@@ -56,11 +56,13 @@
 			$jsonresult = json_encode($results);
 			return $jsonresult;
 		}
-		public function answerq() {
+		public function answerq($questionid, $newanswer) {
 			$conn = dbconnection();
 			try {
 				$conn->beginTransaction();
-				$stmt = $conn->prepare("UPDATE question SET answer = 'Wowwie' WHERE question.questionid = 3");
+				$stmt = $conn->prepare("UPDATE question SET answer = :newanswer WHERE question.questionid = :questionid");
+				$stmt->bindValue(':questionid', $questionid);
+				$stmt->bindValue(':newanswer', $newanswer);
 
 				$stmt->execute();
 				$conn->commit();
@@ -126,9 +128,6 @@
 				throw $ex;
 				}
 		}
-		public function deletea() {
-			
-		}
 		public function createa() {
 			$conn = dbconnection();
 			try {
@@ -148,17 +147,16 @@
 				throw $ex;
 				}
 		}
-		public function deleteu() {
-			
-		}
-		public function saveu($studentnumber, $fullname, $password) {
+		public function saveu($studentnumber, $fullname, $password, $loginid) {
 			$conn = dbconnection();
 			try {
 				$conn->beginTransaction();
-				$stmt = $conn->prepare("UPDATE login SET studentnumber=:studentnumber, fullname=:fullname, password=:password WHERE loginid = 1");
+				$stmt = $conn->prepare("UPDATE login SET studentnumber=:studentnumber, fullname=:fullname, password=:password WHERE loginid = :loginid");
+				$hashedpassword = password_hash($password, PASSWORD_DEFAULT);
 				$stmt->bindValue(':studentnumber', $studentnumber);
 				$stmt->bindValue(':fullname', $fullname);
-				$stmt->bindValue(':password', $password);
+				$stmt->bindValue(':password', $hashedpassword);
+				$stmt->bindValue(':loginid', $loginid);
 
 				$stmt->execute();
 				$conn->commit();
@@ -178,11 +176,30 @@
 			$jsonresult = json_encode($results);
 			return $jsonresult;
 		}
-		public function viewallu() {
-			
+		public function createu($username, $password, $fullname) {
+			$conn = dbconnection();
+			$stmt = $conn->prepare("INSERT INTO login(studentnumber, fullname, password, status) VALUES (:studentnumber, :fullname, :password, 'active')");
+			$stmt->bindValue(':studentnumber', $studentnumber);
+			$stmt->bindValue(':fullname', $fullname);
+			$stmt->bindValue(':password', $password);
+			$stmt->execute();
 		}
-		public function checklogin() {
+		public function viewallu() {
+		$conn = dbconnection();
+			try {
+				$conn->beginTransaction();
+				$stmt = $conn->prepare("SELECT * FROM login WHERE status = 'active'");
 
+				$stmt->execute();
+				$results = $stmt->fetchAll();
+				$jsonresult = json_encode($results);
+				return $jsonresult;
+		
+				}
+				catch (PDOException $ex) {
+					$conn->rollBack();
+				throw $ex;
+				}
 		}
 		public function userdetails($studentnumber) {
 			$conn = dbconnection();

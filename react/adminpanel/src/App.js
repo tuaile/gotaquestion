@@ -6,20 +6,33 @@ import { Logout } from './functions/login/logout.js';
 import { loginstatus } from './functions/login/loginstatus.js';
 import { currentloginid } from './functions/login/loginid.js';
 import { ViewUser } from './functions/users/viewuser.js';
+import { CreateUser } from './functions/users/createuser.js';
+import { ViewAllUsersComponent } from './functions/users/viewallusers.js';
 import { ViewQuestionComponent } from './functions/question/viewquestion.js';
 
+function Process() {
+  if (localStorage.getItem("Status") == "NLI") {
+    return <Login />;
+  } else {
+  return (
+    <>
+    <ViewUser />
+    <Logout />
+    <CreateUser/>
+    <ViewAllUsersComponent />
+    <ViewQuestionComponent />
+    </>
+    );
+  }
+}
 function App() {
   useEffect(() => {
-  	loginstatus();
+    loginstatus();
+    Process();
   }, []);
 
   return (
-  	<>
-    <ViewUser />
-    <Login />
-    <Logout />
-    <ViewQuestionComponent />
-    </>
+  	<Process />
   );
 }
 

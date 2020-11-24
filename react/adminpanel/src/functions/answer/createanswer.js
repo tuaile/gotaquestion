@@ -1,11 +1,12 @@
- export function createanswer(questionid) {
+export function createanswer(questionid,newanswer) {
+ 	console.log(questionid);
+ 	console.log(newanswer);
    var editquestionfd = new FormData();
    editquestionfd.append('questionid', questionid);
-   fetch('http://localhost/gotaquestion/api/api.php?action=editquestion', {
+   editquestionfd.append('newanswer', newanswer);
+   fetch('http://localhost/gotaquestion/api/api.php?action=createanswer', {
      method: 'POST',
      body: editquestionfd,
      credentials: 'include'
     })
-   .then(response => response.json())
-   .then(data => console.log(data));
  }

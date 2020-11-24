@@ -75,6 +75,7 @@
 
 		case "viewallusers":
 			if($_SESSION['user_session']->userloginstatus()) {
+				echo $functions->viewallu();
 				http_response_code(202);
 				//Accepted
 			} else {
@@ -201,23 +202,9 @@
 
 		case "createanswer":
 			if($_SESSION['user_session']->userloginstatus()) {
-				$functions->answerq();
-				http_response_code(202);
-			} else {
-				http_response_code(401);
-			}
-		break;
-
-		case "saveanswer":
-			if($_SESSION['user_session']->userloginstatus()) {
-				http_response_code(202);
-			} else {
-				http_response_code(401);
-			}
-		break;
-
-		case "deleteanswer":
-			if($_SESSION['user_session']->userloginstatus()) {
+				$questionid = $_POST['questionid'];
+				$newanswer = $_POST['newanswer'];
+				$functions->answerq($questionid, $newanswer);
 				http_response_code(202);
 			} else {
 				http_response_code(401);
@@ -226,14 +213,13 @@
 
 		case "createuser":
 			if($_SESSION['user_session']->userloginstatus()) {
-				http_response_code(202);
-			} else {
-				http_response_code(401);
-			}
-		break;
-		
-		case "edituser":
-			if($_SESSION['user_session']->userloginstatus()) {
+				// $username = $_POST['username'];
+				// $password = $_POST['password'];
+				// $fullname = $_POST['fullname'];
+				$username = 1;
+				$password = 2;
+				$fullname = 4;
+				$functions->createu($username, $password, $fullname);
 				http_response_code(202);
 			} else {
 				http_response_code(401);
@@ -258,7 +244,8 @@
 									$studentnumber = $_POST['studentnumber'];
 									$fullname = $_POST['fullname'];
 									$password = $_POST['password'];
-									$functions->saveu($studentnumber, $fullname, $password);
+									$loginid = $_POST['loginid'];
+									$functions->saveu($studentnumber, $fullname, $password, $loginid);
 									$action = "edituserdetails";
 									$_SESSION['user_session']->log($action);
 									http_response_code(202);

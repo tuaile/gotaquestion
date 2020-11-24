@@ -26,6 +26,7 @@ export const ViewQuestionComponent = () => {
     <div>
       <ViewQuestion onClick={handleViewQuestion} />
       <div id="questions">
+        <input id="nq" placeholder="Create New Answer Here"></input>
         <Table rows={state}>
           <DeleteButton onClick={deletequestion} />
           <CreateNewAnswerButton onClick={createanswer} />
@@ -57,7 +58,7 @@ const Table = ({ rows, setIdTobeDeleted, children }) => (
             {React.cloneElement(children[0], { questionid: row.questionid })}
           </td>
           <td>
-            {React.cloneElement(children[1], { questionid: row.questionid })}
+            {React.cloneElement(children[1], { newanswer: document.getElementById("nq").value, questionid: row.questionid })}
           </td>
           <td>
             {React.cloneElement(children[2], { questionid: row.questionid })}
@@ -69,10 +70,10 @@ const Table = ({ rows, setIdTobeDeleted, children }) => (
   </table>
 );
 
-const CreateNewAnswerButton = ({ questionid, onClick }) => (
+const CreateNewAnswerButton = ({ questionid, newanswer, onClick }) => (
   <button
     className="ui negative basic button"
-    onClick={() => onClick(questionid)}
+    onClick={() => onClick(questionid, newanswer)}
   >Create New Answer</button>
 );
 

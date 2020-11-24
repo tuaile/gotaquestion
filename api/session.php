@@ -26,11 +26,10 @@
             if (empty($password)){
                 return false;
             }
-            if ($password != $row['password']){
-                return false;
-            }
-            if ($password == $row['password']) {
+            if (password_verify($password, $row['password'])) {
                 return true;
+            } else {
+                return false;
             }
         }
         public function log($action) {

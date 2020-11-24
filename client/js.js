@@ -270,7 +270,8 @@ async function vu() {
         })
     }); 
 }
-function su() {
+async function su() {
+    currentloginid = await currentloginid();
     var studentnumber = document.getElementById("userstudentnumber");
     var fullname = document.getElementById("userfullname");
     var password = document.getElementById("userpassword");
@@ -278,6 +279,7 @@ function su() {
     newuserdetails.append('studentnumber', studentnumber.value);
     newuserdetails.append('fullname', fullname.value);
     newuserdetails.append('password', password.value);
+    newuserdetails.append('loginid', currentloginid);
     fetch('api/api.php?action=saveuser', {
         method: 'POST',
         body: newuserdetails,
