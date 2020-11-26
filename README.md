@@ -48,18 +48,25 @@ Fetch API – Provides a way of fetching resources, this will be used for the mo
 <h1>Technologies Used</h1>
 
 Chrome - Version 87.0.4280.66
+View Polished Product
 <br>
 React - Version 17.0.1
+Used in Admin Panel
 <br>
 Semantic UI - Version 2.4
+Used in Admin Panel & Mobile App
 <br>
 Wampserver - Version 3.0
+Compile Mobile App In Development Server
 <br>
 Npm - Version 6.x
+Compile Admin Panel In Development Server & Install Packages
 <br>
 Font Awesome - Version 5.15.1
+Used in Mobile App
 <br>
 Styled Components - Version 5.2.1
+Used in Admin Panel
 
 <h1>Deployment</h1>
 
