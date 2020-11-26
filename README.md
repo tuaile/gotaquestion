@@ -48,11 +48,17 @@ Fetch API – Provides a way of fetching resources, this will be used for the mo
 <h1>Technologies Used</h1>
 
 Chrome - Version 87.0.4280.66
+<br>
 React - Version 17.0.1
+<br>
 Semantic UI - Version 2.4
+<br>
 Wampserver - Version 3.0
+<br>
 Npm - Version 6.x
+<br>
 Font Awesome - Version 5.15.1
+<br>
 Styled Components - Version 5.2.1
 
 <h1>Deployment</h1>
