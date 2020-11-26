@@ -45,6 +45,16 @@ React JS – Architectural Framework will be used for the admin panel.
 Fetch API – Provides a way of fetching resources, this will be used for the mobile app to communicate with the database.
 <br>
 
+<h1>Technologies Used</h1>
+
+Chrome - Version 87.0.4280.66
+React - Version 17.0.1
+Semantic UI - Version 2.4
+Wampserver - Version 3.0
+Npm - Version 6.x
+Font Awesome - Version 5.15.1
+Styled Components - Version 5.2.1
+
 <h1>Deployment</h1>
 
 Run Deploy.sh
