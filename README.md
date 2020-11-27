@@ -81,6 +81,9 @@ Styled Components - Version 5.2.1
 <br>
 Used in Admin Panel
 
+<h1>Technical Implementation</h1>
+The application will be deployed on server, where the infrastructure will be set-up & deployed, all dependices will be included with the application, both the admin panel and website will be deployed on the same server
+
 <h1>Deployment</h1>
 
 Run Deploy.sh
