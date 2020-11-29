@@ -7,4 +7,11 @@ export function deleteanswer(questionid) {
      body: editquestionfd,
      credentials: 'include'
     })
+   .then(function(response) {
+   	if (response.status == 202) {
+   		alert("Success Answer Deleted");
+   	} else {
+      alert("Something Went Wrong Try Again");
+    }
+   })
  }

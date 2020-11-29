@@ -1,20 +1,39 @@
 import React from 'react'
-import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+import { Message, Dropdown, Button, Header, Icon, Modal } from 'semantic-ui-react'
 
 export function CreateUser() {
+  const buttonStyle = {
+  backgroundColor: '#FCD667',
+  };
   const [open, setOpen] = React.useState(false)
   function handleUser() {
     var studentnumber = document.getElementById("userstudentnumber").value;
     var fullname = document.getElementById("userfullname").value;
     var password = document.getElementById("userpassword").value;
+    var role = document.getElementById("role").value;
     var currentuserid = new FormData();
     currentuserid.append('studentnumber', studentnumber);
     currentuserid.append('fullname', fullname);
     currentuserid.append('password', password);
+    currentuserid.append('role', role);
     fetch('http://localhost/gotaquestion/api/api.php?action=createuser', {
         method: 'POST',
         body: currentuserid,
         credentials: 'include'
+    })
+    .then(function(response) {
+      if(response.status === 202) {
+        setOpen(false)
+      }
+      if(response.status === 411) {
+        document.getElementById("createusermessage").innerHTML = "All Fields Have To Be Filled";
+      }
+      if(response.status === 400) {
+        document.getElementById("createusermessage").innerHTML = "Student Number Has To Be Numeric";
+      }
+      if(response.status === 416) {
+        document.getElementById("createusermessage").innerHTML = "Your Full Name Can't Be Numeric";
+      }
     })
     }
   return (
@@ -24,24 +43,32 @@ export function CreateUser() {
       onOpen={() => setOpen(true)}
       open={open}
       size='small'
-      trigger={<Button>Create Account</Button>}
+      trigger={<Button style={buttonStyle} >Create Account</Button>}
     >
       <Header icon>
-        <Icon name='archive' />
-        Your Details
+        <Icon name='user plus' />
+        Create Account
       </Header>
       <Modal.Content>
         <div className="ui fluid input">
-          <input type="text" id="userstudentnumber" placeholder="Loading..." />
+          <input id="studentnumber" type="text" id="userstudentnumber" placeholder="Student Number" />
         </div>
       <br />
         <div className="ui fluid input">
-          <input type="text" id="userfullname" placeholder="Loading..." />
+          <input id="fullname" type="text" id="userfullname" placeholder="Full Name" />
         </div>
       <br />
       <div className="ui fluid input">
-        <input type="text" id="userpassword" placeholder="Loading..." />
+        <input type="text" id="userpassword" placeholder="Password" />
       </div>
+      <br/>
+      <select id="role" className="ui fluid search dropdown" multiple="">
+        <option value="student">Student</option>
+        <option value="teacher">Teacher</option>
+      </select>
+      <Message warning>
+          <p id="createusermessage">Create Your Account Above</p>
+      </Message>
       </Modal.Content>
       <Modal.Actions>
         <Button basic color='red' inverted onClick={() => setOpen(false)}>

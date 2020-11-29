@@ -1,5 +1,4 @@
 export function deletequestion(questionid) {
-	console.log(questionid);
   var deletequestionfd = new FormData();
   deletequestionfd.append('questionid', questionid);
   fetch('http://localhost/gotaquestion/api/api.php?action=deletequestion', {
@@ -7,5 +6,12 @@ export function deletequestion(questionid) {
       body: deletequestionfd,
       credentials: 'include'
   })
+  .then(async function(response) {
+      if(response.status === 202) {
+        alert("Success Question Deleted");
+      } else {
+        alert("Something Went Wrong Try Again");
+      }
+    })
 }
 

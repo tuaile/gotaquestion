@@ -23,19 +23,20 @@ export const ViewAllUsersComponent = () => {
   }
 
   return (
-    <div>
+    <>
       <ViewQuestion onClick={handleViewQuestion} />
-      <div id="questions">
-        <Table rows={state}>
-        </Table>
-      </div>
-   </div>
+      <Table rows={state}>
+      </Table>
+   </>
   );
 };
 
 export function ViewQuestion({onClick}) {
+  const buttonStyle = {
+  backgroundColor: '#FCD667',
+  };
     return (
-        <Button onClick={onClick}>View All Users</Button>
+        <Button style={buttonStyle} onClick={onClick}>View All Users</Button>
     );
 }
 

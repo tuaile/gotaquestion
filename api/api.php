@@ -8,7 +8,7 @@
     //ini_set('session.cookie_samesite', 'None');
     header('Access-Control-Allow-Origin: http://localhost:3000');
     header('Access-Control-Allow-Credentials: true');
-	header('Content-Type: application/json');
+	//header('Content-Type: application/json');
 	//ini_set('session.cookie_secure','On');
 	//Session starts at the start
 	session_start();
@@ -24,6 +24,11 @@
 		} else {
 		http_response_code(502);
 		die();
+	}
+	//Ip whitelist
+	if ($_SERVER['REMOTE_ADDR'] != "[::1]:80") {
+		http_response_code(501);
+
 	}
 	//Checks if session is set, if not creates an new session.
 	if(!isset($_SESSION['user_session'])) {
@@ -131,6 +136,35 @@
 			}
 		break;
 
+		case "adminlogin":
+			if($_SESSION['user_session']->userloginstatus() == false) {
+				if (strlen($_POST['studentnumber']) == 0 && strlen($_POST['password'] == 0)) {
+					http_response_code(410);
+					//No Student Number And Or Password
+				} else {
+					if (is_numeric($_POST['studentnumber'])){
+						$studentnumber = isset($_POST['studentnumber']) ? $_POST['studentnumber'] : 0;
+						$password = isset($_POST['password']) ? $_POST['password'] : 0;
+						$response = $_SESSION['user_session']->adminlogin($studentnumber, $password);
+	
+						if ($response == true) {
+							http_response_code(202);
+							//Accepted Successful Login
+						} else {
+							http_response_code(404);
+							//Invalid Login Details
+						}
+					} else {
+						http_response_code(404);
+						//Invalid Login Details
+					}
+				}
+			} else {
+				http_response_code(409);
+				//Conflict Already Logged In
+			}
+		break;
+
 		case "createquestion":
 			if($_SESSION['user_session']->userloginstatus()) {
 				if ($_POST['question'] == "") {
@@ -213,14 +247,20 @@
 
 		case "createuser":
 			if($_SESSION['user_session']->userloginstatus()) {
-				// $username = $_POST['username'];
-				// $password = $_POST['password'];
-				// $fullname = $_POST['fullname'];
-				$username = 1;
-				$password = 2;
-				$fullname = 4;
-				$functions->createu($username, $password, $fullname);
-				http_response_code(202);
+				if ($_POST['studentnumber'] == "" || $_POST['password'] == "" || $_POST['fullname'] == "") {
+					http_response_code(411);
+				} else {
+					if (is_numeric($_POST['fullname'])) {
+						http_response_code(416);
+					} else {
+						$studentnumber = $_POST['studentnumber'];
+				 		$password = $_POST['password'];
+				 		$fullname = $_POST['fullname'];
+				 		$role = $_POST['role'];
+						$functions->createu($studentnumber, $password, $fullname, $role);
+						http_response_code(202);
+					}
+				}
 			} else {
 				http_response_code(401);
 			}

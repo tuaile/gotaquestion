@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
-import { Button } from 'semantic-ui-react';
-import { currentloginid } from '../login/loginid.js';
+import React, { useEffect, useState } from 'react';
+import { Icon } from 'semantic-ui-react';
 import { deletequestion } from '../question/deletequestion.js';
 import { createanswer } from '../answer/createanswer.js';
-import {deleteanswer } from '../answer/deleteanswer.js';
+import { deleteanswer } from '../answer/deleteanswer.js';
 
 export const ViewQuestionComponent = () => {
+  const answersBox = {
+      marginLeft: '41vw',
+    };
   let [state, setState] = useState([]);
+  useEffect(() => {
+  handleViewQuestion();
+  }, []);
   const handleViewQuestion = async () => {
     try {      
       const response = await fetch('http://localhost/gotaquestion/api/api.php?action=viewquestion', {
@@ -16,30 +21,37 @@ export const ViewQuestionComponent = () => {
 
       const data = await response.json();
       const result = await data;
-      setState(data);
+      setState(result);
     } catch (e) {
       console.log(e);
     }
   }
 
   return (
-    <div>
+    <>
       <ViewQuestion onClick={handleViewQuestion} />
       <div id="questions">
-        <input id="nq" placeholder="Create New Answer Here"></input>
+        <div className="ui input">
+          <input id="nq" style={answersBox} type="text" placeholder="Create New Answer"/>
+        </div>
         <Table rows={state}>
           <DeleteButton onClick={deletequestion} />
           <CreateNewAnswerButton onClick={createanswer} />
           <DeleteAnswerButton onClick={deleteanswer} />
         </Table>
       </div>
-   </div>
+   </>
   );
 };
 
 export function ViewQuestion({onClick}) {
+    const reloadStyle = {
+      marginLeft: '95vw',
+    };
     return (
-        <Button onClick={onClick}>View Question</Button>
+      <>
+        <Icon style={reloadStyle} onClick={onClick} name='undo' />
+      </>
     );
 }
 

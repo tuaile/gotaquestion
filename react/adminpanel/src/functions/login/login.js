@@ -1,14 +1,21 @@
 import React from 'react'
 import { Message, Button, Header, Icon, Modal } from 'semantic-ui-react'
+import SimpleReactValidator from 'simple-react-validator';
 
-export function Login() {
-	const handleLogin = () => {
+const loginStyle = {
+  marginTop: '45vh',
+  marginLeft: '45vw',
+  backgroundColor: '#FCD667',
+};
+
+export function Login(props) {
+  const handleLogin = () => {
     var studentnumber = document.getElementById("studentnumber");
     var password = document.getElementById("password");
     var logindetails = new FormData();
       logindetails.append('studentnumber', studentnumber.value);
       logindetails.append('password', password.value);
-      fetch('http://localhost/gotaquestion/api/api.php?action=login', {
+      fetch('http://localhost/gotaquestion/api/api.php?action=adminlogin', {
         method: 'POST',
         body: logindetails,
         credentials: 'include'
@@ -23,7 +30,10 @@ export function Login() {
             body: logindetails,
             credentials: 'include'
           })
+          document.getElementById("loginmessage").innerHTML = "Success Your Logged In";
           setOpen(false);
+          props.setCount("Logged In");
+
         }
         if (response.status == 410) {
           document.getElementById("loginmessage").innerHTML = "Please Fill All Fields";
@@ -33,6 +43,10 @@ export function Login() {
         }
         if (response.status == 409) {
           document.getElementById("loginmessage").innerHTML = "Already Logged In, Try Again";
+          fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
+            method: 'GET',
+            credentials: 'include'
+          });
         }
       })
   }
@@ -45,7 +59,7 @@ export function Login() {
       onOpen={() => setOpen(true)}
       open={open}
       size='small'
-      trigger={<Button>Login</Button>}
+      trigger={<Button style={loginStyle} >Login</Button>}
     >
       <Header icon>
         <Icon name='sign-in' />
@@ -53,22 +67,22 @@ export function Login() {
       </Header>
       <Modal.Content>
         <div className="ui fluid input">
-					<input type="text" id="studentnumber" placeholder="Student Number"/>
-				</div>
-				<br />
-				<div className="ui fluid input">
-					<input type="text" id="password" placeholder="Password"/> 
-				</div>
+          <input type="text" id="studentnumber" placeholder="Student Number"/>
+        </div>
+        <br />
+        <div className="ui fluid input">
+          <input type="text" id="password" placeholder="Password"/>
+        </div>
         <Message warning>
           <p id="loginmessage">Please Login</p>
         </Message>
       </Modal.Content>
       <Modal.Actions>
         <Button basic color='red' inverted onClick={() => setOpen(false)}>
-          <Icon name='remove' /> No
+          <Icon name='remove' /> Cancel
         </Button>
         <Button color='green' inverted onClick={handleLogin}>
-          <Icon name='checkmark' /> Yes
+          <Icon name='checkmark' /> Login
         </Button>
       </Modal.Actions>
     </Modal>

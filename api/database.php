@@ -176,12 +176,14 @@
 			$jsonresult = json_encode($results);
 			return $jsonresult;
 		}
-		public function createu($username, $password, $fullname) {
+		public function createu($studentnumber, $password, $fullname, $role) {
 			$conn = dbconnection();
-			$stmt = $conn->prepare("INSERT INTO login(studentnumber, fullname, password, status) VALUES (:studentnumber, :fullname, :password, 'active')");
+			$stmt = $conn->prepare("INSERT INTO login ( studentnumber, fullname, password, role ) VALUES (:studentnumber, :fullname, :password, :role)");
+			$hashedpassword = password_hash($password, PASSWORD_DEFAULT);
 			$stmt->bindValue(':studentnumber', $studentnumber);
 			$stmt->bindValue(':fullname', $fullname);
-			$stmt->bindValue(':password', $password);
+			$stmt->bindValue(':password', $hashedpassword);
+			$stmt->bindValue(':role', $role);
 			$stmt->execute();
 		}
 		public function viewallu() {

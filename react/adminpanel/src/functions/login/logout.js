@@ -1,15 +1,24 @@
 import React from 'react'
 import { Button } from 'semantic-ui-react'
 
-export function Logout() {
+const buttonStyle = {
+  backgroundColor: '#FCD667',
+};
+export function Logout(props) {
 	const handleLogout = () => {
       fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
         method: 'GET',
         credentials: 'include'
       })
+      .then(function(response) {
+        if (response.status == 202) {
+        	props.setCount("Not Logged In");
+        }
+      })
+      
   	}
 	return (
-		<Button onClick={handleLogout}>Logout</Button>
+		<Button style={buttonStyle} onClick={handleLogout}>Logout</Button>
 	)
 }
 

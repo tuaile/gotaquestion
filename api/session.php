@@ -32,6 +32,21 @@
                 return false;
             }
         }
+        public function adminlogin($studentnumber, $password) {
+            $conn = dbconnection();
+            $stmt = $conn->prepare("SELECT * FROM login WHERE studentnumber = :studentnumber AND status = 'active' AND role = 'teacher'");
+            $stmt->bindParam(':studentnumber', $studentnumber);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            if (empty($password)){
+                return false;
+            }
+            if (password_verify($password, $row['password'])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         public function log($action) {
             $conn = dbconnection();
             try {
