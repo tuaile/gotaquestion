@@ -90,10 +90,17 @@ Run Deploy.sh
 Still in progress
 
 <h1>Login Details</h1>
+Student Login Details
+<br>
+Student Number: 987654321
+<br>
+Password: 123456
+<br>
+Teacher Login Details
+<br>
 Student Number: 123456789
 <br>
 Password: 123456
 <br>
-*Update password still works
 
 
