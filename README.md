@@ -94,13 +94,13 @@ Student Login Details
 <br>
 Student Number: 987654321
 <br>
-Password: 123456
+Password: 5BhgVL
 <br>
 Teacher Login Details
 <br>
 Student Number: 123456789
 <br>
-Password: 123456
+Password: uC4Nnc
 <br>
 
 
