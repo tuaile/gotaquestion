@@ -7,7 +7,6 @@ const loginStyle = {
   marginLeft: '45vw',
   backgroundColor: '#FCD667',
 };
-
 export function Login(props) {
   const handleLogin = () => {
     var studentnumber = document.getElementById("studentnumber");
@@ -15,7 +14,7 @@ export function Login(props) {
     var logindetails = new FormData();
       logindetails.append('studentnumber', studentnumber.value);
       logindetails.append('password', password.value);
-      fetch('http://localhost/gotaquestion/api/api.php?action=adminlogin', {
+      fetch('https://tuaile.com/gotaquestion/api/api.php?action=adminlogin', {
         method: 'POST',
         body: logindetails,
         credentials: 'include'
@@ -25,7 +24,7 @@ export function Login(props) {
           var studentnumber = document.getElementById("studentnumber");
           var logindetails = new FormData();
           logindetails.append('numberofstudent', studentnumber.value);
-          fetch('http://localhost/gotaquestion/api/api.php?action=processlogin', {
+          fetch('https://tuaile.com/gotaquestion/api/api.php?action=processlogin', {
             method: 'POST',
             body: logindetails,
             credentials: 'include'
@@ -43,7 +42,7 @@ export function Login(props) {
         }
         if (response.status == 409) {
           document.getElementById("loginmessage").innerHTML = "Already Logged In, Try Again";
-          fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
+          fetch('https://tuaile.com/gotaquestion/api/api.php?action=logout', {
             method: 'GET',
             credentials: 'include'
           });

@@ -28,7 +28,6 @@
 	//Ip whitelist
 	if ($_SERVER['REMOTE_ADDR'] != "[::1]:80") {
 		http_response_code(501);
-
 	}
 	//Checks if session is set, if not creates an new session.
 	if(!isset($_SESSION['user_session'])) {

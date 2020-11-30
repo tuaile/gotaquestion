@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from 'semantic-ui-react';
 import { currentloginid } from '../login/loginid.js';
-import { deletequestion } from '../question/deletequestion.js';
-import { createanswer } from '../answer/createanswer.js';
 import {deleteanswer } from '../answer/deleteanswer.js';
 
 export const ViewAllUsersComponent = () => {
   let [state, setState] = useState([]);
   const handleViewQuestion = async () => {
     try {      
-      const response = await fetch('http://localhost/gotaquestion/api/api.php?action=viewallusers', {
+      const response = await fetch('https://tuaile.com/gotaquestion/api/api.php?action=viewallusers', {
         method: 'GET',
         credentials: 'include'
       });

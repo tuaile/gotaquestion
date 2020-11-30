@@ -6,7 +6,7 @@ const buttonStyle = {
 };
 export function Logout(props) {
 	const handleLogout = () => {
-      fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
+      fetch('https://tuaile.com/gotaquestion/api/api.php?action=logout', {
         method: 'GET',
         credentials: 'include'
       })

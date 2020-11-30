@@ -11,7 +11,7 @@ export function ViewUser() {
     var userloginid = await currentloginid();
     var currentuserid = new FormData();
     currentuserid.append('userloginid', userloginid);
-    fetch('http://localhost/gotaquestion/api/api.php?action=viewuser', {
+    fetch('https://tuaile.com/gotaquestion/api/api.php?action=viewuser', {
         method: 'POST',
         body: currentuserid,
         credentials: 'include'
@@ -69,8 +69,8 @@ export function ViewUser() {
         <Button basic color='red' inverted onClick={() => setOpen(false)}>
           <Icon name='remove' /> Exit
         </Button>
-        <Button color='green' inverted onClick={() => setOpen(true)}>
-          <Icon name='checkmark' /> Save
+        <Button color='green' inverted onClick={() => setOpen(false)}>
+          <Icon name='checkmark' /> In Development
         </Button>
       </Modal.Actions>
     </Modal>

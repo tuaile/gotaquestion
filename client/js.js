@@ -113,7 +113,7 @@ function sq() {
         }
         if (response.status == 202) {
             successmessage("Congrats, Question Edited");
-            fetch('api/api.php?action=viewquestion');
+            vq();
         }
     })
 }
@@ -133,7 +133,8 @@ function dq(row) {
             successmessage("*Conufused Sounds*, What Question Am I Deleting?");
         }
         if (response.status == 202) {
-            successmessage("*Hitman Washes Bloodied Hands* ... It's Done Question Deleted");
+            successmessage("It's Done Question Deleted");
+            vq();
         }
     });
 }
@@ -236,6 +237,7 @@ function logout() {
             var slider = document.querySelector("#slider");
             slider.style.display = "none";
             successmessage("Success, You're Logged Out");
+            loginstatus();
         }
         else {
             errormessage("Internal Server Error Not Logged Out");

@@ -16,7 +16,7 @@ export function CreateUser() {
     currentuserid.append('fullname', fullname);
     currentuserid.append('password', password);
     currentuserid.append('role', role);
-    fetch('http://localhost/gotaquestion/api/api.php?action=createuser', {
+    fetch('https://tuaile.com/gotaquestion/api/api.php?action=createuser', {
         method: 'POST',
         body: currentuserid,
         credentials: 'include'
@@ -72,10 +72,10 @@ export function CreateUser() {
       </Modal.Content>
       <Modal.Actions>
         <Button basic color='red' inverted onClick={() => setOpen(false)}>
-          <Icon name='remove' /> No
+          <Icon name='remove' /> Cancel
         </Button>
         <Button color='green' inverted onClick={handleUser}>
-          <Icon name='checkmark' /> Yes
+          <Icon name='checkmark' /> Create
         </Button>
       </Modal.Actions>
     </Modal>
