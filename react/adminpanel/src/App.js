@@ -9,6 +9,7 @@ import { ViewUser } from './functions/users/viewuser.js';
 import { CreateUser } from './functions/users/createuser.js';
 import { ViewAllUsersComponent } from './functions/users/viewallusers.js';
 import { ViewQuestionComponent } from './functions/question/viewquestion.js';
+import { Help } from 'help.js';
 import facebook from './images/facebook.svg';
 import instagram from './images/instagram.svg';
 import github from './images/github.svg';
@@ -40,6 +41,7 @@ function Process(props) {
     <h1 style={logoStyle} >Got A Question</h1>
     <ViewUser />
     <CreateUser/>
+    <Help />
     <Logout setCount={props.setCount}/>
     <ViewAllUsersComponent />
     <ViewQuestionComponent />
