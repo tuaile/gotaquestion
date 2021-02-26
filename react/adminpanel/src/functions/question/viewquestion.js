@@ -13,7 +13,7 @@ export const ViewQuestionComponent = () => {
   }, []);
   const handleViewQuestion = async () => {
     try {      
-      const response = await fetch('https://tuaile.com/gotaquestion/api/api.php?action=viewquestion', {
+      const response = await fetch('http://localhost/gotaquestion/api/api.php?action=viewquestion', {
         method: 'GET',
         credentials: 'include'
       });

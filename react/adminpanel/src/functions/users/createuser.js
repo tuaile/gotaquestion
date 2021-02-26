@@ -16,7 +16,7 @@ export function CreateUser() {
     currentuserid.append('fullname', fullname);
     currentuserid.append('password', password);
     currentuserid.append('role', role);
-    fetch('https://tuaile.com/gotaquestion/api/api.php?action=createuser', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=createuser', {
         method: 'POST',
         body: currentuserid,
         credentials: 'include'

@@ -11,7 +11,7 @@ export function ViewUser() {
     var userloginid = await currentloginid();
     var currentuserid = new FormData();
     currentuserid.append('userloginid', userloginid);
-    fetch('https://tuaile.com/gotaquestion/api/api.php?action=viewuser', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=viewuser', {
         method: 'POST',
         body: currentuserid,
         credentials: 'include'

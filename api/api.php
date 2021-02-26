@@ -20,7 +20,6 @@
 	}
 	//Checks if referer is the one specified if not die.
 	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://192.168.1.111/" || $_SERVER['HTTP_REFERER'] == "http://localhost:3000/" || $_SERVER['HTTP_REFERER'] == "http://localhost/testing/") {
-
 		} else {
 		http_response_code(502);
 		die();
@@ -35,13 +34,11 @@
        http_response_code(501);
        die();
     }
-
     //If user is rate limited, die.
     if($_SESSION['user_session']->ratelimited()) {
         http_response_code(429);
         die();
     }
-
     //If user is daily rate limited, die.
     if ($_SESSION['user_session']->ratelimiteddailylimit()) {
     	http_response_code(429);
@@ -108,7 +105,7 @@
 
 		case "login":
 			if($_SESSION['user_session']->userloginstatus() == false) {
-				if ($_POST['studentnumber'] == 0 && $_POST['password'] == 0) {
+				if ($_POST['studentnumber'] == "" && $_POST['password'] == "") {
 					http_response_code(410);
 					//No Student Number And Or Password
 				} else {
@@ -274,7 +271,7 @@
 						http_response_code(411);
 					} else {
 						if ($_POST['password'] == "") {
-							http_response_code(410);
+							http_response_code(202);
 						} else {
 							if (strlen($_POST['password']) > 5) {
 								if (strlen($_POST['studentnumber']) != 9) {
@@ -287,7 +284,7 @@
 									$functions->saveu($studentnumber, $fullname, $password, $loginid);
 									$action = "edituserdetails";
 									$_SESSION['user_session']->log($action);
-									http_response_code(202);
+									http_response_code(200);
 								}
 							} else {
 								http_response_code(412);
@@ -313,6 +310,17 @@
 		case "userid":
 			if($_SESSION['user_session']->userloginstatus() == true) {
 				$_SESSION['user_session']->userid();	
+				http_response_code(202);
+			} else {
+				http_response_code(401);
+			}
+		break;
+
+		case "viewgraph":
+			if($_SESSION['user_session']->userloginstatus() == true) {
+				echo $functions->viewgraph();
+				$action = "viewgraph";
+				$_SESSION['user_session']->log($action);
 				http_response_code(202);
 			} else {
 				http_response_code(401);

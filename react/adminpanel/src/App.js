@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 import { Login } from './functions/login/login.js';
+import { Graph } from './functions/stats/graph.js';
 import { Logout } from './functions/login/logout.js';
 import { loginstatus } from './functions/login/loginstatus.js';
 import { currentloginid } from './functions/login/loginid.js';
@@ -9,7 +10,6 @@ import { ViewUser } from './functions/users/viewuser.js';
 import { CreateUser } from './functions/users/createuser.js';
 import { ViewAllUsersComponent } from './functions/users/viewallusers.js';
 import { ViewQuestionComponent } from './functions/question/viewquestion.js';
-import { Help } from 'help.js';
 import facebook from './images/facebook.svg';
 import instagram from './images/instagram.svg';
 import github from './images/github.svg';
@@ -39,9 +39,9 @@ function Process(props) {
     return (
     <>
     <h1 style={logoStyle} >Got A Question</h1>
+    <Graph />
     <ViewUser />
     <CreateUser/>
-    <Help />
     <Logout setCount={props.setCount}/>
     <ViewAllUsersComponent />
     <ViewQuestionComponent />

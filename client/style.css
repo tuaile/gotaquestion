@@ -11,21 +11,15 @@ td{
 body {
 	padding-left: 10em;
 }
+#loginbutton {
+	background-color: #a9a9a9;
+}
+#darkmodelabel {
+	color: white;
+}
 #slider {
 	display: none;
 	margin-left: 32%;
-}
-#signinbtn i {
-	position: absolute;
-	top: 0;
-	right: 0;
-	height: 2em;
-	width: 2em;
-	margin-top: 0.5em;
-	margin-right: 0.8em;
-	padding-top: .2em;
-	border-radius: 1em;
-	border: 2px solid black;
 }
 #signoutbtn i {
 	position: absolute;
@@ -94,6 +88,17 @@ body {
 	text-align: center;
 	margin: 0;
 
+}
+#loginform {
+	max-width: 50em;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 3em;
+	padding-right: 3em;
+}
+#loginformall {
+	margin-top: 10em;
 }
 .editquestion {
 	display: none;

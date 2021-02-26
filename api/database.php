@@ -56,6 +56,18 @@
 			$jsonresult = json_encode($results);
 			return $jsonresult;
 		}
+		public function viewgraph() {
+			$conn = dbconnection();
+			$stmt = $conn->prepare("SELECT COUNT(logid) AS 'Number', CAST(timestamp AS DATE) AS 'Date' FROM log WHERE timestamp > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 14 DAY) GROUP BY EXTRACT(DAY FROM timestamp)");
+			$stmt->execute();
+			$results = $stmt->fetchAll();
+			$datevalues = [];
+			foreach ($results as $row) {
+				$datevalues[$row["Date"]] = $row["Number"];
+			}
+			$jsonresult = json_encode($datevalues);
+			return $jsonresult;
+		}
 		public function answerq($questionid, $newanswer) {
 			$conn = dbconnection();
 			try {

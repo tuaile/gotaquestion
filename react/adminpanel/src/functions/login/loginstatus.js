@@ -1,5 +1,5 @@
 export function loginstatus(successCb, errorCb) {
- fetch('https://tuaile.com/gotaquestion/api/api.php?action=loginstatus', 
+ fetch('http://localhost/gotaquestion/api/api.php?action=loginstatus', 
     {
         method: 'GET',
         credentials: 'include'

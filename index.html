@@ -1,57 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Got A Question V2</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Got A Question where questions and answers meet">
 	<link rel="stylesheet" type="text/css" href="client/style.css">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 	<link rel="manifest" href="manifest.json">
-	<link rel="icon" href="client/images/logo.png" type="image/png" >
+	<link rel="icon" href="client/images/logo.png" type="image/png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" defer></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+		defer></script>
 	<script type="text/javascript" src="client/js.js" defer></script>
 </head>
+
 <body>
 	<header>
 		<h1 onclick="gotaquestion()">Got A Question?</h1>
-		<div id="signinbtn">
-		<i id="login" class="sign-in icon" onclick="loginmodal()"></i>
-		</div>
 		<div id="signoutbtn">
-		<i id="logout" class="sign-out icon" onclick="logout()"></i>
+			<i id="logout" class="sign-out icon" onclick="logout()"></i>
 		</div>
 		<div id="viewuserbtn">
-		<i id="viewuser" class="user outline icon" onclick="vu(); editusermodal();"></i>
+			<i id="viewuser" class="user outline icon" onclick="vu(); editusermodal();"></i>
 		</div>
 	</header>
+
+	<div class="ui middle aligned center aligned grid" id="loginformall">
+		<div class="column">
+			<h2 class="ui image header">
+				<div class="content">
+					Login Here
+				</div>
+			</h2>
+			<form class="ui large form" id="loginform">
+				<div class="ui stacked secondary  segment">
+					<div class="field">
+						<div class="ui left icon input">
+							<i class="user icon"></i>
+							<input type="text" id="studentnumber" name="email" placeholder="E-mail address">
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui left icon input">
+							<i class="lock icon"></i>
+							<input type="password" name="password" id="password" placeholder="Password">
+						</div>
+					</div>
+					<div class="ui fluid large teal submit button" id="loginbutton" onclick="login()">Login</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
 	<button id="createquestion" class="ui button" onclick="createquestionmodal()">Post A Question</button>
 	<br>
 	<div id="errormessage" class="ui negative message">
-	  	<div class="header">
-	    Oops... Something Went Wrong
-	  	</div>
-	  	<p id="message"></p>
+		<div class="header">
+			Oops... Something Went Wrong
+		</div>
+		<p id="message"></p>
 	</div>
 	<div id="successmessage" class="ui positive message">
-	  <div class="header">
-	    Yay, It Worked
-	  </div>
-	  <p id="succmessage"></p>
+		<div class="header">
+			Yay, It Worked
+		</div>
+		<p id="succmessage"></p>
 	</div>
 	<h4 id="loadinglogin">Checking Your Login Details...</h4>
 	<h4 id="loading">Loading Please Wait...</h4>
 	<div id="table">
 		<table class="ui single line table">
-		  <thead id="thead">
-		    <tr>
-		      <th>Question</th>
-		      <th>Time Posted</th>
-		      <th>Category</th>
-		      <th>Answer</th>
-		    </tr>
-		  </thead>
+			<thead id="thead">
+				<tr>
+					<th>Question</th>
+					<th>Time Posted</th>
+					<th>Category</th>
+					<th>Answer</th>
+				</tr>
+			</thead>
 		</table>
 		<div id="reloadbtn">
 			<i id="reloadquestion" class="sync icon" onclick="vq()"></i>
@@ -59,144 +88,115 @@
 		<table id="queue" class="ui single line table">
 		</table>
 	</div>
-	
-	<div class="ui basic modal login">
-	  <div class="ui icon header">
-	    <i class="sign-in icon"></i>
-	    Login Here
-	  </div>
-	  	<div id="studentnumbererr" class="ui pointing below label">
-	      <p id="jsstudentnumberer"></p>
-	    </div>
-	  	<div class="ui fluid input">
-			<input type="text" id="studentnumber" placeholder="Student Number">
-		</div>
-		</br>
-		<div id="passworderr" class="ui pointing below label">
-	      <p id="jspassworderr"></p>
-	    </div>
-		<div class="ui fluid input">
-			<input type="text" id="password" placeholder="Password"> 
-		</div>
-	  <div class="actions">
-	    <div class="ui red basic cancel inverted button">
-	      <i class="remove icon"></i>
-	      Cancel
-	    </div>
-	    <div class="ui green ok inverted button" onclick="login()">
-	      <i class="checkmark icon"></i>
-	      Login
-	    </div>
-	  </div>
-	</div>
 
 	<div class="ui basic modal createquestion">
-	  <div class="ui icon header">
-	    <i class="pencil alternate icon"></i>
-	    Create Question
-	  </div>
-	  	<div class="ui fluid input">
+		<div class="ui icon header">
+			<i class="pencil alternate icon"></i>
+			Create Question
+		</div>
+		<div class="ui fluid input">
 			<input type="text" id="question" placeholder="Question" onkeyup="createquestionvalidation()">
 		</div>
 		<div id="createquestionerr" class="ui pointing label">
-	      <p id="jscreatequestion"></p>
-	    </div>
+			<p id="jscreatequestion"></p>
+		</div>
 		</br>
 		<select id="catagorie" class="ui search dropdown">
-		  <option value="">Catagorie</option>
-		  <option value="project1">Project 1</option>
-		  <option value="project2">Project 2</option>
-		  <option value="project3">Project 3</option>
-		  <option value="project4">Project 4</option>
-		  <option value="ux1">UX 1</option>
-		  <option value="ux2">UX 2</option>
-		  <option value="ux3">UX 3</option>
+			<option value="">Catagorie</option>
+			<option value="project1">Project 1</option>
+			<option value="project2">Project 2</option>
+			<option value="project3">Project 3</option>
+			<option value="project4">Project 4</option>
+			<option value="ux1">UX 1</option>
+			<option value="ux2">UX 2</option>
+			<option value="ux3">UX 3</option>
 		</select>
-	  <div class="actions">
-	    <div class="ui red basic cancel inverted button">
-	      <i class="remove icon"></i>
-	      Cancel
-	    </div>
-	    <div class="ui green ok inverted button" onclick="cq()">
-	      <i class="checkmark icon"></i>
-	      Post Question
-	    </div>
-	  </div>
+		<div class="actions">
+			<div class="ui red basic cancel inverted button">
+				<i class="remove icon"></i>
+				Cancel
+			</div>
+			<div class="ui green ok inverted disabled button" id="createquestionbutton" onclick="cq()">
+				<i class="checkmark icon"></i>
+				Post Question
+			</div>
+		</div>
 	</div>
 	<div class="ui basic modal editquestion">
-	  <div class="ui icon header">
-	    <i class="archive icon"></i>
-	    Edit Question
-	  </div>
-	  <div class="content">
-	  	<div class="ui fluid input">
-	    	<input id="editquestion" placeholder="Loading..." onkeyup="editquestionvalidation()">
+		<div class="ui icon header">
+			<i class="archive icon"></i>
+			Edit Question
 		</div>
-	  </div>
-	  <div id="editquestionerr" class="ui pointing label">
-	      <p id="jseditquestion"></p>
-	  </div>
-	  <div class="actions">
-	    <div class="ui red basic cancel inverted button">
-	      <i class="remove icon"></i>
-	      No
-	    </div>
-	    <div class="ui green ok inverted button" onclick="sq()">
-	      <i class="checkmark icon"></i>
-	      Yes
-	    </div>
-	  </div>
+		<div class="content">
+			<div class="ui fluid input">
+				<input id="editquestion" placeholder="Loading..." onkeyup="editquestionvalidation()">
+			</div>
+		</div>
+		<div id="editquestionerr" class="ui pointing label">
+			<p id="jseditquestion"></p>
+		</div>
+		<div class="actions">
+			<div class="ui red basic cancel inverted button">
+				<i class="remove icon"></i>
+				Cancel
+			</div>
+			<div class="ui green ok disabled inverted button" id="savequestionbutton" onclick="sq()">
+				<i class="checkmark icon"></i>
+				Save
+			</div>
+		</div>
 	</div>
 	<div class="ui basic modal edituser">
-	  <div class="ui icon header">
-	    <i class="user outline icon"></i>
-	    Your Details
-	  </div>
-	  <div class="content" >
-	  	<div class="ui pointing below label">
-	      Your Student Number
-	    </div>
-	  	<div class="ui fluid input">
-		  <input type="text" id="userstudentnumber" placeholder="Loading..." readonly>
+		<div class="ui icon header">
+			<i class="user outline icon"></i>
+			Your Details
 		</div>
-    	<div id="edituserstudentnumbererr" class="ui pointing label">
-	      <p id="jseditstudentnumberer"></p>
-	    </div>
-		<br>
-		<div class="ui pointing below label">
-	      Your Full Name
-	    </div>
-		<div class="ui fluid input">
-		  <input type="text" id="userfullname" placeholder="Loading..." onkeyup="editusername()">
+		<div class="content">
+			<div class="ui pointing below label">
+				Your Student Number
+			</div>
+			<div class="ui fluid input">
+				<input type="text" id="userstudentnumber" placeholder="Loading..." readonly>
+			</div>
+			<div id="edituserstudentnumbererr" class="ui pointing label">
+				<p id="jseditstudentnumberer"></p>
+			</div>
+			<br>
+			<div class="ui pointing below label">
+				Your Full Name
+			</div>
+			<div class="ui fluid input">
+				<input type="text" id="userfullname" placeholder="Loading..." onkeyup="editusername()" readonly>
+			</div>
+			<div id="editusernameerr" class="ui pointing label">
+				<p id="jseditname"></p>
+			</div>
+			<br>
+			<div class="ui pointing below label">
+				Set New Password
+			</div>
+			<div class="ui fluid input">
+				<input type="text" id="userpassword" onkeyup="edituservalidationpassword()">
+			</div>
+			<div id="edituserpassworderr" class="ui pointing label">
+				<p id="jseditpassword"></p>
+			</div>
 		</div>
-		<div id="editusernameerr" class="ui pointing label">
-	      <p id="jseditname"></p>
-	    </div>
-		<br>
-		<div class="ui pointing below label">
-	      Your Password
-	    </div>
-		<div class="ui fluid input">
-		  <input type="text" id="userpassword" placeholder="Loading..." onkeyup="edituservalidationpassword()">
+		<div class="ui slider checkbox" id="slider">
+			<input type="checkbox" id="darkmodecheckbox" onclick="darkmode()">
+			<label id="darkmodelabel">Dark Mode</label>
 		</div>
-		<div id="edituserpassworderr" class="ui pointing label">
-	      <p id="jseditpassword"></p>
-	    </div>
-	  </div>
-	  <div class="ui slider checkbox" id="slider">
-  	  	<input type="checkbox" id="darkmodecheckbox" onclick="darkmode()">
-  		<label id="darkmodelabel">Dark Mode</label>
-	  </div>
-	  <div class="actions">
-	    <div class="ui red basic cancel inverted button">
-	      <i class="remove icon"></i>
-	      Cancel
-	    </div>
-	    <div class="ui green ok inverted button" onclick="su()">
-	      <i class="checkmark icon"></i>
-	      Save
-	    </div>
-	  </div>
+		<div class="actions">
+			<div class="ui red basic cancel inverted button">
+				<i class="remove icon"></i>
+				Cancel
+			</div>
+			<div class="ui green ok inverted button" onclick="su()">
+				<i class="checkmark icon"></i>
+				Save
+			</div>
+		</div>
 	</div>
 </body>
+
 </html>
