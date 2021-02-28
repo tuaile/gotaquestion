@@ -1,4 +1,4 @@
-import { LineChart, PieChart } from 'react-chartkick'
+import { LineChart} from 'react-chartkick'
 import 'chart.js'
 import React, { useState, useEffect } from 'react';
 
@@ -12,7 +12,6 @@ export function Graph() {
 		    })
 		    .then(function (response) {
 		        response.json().then(async function (data) {
-		        	console.log(data)
 		            setGraphdata(data);
 		        })
 		    })

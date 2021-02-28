@@ -5,7 +5,7 @@ import { Login } from './functions/login/login.js';
 import { Graph } from './functions/stats/graph.js';
 import { Logout } from './functions/login/logout.js';
 import { loginstatus } from './functions/login/loginstatus.js';
-import { currentloginid } from './functions/login/loginid.js';
+//import { currentloginid } from './functions/login/loginid.js';
 import { ViewUser } from './functions/users/viewuser.js';
 import { CreateUser } from './functions/users/createuser.js';
 import { ViewAllUsersComponent } from './functions/users/viewallusers.js';
@@ -47,10 +47,10 @@ function Process(props) {
     <ViewQuestionComponent />
     <h1 style={footer}>
       <p>© 2020 Got A Question Inc. All Rights Reserved.</p>
-      <img style={iconStyling} src={facebook}/>
-      <img style={iconStyling}  src={instagram}/>
-      <img style={iconStyling}  src={github}/>
-      <img style={iconStyling}  src={youtube}/>
+      <img style={iconStyling} alt="Facebook Logo" src={facebook}/>
+      <img style={iconStyling} alt="Instagram Logo" src={instagram}/>
+      <img style={iconStyling} alt="Github Logo" src={github}/>
+      <img style={iconStyling} alt="Youtube Logo" src={youtube}/>
     </h1>
     </>
     );
