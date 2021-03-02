@@ -18,7 +18,7 @@ export function Graph() {
 	    }, [])
 	return (
 		<>
-		<LineChart data={graphdata}/>
+		<LineChart colors={["#bb86fc"]} fontColor={["blue"]} data={graphdata}/>
 		</>
 	)
 }

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Button } from 'semantic-ui-react';
-import { currentloginid } from '../login/loginid.js';
-import {deleteanswer } from '../answer/deleteanswer.js';
 
 export const ViewAllUsersComponent = () => {
   let [state, setState] = useState([]);
@@ -13,7 +11,6 @@ export const ViewAllUsersComponent = () => {
       });
 
       const data = await response.json();
-      const result = await data;
       setState(data);
     } catch (e) {
       console.log(e);

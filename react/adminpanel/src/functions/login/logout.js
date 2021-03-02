@@ -2,7 +2,10 @@ import React from 'react'
 import { Button } from 'semantic-ui-react'
 
 const buttonStyle = {
-  backgroundColor: '#FCD667',
+  backgroundColor: '#bb86fc',
+  float: 'right',
+  marginTop: '.5vh',
+  marginRight: '.25vw',
 };
 export function Logout(props) {
 	const handleLogout = () => {
@@ -11,7 +14,7 @@ export function Logout(props) {
         credentials: 'include'
       })
       .then(function(response) {
-        if (response.status == 202) {
+        if (response.status === 202) {
         	props.setCount("Not Logged In");
         }
       })

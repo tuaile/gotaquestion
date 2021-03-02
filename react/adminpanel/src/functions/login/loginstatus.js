@@ -5,7 +5,7 @@ export function loginstatus(successCb, errorCb) {
         credentials: 'include'
     })
     .then(function(response) {
-    if (response.status == 202) {
+    if (response.status === 202) {
         successCb();         
     } else {
         errorCb();

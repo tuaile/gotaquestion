@@ -1,5 +1,5 @@
 import React from 'react'
-import { Message, Dropdown, Button, Header, Icon, Modal } from 'semantic-ui-react'
+import { Message, Button, Header, Icon, Modal } from 'semantic-ui-react'
 
 export function CreateUser() {
   const buttonStyle = {
@@ -51,11 +51,11 @@ export function CreateUser() {
       </Header>
       <Modal.Content>
         <div className="ui fluid input">
-          <input id="studentnumber" type="text" id="userstudentnumber" placeholder="Student Number" />
+          <input type="text" id="userstudentnumber" placeholder="Student Number" />
         </div>
       <br />
         <div className="ui fluid input">
-          <input id="fullname" type="text" id="userfullname" placeholder="Full Name" />
+          <input type="text" id="userfullname" placeholder="Full Name" />
         </div>
       <br />
       <div className="ui fluid input">

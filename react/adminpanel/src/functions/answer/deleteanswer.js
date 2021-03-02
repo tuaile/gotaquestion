@@ -8,7 +8,7 @@ export function deleteanswer(questionid) {
      credentials: 'include'
     })
    .then(function(response) {
-   	if (response.status == 202) {
+   	if (response.status === 202) {
    		alert("Success Answer Deleted");
    	} else {
       alert("Something Went Wrong Try Again");

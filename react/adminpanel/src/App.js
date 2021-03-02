@@ -5,7 +5,6 @@ import { Login } from './functions/login/login.js';
 import { Graph } from './functions/stats/graph.js';
 import { Logout } from './functions/login/logout.js';
 import { loginstatus } from './functions/login/loginstatus.js';
-//import { currentloginid } from './functions/login/loginid.js';
 import { ViewUser } from './functions/users/viewuser.js';
 import { CreateUser } from './functions/users/createuser.js';
 import { ViewAllUsersComponent } from './functions/users/viewallusers.js';
@@ -16,9 +15,20 @@ import github from './images/github.svg';
 import youtube from './images/youtube.svg';
 
 function Process(props) {
-  const logoStyle = {
-  textAlign: 'center',
-  borderBottom: '2px solid #FCD667',
+  const logo = {
+    color: '#e6e6e6',
+    marginLeft: '.8vw',
+    paddingTop: '.3vh',
+    display: 'inline',
+  }
+  const headerLogoStyle = {
+  height: '5vh',
+  width: '97.8vw',
+  marginRight: 'auto',
+  marginLeft: 'auto',
+  backgroundColor: '#1f1f1f',
+  marginTop: '1.5vh',
+  borderRadius: '.2em',
   };
   const footer = {
   height: '15vh',
@@ -35,16 +45,47 @@ function Process(props) {
   marginRight: '.4em',
   marginTop: '-.7em',
   };
+  const weeklyStats = {
+  color: '#e6e6e6',
+  borderBottom: '1px solid #e6e6e6',
+  };
+  const chartBox = {
+  height: '40vh',
+  width: '97.8vw',
+  marginRight: 'auto',
+  marginLeft: 'auto',
+  borderRadius: '.3em',
+  backgroundColor: '#1f1f1f',
+  padding: '1em',
+  };
+  const questionBox = {
+  width: '97.8vw',
+  marginRight: 'auto',
+  marginLeft: 'auto',
+  marginTop: '2vh',
+  borderRadius: '.3em',
+  backgroundColor: '#1f1f1f',
+  padding: '1em',
+  };
   if (props.count === "Logged In") {
+    document.body.style.backgroundColor = "#111111";
     return (
     <>
-    <h1 style={logoStyle} >Got A Question</h1>
+    <h1 style={headerLogoStyle}>
+      <h1 style={logo}>GAQ</h1>
+      <Logout setCount={props.setCount}/>
+    </h1>
+    <div style={chartBox}>
+    <h1 style={weeklyStats} >Fortnightly Actions</h1>
     <Graph />
+    </div>
+    <div style={questionBox}>
+    <h1 style={weeklyStats} >Pending Answers</h1>
+    <ViewQuestionComponent />
+    </div>
     <ViewUser />
     <CreateUser/>
-    <Logout setCount={props.setCount}/>
     <ViewAllUsersComponent />
-    <ViewQuestionComponent />
     <h1 style={footer}>
       <p>© 2020 Got A Question Inc. All Rights Reserved.</p>
       <img style={iconStyling} alt="Facebook Logo" src={facebook}/>
@@ -55,6 +96,7 @@ function Process(props) {
     </>
     );
   } else {
+    document.body.style.backgroundColor = "white";
     return (
       <Login setCount={props.setCount}/>
     );

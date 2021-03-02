@@ -3,8 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -61,7 +59,7 @@ export function Login(props) {
         credentials: 'include'
       })
       .then(function(response) {
-        if (response.status == 202) {
+        if (response.status === 202) {
           var studentnumber = document.getElementById("studentnumber");
           var logindetails = new FormData();
           logindetails.append('numberofstudent', studentnumber.value);
@@ -73,16 +71,16 @@ export function Login(props) {
           document.getElementById("loginmessage").innerHTML = "Success Your Logged In"; 
           props.setCount("Logged In");
         }
-        if (response.status == 410) {
+        if (response.status === 410) {
           document.getElementById("loginmessage").innerHTML = "Please Fill All Fields";
         }
-        if (response.status == 404) {
+        if (response.status === 404) {
           document.getElementById("loginmessage").innerHTML = "Invalid Username Or Password";
         }
-        if (response.status == 501) {
+        if (response.status === 501) {
           document.getElementById("loginmessage").innerHTML = "Try Again";
         }
-        if (response.status == 409) {
+        if (response.status === 409) {
           document.getElementById("loginmessage").innerHTML = "Already Logged In, Try Again";
           fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
             method: 'GET',
