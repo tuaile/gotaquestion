@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `catagories` (
   `catagoriesid` int NOT NULL AUTO_INCREMENT,
   `category` varchar(50) NOT NULL,
   PRIMARY KEY (`catagoriesid`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `catagories`
