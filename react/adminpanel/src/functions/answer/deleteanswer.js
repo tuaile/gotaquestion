@@ -1,4 +1,4 @@
-export function deleteanswer(questionid) {
+export function deleteanswer(questionid, setResponse) {
    var editquestionfd = new FormData();
    editquestionfd.append('questionid', questionid);
    editquestionfd.append('newanswer', "");
@@ -9,9 +9,9 @@ export function deleteanswer(questionid) {
     })
    .then(function(response) {
    	if (response.status === 202) {
-   		alert("Success Answer Deleted");
+      setResponse("Success Answer Deleted")
    	} else {
-      alert("Something Went Wrong Try Again");
+      setResponse("Something Went Wrong Try Again")
     }
    })
  }

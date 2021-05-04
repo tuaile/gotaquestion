@@ -3,7 +3,10 @@ import { Message, Button, Header, Icon, Modal } from 'semantic-ui-react'
 
 export function CreateUser() {
   const buttonStyle = {
-  backgroundColor: '#FCD667',
+  backgroundColor: '#bb86fc',
+  float: 'right',
+  marginTop: '.5vh',
+  marginRight: '.25vw',
   };
   const [open, setOpen] = React.useState(false)
   function handleUser() {

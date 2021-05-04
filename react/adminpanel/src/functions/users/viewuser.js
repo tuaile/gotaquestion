@@ -4,7 +4,10 @@ import { currentloginid } from '../login/loginid.js';
 
 export function ViewUser() {
   const buttonStyle = {
-  backgroundColor: '#FCD667',
+  backgroundColor: '#bb86fc',
+  float: 'right',
+  marginTop: '.5vh',
+  marginRight: '.25vw',
   };
   const [open, setOpen] = React.useState(false)
   async function handleUser() {

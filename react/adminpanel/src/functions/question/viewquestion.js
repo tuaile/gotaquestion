@@ -8,6 +8,7 @@ import { Header, Icon, Modal } from 'semantic-ui-react'
 export const ViewQuestionComponent = () => {
   let [state, setState] = useState([]);
   const [open, setOpen] = React.useState(false)
+  let [response, setResponse] = useState("");
   useEffect(() => {
   handleViewQuestion();
   }, []);
@@ -28,12 +29,17 @@ export const ViewQuestionComponent = () => {
 
   return (
     <>
+      <div class="ui message">
+      <div class="header">
+        {response}
+      </div>
+      </div>
       <ViewQuestion onClick={handleViewQuestion} />
       <div id="questions">
         <Table rows={state}>
-          <DeleteButton onClick={deletequestion} />
-          <DeleteAnswerButton onClick={deleteanswer} />
-          <CreateAnswerButton onClick={createanswer} />
+          <DeleteButton onClick={deletequestion} setResponse={setResponse} />
+          <DeleteAnswerButton onClick={deleteanswer} setResponse={setResponse} />
+          <CreateAnswerButton onClick={() => setOpen(true)} setResponse={setResponse} />
         </Table>
       </div>
       <Modal
@@ -42,24 +48,22 @@ export const ViewQuestionComponent = () => {
       onOpen={() => setOpen(true)}
       open={open}
       size='small'
-      trigger={<Button>Basic Modal</Button>}
     >
       <Header icon>
-        <Icon name='archive' />
-        Archive Old Messages
+        <Icon name='pencil' />
+        New Answer
       </Header>
       <Modal.Content>
-        <p>
-          Your inbox is getting full, would you like us to enable automatic
-          archiving of old messages?
-        </p>
+        <div class="ui fluid input">
+          <input type="text" placeholder="Search..."></input>
+        </div>
       </Modal.Content>
       <Modal.Actions>
         <Button basic color='red' inverted onClick={() => setOpen(false)}>
-          <Icon name='remove' /> No
+          <Icon name='remove' /> Cancel
         </Button>
-        <Button color='green' inverted onClick={() => setOpen(false)}>
-          <Icon name='checkmark' /> Yes
+        <Button color='green' inverted onClick={createanswer} setResponse={setResponse}>
+          <Icon name='checkmark' /> Save
         </Button>
       </Modal.Actions>
     </Modal>
@@ -114,23 +118,23 @@ const Table = ({ rows, setIdTobeDeleted, children }) => (
   </table>
 );
 
-const DeleteButton = ({ questionid, onClick }) => (
-  <button
-    className="ui negative button"
-    onClick={() => onClick(questionid)}
-  >Delete Question</button>
+const DeleteButton = ({ questionid, onClick, setResponse }) => (
+    <button
+      className="ui negative button"
+      onClick={() => onClick(questionid, setResponse)}
+    >Delete Question</button>
 );
 
-const DeleteAnswerButton = ({ questionid, onClick }) => (
+const DeleteAnswerButton = ({ questionid, onClick, setResponse }) => (
   <button
     className="ui negative button"
-    onClick={() => onClick(questionid)}
+    onClick={() => onClick(questionid, setResponse)}
   >Delete Answer</button>
 );
 
-const CreateAnswerButton = ({ questionid, onClick }) => (
+const CreateAnswerButton = ({ questionid, onClick, setResponse }) => (
   <button
     className="ui positive button"
-    onClick={() => onClick(questionid)}
+    onClick={() => onClick(questionid, setResponse)}
   >Create Answer</button>
 );

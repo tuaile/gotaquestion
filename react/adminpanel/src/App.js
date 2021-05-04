@@ -74,6 +74,8 @@ function Process(props) {
     <h1 style={headerLogoStyle}>
       <h1 style={logo}>GAQ</h1>
       <Logout setCount={props.setCount}/>
+      <ViewUser />
+      <CreateUser/>
     </h1>
     <div style={chartBox}>
     <h1 style={weeklyStats} >Fortnightly Actions</h1>
@@ -83,8 +85,6 @@ function Process(props) {
     <h1 style={weeklyStats} >Pending Answers</h1>
     <ViewQuestionComponent />
     </div>
-    <ViewUser />
-    <CreateUser/>
     <ViewAllUsersComponent />
     <h1 style={footer}>
       <p>© 2020 Got A Question Inc. All Rights Reserved.</p>
