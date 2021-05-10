@@ -72,9 +72,6 @@ export function ViewUser() {
         <Button basic color='red' inverted onClick={() => setOpen(false)}>
           <Icon name='remove' /> Exit
         </Button>
-        <Button color='green' inverted onClick={() => setOpen(false)}>
-          <Icon name='checkmark' /> In Development
-        </Button>
       </Modal.Actions>
     </Modal>
   )
