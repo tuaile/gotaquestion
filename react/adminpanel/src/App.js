@@ -34,7 +34,7 @@ function Process(props) {
   const footer = {
   height: '15vh',
   width: '100pw',
-  backgroundColor: '#FCD667',
+  backgroundColor: '#111111',
   left: '0',
   right: '0',
   bottom: '0',
@@ -50,11 +50,23 @@ function Process(props) {
   color: '#e6e6e6',
   borderBottom: '1px solid #e6e6e6',
   };
+  const copyright = {
+  color: 'white',
+  };
   const chartBox = {
   height: '40vh',
   width: '97.8vw',
   marginRight: 'auto',
   marginLeft: 'auto',
+  borderRadius: '.3em',
+  backgroundColor: '#1f1f1f',
+  padding: '1em',
+  };
+  const ViewAllUsersBox = {
+  width: '97.8vw',
+  marginRight: 'auto',
+  marginLeft: 'auto',
+  marginTop: '2vh',
   borderRadius: '.3em',
   backgroundColor: '#1f1f1f',
   padding: '1em',
@@ -87,9 +99,12 @@ function Process(props) {
     <h1 style={weeklyStats} >Pending Answers</h1>
     <ViewQuestionComponent />
     </div>
+    <div style={ViewAllUsersBox}>
+    <h1 style={weeklyStats} >All Current Users</h1>
     <ViewAllUsersComponent />
+    </div>
     <h1 style={footer}>
-      <p>© 2020 Got A Question Inc. All Rights Reserved.</p>
+      <p style={copyright}>© 2020 Got A Question Inc. All Rights Reserved.</p>
       <img style={iconStyling} alt="Facebook Logo" src={facebook}/>
       <img style={iconStyling} alt="Instagram Logo" src={instagram}/>
       <img style={iconStyling} alt="Github Logo" src={github}/>

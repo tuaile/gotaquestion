@@ -28,7 +28,9 @@ export const ViewAllUsersComponent = () => {
 
 export function ViewQuestion({onClick}) {
   const buttonStyle = {
-  backgroundColor: '#FCD667',
+  float: 'right',
+  marginBottom: '1.5vh',
+  backgroundColor: 'rgb(187, 134, 252)',
   };
     return (
         <Button style={buttonStyle} onClick={onClick}>View All Users</Button>

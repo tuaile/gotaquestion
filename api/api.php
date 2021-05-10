@@ -249,12 +249,16 @@
 					if (is_numeric($_POST['fullname'])) {
 						http_response_code(416);
 					} else {
-						$studentnumber = $_POST['studentnumber'];
-				 		$password = $_POST['password'];
-				 		$fullname = $_POST['fullname'];
-				 		$role = $_POST['role'];
-						$functions->createu($studentnumber, $password, $fullname, $role);
-						http_response_code(202);
+						if (!is_numeric($_POST['studentnumber'])) {
+							http_response_code(400);
+						} else {
+							$studentnumber = $_POST['studentnumber'];
+					 		$password = $_POST['password'];
+					 		$fullname = $_POST['fullname'];
+					 		$role = $_POST['role'];
+							$functions->createu($studentnumber, $password, $fullname, $role);
+							http_response_code(202);
+						}
 					}
 				}
 			} else {
