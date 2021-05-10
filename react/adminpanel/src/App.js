@@ -6,6 +6,7 @@ import { Graph } from './functions/stats/graph.js';
 import { Logout } from './functions/login/logout.js';
 import { loginstatus } from './functions/login/loginstatus.js';
 import { ViewUser } from './functions/users/viewuser.js';
+import { ViewHelp } from './functions/users/help.js';
 import { CreateUser } from './functions/users/createuser.js';
 import { ViewAllUsersComponent } from './functions/users/viewallusers.js';
 import { ViewQuestionComponent } from './functions/question/viewquestion.js';
@@ -75,6 +76,7 @@ function Process(props) {
       <h1 style={logo}>GAQ</h1>
       <Logout setCount={props.setCount}/>
       <ViewUser />
+      <ViewHelp/>
       <CreateUser/>
     </h1>
     <div style={chartBox}>
