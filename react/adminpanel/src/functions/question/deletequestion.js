@@ -8,9 +8,10 @@ export function deletequestion(questionid, setResponse) {
   })
   .then(async function(response) {
       if(response.status === 202) {
-        setResponse("Question Successfully Deleted")
+        setResponse("Question Successfully Deleted");
+        window.location.reload(false);
       } else {
-        setResponse("Something Went Wrong Question Deleted")
+        setResponse("Something Went Wrong Question Deleted");
       }
     })
 }

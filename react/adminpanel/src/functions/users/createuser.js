@@ -26,7 +26,8 @@ export function CreateUser() {
     })
     .then(function(response) {
       if(response.status === 202) {
-        setOpen(false)
+        setOpen(false);
+        window.location.reload(false);
       }
       if(response.status === 411) {
         document.getElementById("createusermessage").innerHTML = "All Fields Have To Be Filled";

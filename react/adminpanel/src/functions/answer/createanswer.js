@@ -9,9 +9,10 @@ export function createanswer(questionid, setResponse) {
     })
    .then(function(response) {
     if (response.status === 202) {
-      setResponse("Success Answer Deleted")
+      setResponse("Success Answer Deleted");
+      window.location.reload(false);
     } else {
-      setResponse("Something Went Wrong Try Again")
+      setResponse("Something Went Wrong Try Again");
     }
    })
  }
