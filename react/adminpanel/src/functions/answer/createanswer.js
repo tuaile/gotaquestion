@@ -9,7 +9,7 @@ export function createanswer(questionid, setResponse) {
     })
    .then(function(response) {
     if (response.status === 202) {
-      setResponse("Success Answer Created")
+      setResponse("Success Answer Deleted")
     } else {
       setResponse("Something Went Wrong Try Again")
     }
