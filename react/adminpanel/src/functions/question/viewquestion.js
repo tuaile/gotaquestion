@@ -29,8 +29,8 @@ export const ViewQuestionComponent = () => {
 
   return (
     <>
-      <div class="ui message">
-      <div class="header">
+      <div className="ui message">
+      <div className="header">
         {response}
       </div>
       </div>
@@ -54,7 +54,7 @@ export const ViewQuestionComponent = () => {
         New Answer
       </Header>
       <Modal.Content>
-        <div class="ui fluid input">
+        <div className="ui fluid input">
           <input type="text" placeholder="Search..."></input>
         </div>
       </Modal.Content>

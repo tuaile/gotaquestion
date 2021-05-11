@@ -84,13 +84,13 @@ function Process(props) {
     document.body.style.backgroundColor = "#111111";
     return (
     <>
-    <h1 style={headerLogoStyle}>
+    <div style={headerLogoStyle}>
       <h1 style={logo}>GAQ</h1>
       <Logout setCount={props.setCount}/>
       <ViewUser />
       <ViewHelp/>
       <CreateUser/>
-    </h1>
+    </div>
     <div style={chartBox}>
     <h1 style={weeklyStats} >Fortnightly Actions</h1>
     <Graph />
