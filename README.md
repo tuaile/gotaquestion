@@ -98,7 +98,7 @@ Password: uC4Nnc
 <br>
 Teacher Login Details
 <br>
-Student Number: 123456789
+Teacher Number: 123456789
 <br>
 Password: 5BhgVL
 <br>
