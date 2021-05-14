@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export function Login(props) {
   const handleLogin = () => {
-    fetch('http://localhost/gotaquestion/api/api.php?action=loginstatus', {
+    fetch('http://localhost/gotaquestion/api/api.php?action=loading', {
       credentials: 'include'
     })
     document.getElementById("loginmessage").innerHTML = "Loading..."; 

@@ -80,6 +80,11 @@ function Process(props) {
   backgroundColor: '#1f1f1f',
   padding: '1em',
   };
+   if (props.update === "Updated") {
+    console.log('Hell');
+  } else {
+    
+  }
   if (props.count === "Logged In") {
     document.body.style.backgroundColor = "#111111";
     return (
@@ -133,10 +138,19 @@ function App() {
 
   useEffect(() => {
    loginstatus(loginSuccess, loginFailed);
-   
   }, []);
 
-  return <Process count={count} setCount={setCount} />;
+  const [update, setUpdate] = useState("Updated");
+
+  const updateSuccess = () => {
+    setCount("Updated"); 
+  }
+
+  const updateFailed = () => {
+    setCount("Not Updated"); 
+  }
+
+  return <Process count={count} setCount={setCount} update={update} setUpdate={setUpdate} />;
 }
 
 export default App;
