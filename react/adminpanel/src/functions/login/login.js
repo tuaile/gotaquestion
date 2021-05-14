@@ -44,9 +44,11 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
 export function Login(props) {
   const handleLogin = () => {
+    fetch('http://localhost/gotaquestion/api/api.php?action=loginstatus', {
+      credentials: 'include'
+    })
     document.getElementById("loginmessage").innerHTML = "Loading..."; 
     var studentnumber = document.getElementById("studentnumber");
     var password = document.getElementById("password");
@@ -74,7 +76,7 @@ export function Login(props) {
         if (response.status === 410) {
           document.getElementById("loginmessage").innerHTML = "Please Fill All Fields";
         }
-        if (response.status === 404) {
+        if (response.status === 403) {
           document.getElementById("loginmessage").innerHTML = "Invalid Username Or Password";
         }
         if (response.status === 501) {
