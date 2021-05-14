@@ -118,11 +118,11 @@
 							http_response_code(202);
 							//Accepted Successful Login
 						} else {
-							http_response_code(404);
+							http_response_code(403);
 							//Invalid Login Details
 						}
 					} else {
-						http_response_code(404);
+						http_response_code(403);
 						//Invalid Login Details
 					}
 				}

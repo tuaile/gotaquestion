@@ -50,7 +50,7 @@
 		}
 		public function viewq() {
 			$conn = dbconnection();
-			$stmt = $conn->prepare("SELECT * FROM question");
+			$stmt = $conn->prepare("SELECT `questionid`, `question`, `timestamp`, `answer`,`loginid`, `archived`, catagories.catagories FROM `question` INNER JOIN catagories ON question.catagories = catagories.catagoriesid");
 			$stmt->execute();
 			$results = $stmt->fetchAll();
 			$jsonresult = json_encode($results);
