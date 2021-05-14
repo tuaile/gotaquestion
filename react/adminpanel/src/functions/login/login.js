@@ -46,15 +46,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 export function Login(props) {
   const handleLogin = () => {
-    fetch('http://localhost/gotaquestion/api/api.php?action=adminlogin', {
-      credentials: 'include'
-    })
     document.getElementById("loginmessage").innerHTML = "Loading..."; 
     var studentnumber = document.getElementById("studentnumber");
     var password = document.getElementById("password");
     var logindetails = new FormData();
       logindetails.append('studentnumber', studentnumber.value);
       logindetails.append('password', password.value);
+      fetch('http://localhost/gotaquestion/api/api.php?action=adminlogin', {
+        method: 'POST',
+        body: logindetails,
+        credentials: 'include'
+      })
       fetch('http://localhost/gotaquestion/api/api.php?action=adminlogin', {
         method: 'POST',
         body: logindetails,
