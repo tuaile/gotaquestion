@@ -142,3 +142,7 @@ body {
 #editquestionerr {
 	display: none;
 }
+#loginloading {
+	display: none;
+	margin-top: 10px;
+}

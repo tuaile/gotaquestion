@@ -41,6 +41,7 @@ function vq() {
         .then(function (response) {
             if (response.status == 401) {
                 errormessage("Naughty Naughty, You Have Unauthorised Access");
+                closeloadingmodal();
             }
             response.json().then(async function (data) {
                 if (data.length == 0) {
@@ -175,6 +176,7 @@ function login() {
                                 localStorage.setItem('Student Number', studentnumber);
                                 localStorage.setItem('Full Name', fullname);
                                 localStorage.setItem('Logged In', "True");
+                                vq();
                             }
                         })
                     })
@@ -193,7 +195,6 @@ function login() {
                 login.style.display = "none";
                 var slider = document.querySelector("#slider");
                 slider.style.display = "block";
-                vq();
             }
             if (response.status == 410) {
                 closeloadinglogin();
@@ -609,8 +610,12 @@ function closeloadingmodal() {
 function loadinglogin() {
     var loading = document.querySelector("#loadinglogin");
     loading.style.display = "block";
+    var loading = document.querySelector("#loginloading");
+    loading.style.display = "block";
 }
 function closeloadinglogin() {
     var loading = document.querySelector("#loadinglogin");
+    loading.style.display = "none";
+    var loading = document.querySelector("#loginloading");
     loading.style.display = "none";
 }
