@@ -1,9 +1,10 @@
   import React, { useEffect, useState } from 'react';
 import { Button } from 'semantic-ui-react';
 import { deletequestion } from '../question/deletequestion.js';
-import { deleteanswer } from '../answer/deleteanswer.js';
+//import { deleteanswer } from '../answer/deleteanswer.js';
 import { createanswer } from '../answer/createanswer.js';
-import { Header, Icon, Modal } from 'semantic-ui-react'
+import { Header, Icon, Modal } from 'semantic-ui-react';
+import { useForm } from "react-hook-form";
 
 export const ViewQuestionComponent = () => {
   let [state, setState] = useState([]);
@@ -26,7 +27,9 @@ export const ViewQuestionComponent = () => {
       console.log(e);
     }
   }
-
+   if (response == "Reload") {
+     handleViewQuestion();
+   }
   return (
     <>
       <div className="ui message">
@@ -117,13 +120,31 @@ const Table = ({ rows, setIdTobeDeleted, children }) => (
     </tbody>
   </table>
 );
-
 const DeleteButton = ({ questionid, onClick, setResponse }) => (
     <button
       className="ui negative button"
-      onClick={() => onClick(questionid, setResponse)}
+      onClick={() => onClick(deleteanswer, questionid, setResponse)}
     >Delete Question</button>
 );
+
+function deleteanswer(questionid, setResponse) {
+   var editquestionfd = new FormData();
+   editquestionfd.append('questionid', questionid);
+   editquestionfd.append('newanswer', "");
+   fetch('http://localhost/gotaquestion/api/api.php?action=createanswer', {
+     method: 'POST',
+     body: editquestionfd,
+     credentials: 'include'
+    })
+   .then(function(response) {
+    if (response.status === 202) {
+      setResponse("Reload");
+      setResponse("Success Answer Deleted");
+    } else {
+      setResponse("Something Went Wrong Try Again");
+    }
+   })
+ }
 
 const DeleteAnswerButton = ({ questionid, onClick, setResponse }) => (
   <button

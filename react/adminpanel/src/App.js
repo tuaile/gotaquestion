@@ -5,7 +5,6 @@ import { Login } from './functions/login/login.js';
 import { Graph } from './functions/stats/graph.js';
 import { Logout } from './functions/login/logout.js';
 import { loginstatus } from './functions/login/loginstatus.js';
-import { deletequestion } from './functions/question/deletequestion.js';
 import { ViewUser } from './functions/users/viewuser.js';
 import { ViewHelp } from './functions/users/help.js';
 import { CreateUser } from './functions/users/createuser.js';

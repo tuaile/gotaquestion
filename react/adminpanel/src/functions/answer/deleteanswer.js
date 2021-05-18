@@ -1,3 +1,5 @@
+import { handleViewQuestion } from '../question/viewquestion.js';
+
 export function deleteanswer(questionid, setResponse) {
    var editquestionfd = new FormData();
    editquestionfd.append('questionid', questionid);
@@ -10,6 +12,7 @@ export function deleteanswer(questionid, setResponse) {
    .then(function(response) {
    	if (response.status === 202) {
       setResponse("Success Answer Deleted");
+      //handleViewQuestion();
    	} else {
       setResponse("Something Went Wrong Try Again");
     }

@@ -18,6 +18,9 @@ export function ViewHelp() {
   marginTop: '.5vh',
   marginRight: '.25vw',
   };
+  const iconStyle = {
+  margin: '0',
+  };
   return (
     <Modal
       basic
@@ -25,7 +28,7 @@ export function ViewHelp() {
       onOpen={() => setOpen(true)}
       open={open}
       size='small'
-      trigger={<Button style={mainButtonStyle} >Help</Button>}
+      trigger={<Button style={mainButtonStyle} ><Icon style={iconStyle} name='question' /></Button>}
     >
       <Header icon>
         <Icon name='question' />

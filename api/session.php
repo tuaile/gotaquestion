@@ -107,7 +107,8 @@
                 }
             }
             //After all requests are removed from array that are over 24 hours, count the array if over 1000, return true.
-            if (count($this->allrequests) > 999) {
+            //if (count($this->allrequests) > 999) {
+            if (count($this->allrequests) > 9999) {
                 return true;
             } else {
                 return false;
