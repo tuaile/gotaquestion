@@ -1,8 +1,8 @@
   import React, { useEffect, useState } from 'react';
 import { Button } from 'semantic-ui-react';
-import { deletequestion } from '../question/deletequestion.js';
+//import { deletequestion } from '../question/deletequestion.js';
 //import { deleteanswer } from '../answer/deleteanswer.js';
-import { createanswer } from '../answer/createanswer.js';
+//import { createanswer } from '../answer/createanswer.js';
 import { Header, Icon, Modal } from 'semantic-ui-react';
 import { useForm } from "react-hook-form";
 
@@ -40,7 +40,7 @@ export const ViewQuestionComponent = () => {
       <ViewQuestion onClick={handleViewQuestion} />
       <div id="questions">
         <Table rows={state}>
-          <DeleteButton onClick={deletequestion} setResponse={setResponse} />
+          <DeleteQuestionButton onClick={deletequestion} setResponse={setResponse} />
           <DeleteAnswerButton onClick={deleteanswer} setResponse={setResponse} />
           <CreateAnswerButton onClick={() => setOpen(true)} setResponse={setResponse} />
         </Table>
@@ -65,7 +65,7 @@ export const ViewQuestionComponent = () => {
         <Button basic color='red' inverted onClick={() => setOpen(false)}>
           <Icon name='remove' /> Cancel
         </Button>
-        <Button color='green' inverted onClick={createanswer} setResponse={setResponse}>
+        <Button color='green' inverted onClick={createanswer}>
           <Icon name='checkmark' /> Save
         </Button>
       </Modal.Actions>
@@ -120,17 +120,31 @@ const Table = ({ rows, setIdTobeDeleted, children }) => (
     </tbody>
   </table>
 );
-const DeleteButton = ({ questionid, onClick, setResponse }) => (
+const DeleteQuestionButton = ({ questionid, onClick, setResponse }) => (
     <button
       className="ui negative button"
-      onClick={() => onClick(deleteanswer, questionid, setResponse)}
+      onClick={() => onClick(questionid, setResponse)}
     >Delete Question</button>
+);
+
+const DeleteAnswerButton = ({ questionid, onClick, setResponse }) => (
+  <button
+    className="ui negative button"
+    onClick={() => onClick(questionid, setResponse)}
+  >Delete Answer</button>
+);
+
+const CreateAnswerButton = ({ questionid, onClick, setResponse }) => (
+  <button
+    className="ui positive button"
+    onClick={() => onClick(questionid, setResponse)}
+  >Create Answer</button>
 );
 
 function deleteanswer(questionid, setResponse) {
    var editquestionfd = new FormData();
    editquestionfd.append('questionid', questionid);
-   editquestionfd.append('newanswer', "");
+   editquestionfd.append('newanswer', "Delete Answer");
    fetch('http://localhost/gotaquestion/api/api.php?action=createanswer', {
      method: 'POST',
      body: editquestionfd,
@@ -146,16 +160,39 @@ function deleteanswer(questionid, setResponse) {
    })
  }
 
-const DeleteAnswerButton = ({ questionid, onClick, setResponse }) => (
-  <button
-    className="ui negative button"
-    onClick={() => onClick(questionid, setResponse)}
-  >Delete Answer</button>
-);
+function createanswer(questionid, setResponse) {
+   var editquestionfd = new FormData();
+   editquestionfd.append('questionid', questionid);
+   editquestionfd.append('newanswer', "New Answers");
+   fetch('http://localhost/gotaquestion/api/api.php?action=createanswer', {
+     method: 'POST',
+     body: editquestionfd,
+     credentials: 'include'
+    })
+   .then(function(response) {
+    if (response.status === 202) {
+      setResponse("Reload");
+      setResponse("Success Answer Created");
+    } else {
+      setResponse("Something Went Wrong Try Again");
+    }
+   })
+ }
 
-const CreateAnswerButton = ({ questionid, onClick, setResponse }) => (
-  <button
-    className="ui positive button"
-    onClick={() => onClick(questionid, setResponse)}
-  >Create Answer</button>
-);
+function deletequestion(questionid, setResponse) {
+  var deletequestionfd = new FormData();
+  deletequestionfd.append('questionid', questionid);
+  fetch('http://localhost/gotaquestion/api/api.php?action=deletequestion', {
+      method: 'POST',
+      body: deletequestionfd,
+      credentials: 'include'
+  })
+  .then(async function(response) {
+      if(response.status === 202) {
+        setResponse("Reload");
+        setResponse("Question Successfully Deleted");
+      } else {
+        setResponse("Something Went Wrong Question Deleted");
+      }
+    })
+}
