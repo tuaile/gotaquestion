@@ -1,8 +1,5 @@
-  import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'semantic-ui-react';
-//import { deletequestion } from '../question/deletequestion.js';
-//import { deleteanswer } from '../answer/deleteanswer.js';
-//import { createanswer } from '../answer/createanswer.js';
 import { Header, Icon, Modal } from 'semantic-ui-react';
 import { useForm } from "react-hook-form";
 
@@ -10,6 +7,7 @@ export const ViewQuestionComponent = () => {
   let [state, setState] = useState([]);
   const [open, setOpen] = React.useState(false)
   let [response, setResponse] = useState("");
+  let [selectedQuestionId, setSelectedQuestionId] = useState(0);
   useEffect(() => {
   handleViewQuestion();
   }, []);
@@ -42,7 +40,7 @@ export const ViewQuestionComponent = () => {
         <Table rows={state}>
           <DeleteQuestionButton onClick={deletequestion} setResponse={setResponse} />
           <DeleteAnswerButton onClick={deleteanswer} setResponse={setResponse} />
-          <CreateAnswerButton onClick={() => setOpen(true)} setResponse={setResponse} />
+          <CreateAnswerButton onClick={(questionid, setResponse) => {setOpen(true); setSelectedQuestionId(questionid)}} setResponse={setResponse} />
         </Table>
       </div>
       <Modal
@@ -58,14 +56,14 @@ export const ViewQuestionComponent = () => {
       </Header>
       <Modal.Content>
         <div className="ui fluid input">
-          <input type="text" placeholder="Search..."></input>
+          <input id="newquestiondata" type="text" placeholder="Search..."></input>
         </div>
       </Modal.Content>
       <Modal.Actions>
         <Button basic color='red' inverted onClick={() => setOpen(false)}>
           <Icon name='remove' /> Cancel
         </Button>
-        <Button color='green' inverted onClick={createanswer}>
+        <Button color='green' inverted onClick={() => { createanswer(selectedQuestionId, setResponse)}}>
           <Icon name='checkmark' /> Save
         </Button>
       </Modal.Actions>
@@ -144,7 +142,7 @@ const CreateAnswerButton = ({ questionid, onClick, setResponse }) => (
 function deleteanswer(questionid, setResponse) {
    var editquestionfd = new FormData();
    editquestionfd.append('questionid', questionid);
-   editquestionfd.append('newanswer', "Delete Answer");
+   editquestionfd.append('newanswer', "Not Answered");
    fetch('http://localhost/gotaquestion/api/api.php?action=createanswer', {
      method: 'POST',
      body: editquestionfd,
@@ -161,9 +159,11 @@ function deleteanswer(questionid, setResponse) {
  }
 
 function createanswer(questionid, setResponse) {
+   var newquestiondata = document.getElementById("newquestiondata");
+
    var editquestionfd = new FormData();
    editquestionfd.append('questionid', questionid);
-   editquestionfd.append('newanswer', "New Answers");
+   editquestionfd.append('newanswer', newquestiondata.value);
    fetch('http://localhost/gotaquestion/api/api.php?action=createanswer', {
      method: 'POST',
      body: editquestionfd,

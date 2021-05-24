@@ -128,7 +128,7 @@ function App() {
   }
 
   const loginFailed = () => {
-    setCount("Not Logged In"); 
+    setCount("Not Logged In");
   }
 
   useEffect(() => {
