@@ -19,7 +19,7 @@
 		$_SERVER['HTTP_REFERER'] = 0;
 	}
 	//Checks if referer is the one specified if not die.
-	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://192.168.1.111/" || $_SERVER['HTTP_REFERER'] == "http://localhost:3000/" || $_SERVER['HTTP_REFERER'] == "http://localhost/testing/") {
+	if($_SERVER['HTTP_REFERER'] == "http://localhost/gotaquestion/" || $_SERVER['HTTP_REFERER'] == "http://192.168.1.111/" || $_SERVER['HTTP_REFERER'] == "http://192.168.43.224/" || $_SERVER['HTTP_REFERER'] == "http://localhost:3000/" || $_SERVER['HTTP_REFERER'] == "http://localhost/testing/") {
 		} else {
 		http_response_code(502);
 		die();
