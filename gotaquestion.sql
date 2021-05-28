@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `catagories`;
 CREATE TABLE IF NOT EXISTS `catagories` (
   `catagoriesid` int NOT NULL AUTO_INCREMENT,
-  `catagories` varchar(50) NOT NULL,
+  `catagories` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`catagoriesid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
