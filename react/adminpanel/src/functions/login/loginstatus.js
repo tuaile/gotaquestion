@@ -1,5 +1,5 @@
 export function loginstatus(successCb, errorCb) {
- fetch('http://localhost/gotaquestion/api/api.php?action=loginstatus', 
+ fetch('https://boostmyclosing.com/api/api.php?action=loginstatus', 
     {
         method: 'GET',
         credentials: 'include'

@@ -20,7 +20,7 @@ export function CreateUser() {
     currentuserid.append('fullname', fullname);
     currentuserid.append('password', password);
     currentuserid.append('role', role);
-    fetch('http://localhost/gotaquestion/api/api.php?action=createuser', {
+    fetch('https://boostmyclosing.com/api/api.php?action=createuser', {
         method: 'POST',
         body: currentuserid,
         credentials: 'include'

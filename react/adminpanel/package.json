@@ -1,7 +1,7 @@
 {
   "name": "adminpanel",
   "version": "0.1.0",
-  "homepage": "https://tuaile.com/gotaquestion/adminpanel",
+  "homepage": "https://boostmyclosing.com/adminpanel",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",

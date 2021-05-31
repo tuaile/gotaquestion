@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 export function Graph() {
 		const [graphdata, setGraphdata] = useState({})
 	    useEffect(() => {
-		    fetch('http://localhost/gotaquestion/api/api.php?action=viewgraph', {
+		    fetch('https://boostmyclosing.com/api/api.php?action=viewgraph', {
 		        method: 'POST',
 		        credentials: 'include'
 		    })

@@ -2,6 +2,20 @@
 
 **Got A Question, is a mobile app where students can, ask questions anywhere & anytime related to their subject and get a response in real time from their teachers.**
 
+<h1>Login Details</h1>
+Student Login Details
+<br>
+Student Number: 987654321
+<br>
+Password: uC4Nnc
+<br>
+Teacher Login Details
+<br>
+Teacher Number: 123456789
+<br>
+Password: 5BhgVL
+<br>
+
 <h1>Business Rules</h1>
 - Only one person can be assigned as the creator of the question
 <br>
@@ -88,19 +102,3 @@ The application will be deployed on server, where the infrastructure will be set
 
 Run Deploy.sh
 Still in progress
-
-<h1>Login Details</h1>
-Student Login Details
-<br>
-Student Number: 987654321
-<br>
-Password: uC4Nnc
-<br>
-Teacher Login Details
-<br>
-Teacher Number: 123456789
-<br>
-Password: 5BhgVL
-<br>
-
-

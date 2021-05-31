@@ -1,5 +1,5 @@
 export function currentloginid() {
-    return fetch('http://localhost/gotaquestion/api/api.php?action=userid', {
+    return fetch('https://boostmyclosing.com/api/api.php?action=userid', {
        method: 'GET',
        credentials: 'include'
     })

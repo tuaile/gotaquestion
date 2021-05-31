@@ -14,7 +14,7 @@ export function ViewUser() {
     var userloginid = await currentloginid();
     var currentuserid = new FormData();
     currentuserid.append('userloginid', userloginid);
-    fetch('http://localhost/gotaquestion/api/api.php?action=viewuser', {
+    fetch('https://boostmyclosing.com/api/api.php?action=viewuser', {
         method: 'POST',
         body: currentuserid,
         credentials: 'include'

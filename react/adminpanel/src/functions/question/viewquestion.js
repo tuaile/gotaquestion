@@ -13,7 +13,7 @@ export const ViewQuestionComponent = () => {
   }, []);
   const handleViewQuestion = async () => {
     try {      
-      const response = await fetch('http://localhost/gotaquestion/api/api.php?action=viewquestion', {
+      const response = await fetch('https://boostmyclosing.com/api/api.php?action=viewquestion', {
         method: 'GET',
         credentials: 'include'
       });
@@ -143,7 +143,7 @@ function deleteanswer(questionid, setResponse) {
    var editquestionfd = new FormData();
    editquestionfd.append('questionid', questionid);
    editquestionfd.append('newanswer', "Not Answered");
-   fetch('http://localhost/gotaquestion/api/api.php?action=createanswer', {
+   fetch('https://boostmyclosing.com/api/api.php?action=createanswer', {
      method: 'POST',
      body: editquestionfd,
      credentials: 'include'
@@ -164,7 +164,7 @@ function createanswer(questionid, setResponse) {
    var editquestionfd = new FormData();
    editquestionfd.append('questionid', questionid);
    editquestionfd.append('newanswer', newquestiondata.value);
-   fetch('http://localhost/gotaquestion/api/api.php?action=createanswer', {
+   fetch('https://boostmyclosing.com/api/api.php?action=createanswer', {
      method: 'POST',
      body: editquestionfd,
      credentials: 'include'
@@ -182,7 +182,7 @@ function createanswer(questionid, setResponse) {
 function deletequestion(questionid, setResponse) {
   var deletequestionfd = new FormData();
   deletequestionfd.append('questionid', questionid);
-  fetch('http://localhost/gotaquestion/api/api.php?action=deletequestion', {
+  fetch('https://boostmyclosing.com/api/api.php?action=deletequestion', {
       method: 'POST',
       body: deletequestionfd,
       credentials: 'include'

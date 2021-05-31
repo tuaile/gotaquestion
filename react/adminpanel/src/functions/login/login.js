@@ -17,7 +17,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="http://localhost/gotaquestion">
+      <Link color="inherit" href="https://boostmyclosing.com/adminpanel">
         Got A Question
       </Link>{' '}
       {new Date().getFullYear()}
@@ -53,12 +53,12 @@ export function Login(props) {
     var logindetails = new FormData();
       logindetails.append('studentnumber', studentnumber.value);
       logindetails.append('password', password.value);
-      fetch('http://localhost/gotaquestion/api/api.php?action=adminlogin', {
+      fetch('https://boostmyclosing.com/api/api.php?action=adminlogin', {
         method: 'POST',
         body: logindetails,
         credentials: 'include'
       })
-      fetch('http://localhost/gotaquestion/api/api.php?action=adminlogin', {
+      fetch('https://boostmyclosing.com/api/api.php?action=adminlogin', {
         method: 'POST',
         body: logindetails,
         credentials: 'include'
@@ -68,7 +68,7 @@ export function Login(props) {
           var studentnumber = document.getElementById("studentnumber");
           var logindetails = new FormData();
           logindetails.append('numberofstudent', studentnumber.value);
-          fetch('http://localhost/gotaquestion/api/api.php?action=processlogin', {
+          fetch('https://boostmyclosing.com/api/api.php?action=processlogin', {
             method: 'POST',
             body: logindetails,
             credentials: 'include'
@@ -87,7 +87,7 @@ export function Login(props) {
         }
         if (response.status === 409) {
           document.getElementById("loginmessage").innerHTML = "Already Logged In, Try Again";
-          fetch('http://localhost/gotaquestion/api/api.php?action=logout', {
+          fetch('https://boostmyclosing.com/api/api.php?action=logout', {
             method: 'GET',
             credentials: 'include'
           });
